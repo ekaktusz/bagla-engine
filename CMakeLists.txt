@@ -7,10 +7,9 @@ add_library(bagla-engine
 	"include/bagla-engine/states/StateManager.h"
 	"src/states/StateManager.cpp"
 	"include/bagla-engine/gui/Widget.h"
-	"include/bagla-engine/gui/Label.h" 
 	"include/bagla-engine/gui/Button.h" 
 	"include/bagla-engine/asset-manager/AssetManager.h" 
-	"src/asset-manager/AssetManager.cpp")
+	"src/asset-manager/AssetManager.cpp" "src/gui/Button.cpp")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 

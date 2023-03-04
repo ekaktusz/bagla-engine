@@ -1,6 +1,12 @@
 #pragma once
 #include <SFML/Graphics/Drawable.hpp>
 
+namespace sf
+{
+	class Time;
+	class Event;
+}
+
 namespace bgl
 {
 	class Widget : public sf::Drawable
