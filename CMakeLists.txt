@@ -3,10 +3,9 @@ cmake_minimum_required(VERSION 3.25)
 project(bagla-engine VERSION 0.1 DESCRIPTION "the simplest sfml extension library")
 
 add_library(bagla-engine
-	include/bagla-engine/foo.h
-	include/bagla-engine/bar.h
-	src/foo.cpp
-	src/bar.cpp
+	"include/bagla-engine/states/State.h" 
+	"include/bagla-engine/states/StateManager.h"
+	"src/states/StateManager.cpp"
 )
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
