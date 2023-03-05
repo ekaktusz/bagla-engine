@@ -15,6 +15,9 @@ namespace bgl
 		Button();
 		Button(const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo);
 
+		sf::Vector2f getSize() { return m_Size; }
+		sf::Vector2f getPosition() { return m_Position; }
+
 		void setString(const std::string& buttonString);
 		void setActionTodo(std::function<void()> actionToDo);
 		void setPosition(sf::Vector2f position);
@@ -28,6 +31,12 @@ namespace bgl
 		void update(const sf::Time& dt) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void handleEvent(const sf::Event& event) override;
+
+
+		void flushChanges(); // Button wont be updated, it's enogh to flush all changes at the end of configuration
+
+	private:
+		void setTextAlignment();
 
 	private:
 		sf::Text m_Text;

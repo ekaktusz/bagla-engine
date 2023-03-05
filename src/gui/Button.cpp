@@ -15,7 +15,7 @@ namespace bgl
 		m_TextColor(sf::Color::White),
 		m_OutlineThickness(1)
 	{
-
+		flushChanges();
 	}
 	
 	Button::Button(const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo) :
@@ -28,7 +28,7 @@ namespace bgl
 		m_TextColor(sf::Color::White),
 		m_OutlineThickness(1)
 	{
-
+		flushChanges();
 	}
 
 	void Button::setString(const std::string& buttonString)
@@ -78,7 +78,6 @@ namespace bgl
 
 	void Button::update(const sf::Time& dt)
 	{
-		
 	}
 
 	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -105,5 +104,30 @@ namespace bgl
 			}
 		}
 	}
+
+	void Button::setTextAlignment()
+	{
+		sf::Vector2f center{ m_Text.getGlobalBounds().width / 2.f, m_Text.getGlobalBounds().height / 2.f };
+		sf::Vector2f localBounds{ center.x + m_Text.getLocalBounds().left, center.y + m_Text.getLocalBounds().top };
+		sf::Vector2f rounded{ std::round(localBounds.x), std::round(localBounds.y) };
+		m_Text.setOrigin(rounded);
+	}
+
+	void Button::flushChanges()
+	{
+		setTextAlignment();
+
+		m_InnerButton.setSize(m_Size);
+		m_OuterButton.setSize({ m_Size.x + m_OutlineThickness * 2, m_Size.y + m_OutlineThickness * 2 });
+
+		m_InnerButton.setPosition(m_Position);
+		m_OuterButton.setPosition(m_Position.x - m_OutlineThickness, m_Position.y - m_OutlineThickness);
+
+		m_InnerButton.setFillColor(m_FillColor);
+		m_OuterButton.setOutlineColor(m_OutlineColor);
+		
+		m_Text.setPosition(m_InnerButton.getPosition().x + m_InnerButton.getSize().x / 2, m_InnerButton.getPosition().y + m_InnerButton.getSize().y / 2);
+	}
+
 }
 

@@ -9,7 +9,8 @@ add_library(bagla-engine
 	"include/bagla-engine/gui/Widget.h"
 	"include/bagla-engine/gui/Button.h" 
 	"include/bagla-engine/asset-manager/AssetManager.h" 
-	"src/asset-manager/AssetManager.cpp" "src/gui/Button.cpp")
+	"src/asset-manager/AssetManager.cpp" 
+	"src/gui/Button.cpp")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 
