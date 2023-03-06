@@ -91,14 +91,13 @@ namespace bgl
 
 	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(m_OuterButton);
 		target.draw(m_InnerButton);
 		target.draw(m_Text);
 	}
 
 	void Button::handleEvent(const sf::Event& event)
 	{
-		m_Hover = m_OuterButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
+		m_Hover = m_InnerButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
 
 		if (m_Hover && event.type == sf::Event::MouseButtonPressed)
 		{
@@ -125,7 +124,11 @@ namespace bgl
 	{
 		if (m_Hover)
 		{
-			
+			m_InnerButton.setFillColor(m_HoverColor);
+		}
+		else
+		{
+			m_InnerButton.setFillColor(m_FillColor);
 		}
 	}
 
@@ -134,13 +137,10 @@ namespace bgl
 		setTextAlignment();
 
 		m_InnerButton.setSize(m_Size);
-		m_OuterButton.setSize({ m_Size.x + m_OutlineThickness * 2, m_Size.y + m_OutlineThickness * 2 });
-
 		m_InnerButton.setPosition(m_Position);
-		m_OuterButton.setPosition(m_Position.x - m_OutlineThickness, m_Position.y - m_OutlineThickness);
-
 		m_InnerButton.setFillColor(m_FillColor);
-		m_OuterButton.setOutlineColor(m_OutlineColor);
+		m_InnerButton.setOutlineColor(m_OutlineColor);
+		m_InnerButton.setOutlineThickness(m_OutlineThickness);
 		
 		m_Text.setPosition(m_InnerButton.getPosition().x + m_InnerButton.getSize().x / 2, m_InnerButton.getPosition().y + m_InnerButton.getSize().y / 2);
 	}

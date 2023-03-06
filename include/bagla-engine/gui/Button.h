@@ -37,7 +37,7 @@ namespace bgl
 
 	private:
 		void setTextAlignment();
-		void updatreColor();
+		void updateColor();
 
 	private:
 		sf::Text m_Text;
@@ -54,7 +54,6 @@ namespace bgl
 		float m_OutlineThickness;
 
 		sf::RectangleShape m_InnerButton;
-		sf::RectangleShape m_OuterButton;
 
 		bool m_Hover;
 	};
