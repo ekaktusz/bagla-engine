@@ -27,16 +27,17 @@ namespace bgl
 		void setOutlineThickness(float thickness);
 		void setTextColor(sf::Color color);
 		void setFont(const sf::Font& font);
+		void setHoverColor(sf::Color color);
 
 		void update(const sf::Time& dt) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void handleEvent(const sf::Event& event) override;
 
-
 		void flushChanges(); // Button wont be updated, it's enogh to flush all changes at the end of configuration
 
 	private:
 		void setTextAlignment();
+		void updatreColor();
 
 	private:
 		sf::Text m_Text;
@@ -48,11 +49,14 @@ namespace bgl
 		sf::Color m_FillColor;
 		sf::Color m_OutlineColor;
 		sf::Color m_TextColor;
+		sf::Color m_HoverColor;
 
 		float m_OutlineThickness;
 
 		sf::RectangleShape m_InnerButton;
 		sf::RectangleShape m_OuterButton;
+
+		bool m_Hover;
 	};
 
 }

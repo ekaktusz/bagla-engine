@@ -13,7 +13,9 @@ namespace bgl
 		m_FillColor(sf::Color::Black),
 		m_OutlineColor(sf::Color::White),
 		m_TextColor(sf::Color::White),
-		m_OutlineThickness(1)
+		m_HoverColor{48, 48, 48},
+		m_OutlineThickness(1),
+		m_Hover(false)
 	{
 		flushChanges();
 	}
@@ -26,7 +28,9 @@ namespace bgl
 		m_FillColor(sf::Color::Black),
 		m_OutlineColor(sf::Color::White),
 		m_TextColor(sf::Color::White),
-		m_OutlineThickness(1)
+		m_HoverColor{ 48, 48, 48 },
+		m_OutlineThickness(1),
+		m_Hover(false)
 	{
 		flushChanges();
 	}
@@ -76,6 +80,11 @@ namespace bgl
 		m_Text.setFont(font);
 	}
 
+	void Button::setHoverColor(sf::Color color)
+	{
+		m_HoverColor = color;
+	}
+
 	void Button::update(const sf::Time& dt)
 	{
 	}
@@ -89,18 +98,17 @@ namespace bgl
 
 	void Button::handleEvent(const sf::Event& event)
 	{
-		if (event.type == sf::Event::MouseButtonPressed)
+		m_Hover = m_OuterButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
+
+		if (m_Hover && event.type == sf::Event::MouseButtonPressed)
 		{
-			if (m_OuterButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+			if (m_ActionToDo)
 			{
-				if (m_ActionToDo)
-				{
-					m_ActionToDo();
-				}
-				else
-				{
-					spdlog::warn("Button pressed, but no action set to it!");
-				}
+				m_ActionToDo();
+			}
+			else
+			{
+				spdlog::warn("Button pressed, but no action set to it!");
 			}
 		}
 	}
@@ -111,6 +119,14 @@ namespace bgl
 		sf::Vector2f localBounds{ center.x + m_Text.getLocalBounds().left, center.y + m_Text.getLocalBounds().top };
 		sf::Vector2f rounded{ std::round(localBounds.x), std::round(localBounds.y) };
 		m_Text.setOrigin(rounded);
+	}
+
+	void Button::updateColor()
+	{
+		if (m_Hover)
+		{
+			
+		}
 	}
 
 	void Button::flushChanges()
