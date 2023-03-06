@@ -16,10 +16,9 @@ namespace bgl
 		m_OutlineColor(sf::Color::White),
 		m_TextColor(sf::Color::White),
 		m_HoverColor{48, 48, 48},
-		m_OutlineThickness(1),
-		m_Hover(false)
+		m_OutlineThickness(1)
 	{
-		flushChanges();
+		initializeInnerButton();
 	}
 	
 	Button::Button(const sf::RenderWindow& renderWindow, const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo) :
@@ -32,15 +31,15 @@ namespace bgl
 		m_OutlineColor(sf::Color::White),
 		m_TextColor(sf::Color::White),
 		m_HoverColor{ 48, 48, 48 },
-		m_OutlineThickness(1),
-		m_Hover(false)
+		m_OutlineThickness(1)
 	{
-		flushChanges();
+		initializeInnerButton();
 	}
 
 	void Button::setString(const std::string& buttonString)
 	{
 		m_Text.setString(buttonString);
+		refreshTextOrigin();
 	}
 
 	void Button::setActionTodo(std::function<void()> actionToDo)
@@ -51,26 +50,33 @@ namespace bgl
 	void Button::setPosition(sf::Vector2f position)
 	{
 		m_Position = position;
+		m_InnerButton.setPosition(position);
+		refreshTextPosition();
 	}
 
 	void Button::setSize(sf::Vector2f size)
 	{
 		m_Size = size;
+		m_InnerButton.setSize(size);
+		refreshTextPosition();
 	}
 
 	void Button::setFillColor(sf::Color color)
 	{
 		m_FillColor = color;
+		m_InnerButton.setFillColor(m_FillColor);
 	}
 
 	void Button::setOutlineColor(sf::Color color)
 	{
 		m_OutlineColor = color;
+		m_InnerButton.setOutlineColor(m_OutlineColor);
 	}
 
 	void Button::setOutlineThickness(float thickness)
 	{
 		m_OutlineThickness = thickness;
+		m_InnerButton.setOutlineThickness(m_OutlineThickness);
 	}
 
 	void Button::setTextColor(sf::Color color)
@@ -112,6 +118,8 @@ namespace bgl
 
 	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		//spdlog::info(std::to_string(m_FillColor.r) + " " + std::to_string(m_FillColor.g) + " " + std::to_string(m_FillColor.b));
+		spdlog::info(std::to_string(m_InnerButton.getPosition().x) + " " + std::to_string(m_InnerButton.getPosition().y));
 		target.draw(m_InnerButton);
 		target.draw(m_Text);
 	}
@@ -120,7 +128,7 @@ namespace bgl
 	{
 	}
 
-	void Button::setTextAlignment()
+	void Button::refreshTextOrigin()
 	{
 		sf::Vector2f center{ m_Text.getGlobalBounds().width / 2.f, m_Text.getGlobalBounds().height / 2.f };
 		sf::Vector2f localBounds{ center.x + m_Text.getLocalBounds().left, center.y + m_Text.getLocalBounds().top };
@@ -128,29 +136,18 @@ namespace bgl
 		m_Text.setOrigin(rounded);
 	}
 
-	void Button::updateColor()
+	void Button::refreshTextPosition()
 	{
-		if (m_Hover)
-		{
-			m_InnerButton.setFillColor(m_HoverColor);
-		}
-		else
-		{
-			m_InnerButton.setFillColor(m_FillColor);
-		}
+		m_Text.setPosition(m_InnerButton.getPosition().x + m_InnerButton.getSize().x / 2, m_InnerButton.getPosition().y + m_InnerButton.getSize().y / 2);
 	}
 
-	void Button::flushChanges()
+	void Button::initializeInnerButton()
 	{
-		setTextAlignment();
-
-		m_InnerButton.setSize(m_Size);
-		m_InnerButton.setPosition(m_Position);
 		m_InnerButton.setFillColor(m_FillColor);
 		m_InnerButton.setOutlineColor(m_OutlineColor);
 		m_InnerButton.setOutlineThickness(m_OutlineThickness);
-		
-		m_Text.setPosition(m_InnerButton.getPosition().x + m_InnerButton.getSize().x / 2, m_InnerButton.getPosition().y + m_InnerButton.getSize().y / 2);
+		m_InnerButton.setPosition(m_Position);
+		m_InnerButton.setSize(m_Size);
 	}
 
 }

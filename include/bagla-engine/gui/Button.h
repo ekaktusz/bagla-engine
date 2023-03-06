@@ -34,11 +34,10 @@ namespace bgl
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void handleEvent(const sf::Event& event) override;
 
-		void flushChanges(); // Button wont be updated, it's enogh to flush all changes at the end of configuration
-
 	private:
-		void setTextAlignment();
-		void updateColor();
+		void refreshTextOrigin();
+		void refreshTextPosition();
+		void initializeInnerButton();
 
 	private:
 		const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
@@ -57,8 +56,6 @@ namespace bgl
 		float m_OutlineThickness;
 
 		sf::RectangleShape m_InnerButton;
-
-		bool m_Hover;
 	};
 
 }
