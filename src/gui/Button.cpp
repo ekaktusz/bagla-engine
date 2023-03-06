@@ -2,10 +2,12 @@
 #include <SFML/Window/Event.hpp>
 #include <spdlog/spdlog.h>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Window/Mouse.hpp>
 
 namespace bgl
 {
-	Button::Button() :
+	Button::Button(const sf::RenderWindow& renderWindow) :
+		m_RenderWindow(renderWindow),
 		m_Text(),
 		m_Position(),
 		m_Size{100, 100},
@@ -20,7 +22,8 @@ namespace bgl
 		flushChanges();
 	}
 	
-	Button::Button(const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo) :
+	Button::Button(const sf::RenderWindow& renderWindow, const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo) :
+		m_RenderWindow(renderWindow),
 		m_Text(),
 		m_Position(position),
 		m_Size(size),
@@ -87,6 +90,24 @@ namespace bgl
 
 	void Button::update(const sf::Time& dt)
 	{
+		m_InnerButton.setFillColor(m_FillColor);
+		sf::Vector2i mousePosition = sf::Mouse::getPosition(m_RenderWindow);
+		if (m_InnerButton.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+		{
+			m_InnerButton.setFillColor(m_HoverColor);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) 
+			{
+				if (m_ActionToDo)
+				{
+					spdlog::info("button clicked");
+					m_ActionToDo();
+				}
+				else
+				{
+					spdlog::warn("Button is clicked, but no action set.");
+				}
+			}
+		}
 	}
 
 	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -97,19 +118,6 @@ namespace bgl
 
 	void Button::handleEvent(const sf::Event& event)
 	{
-		m_Hover = m_InnerButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
-
-		if (m_Hover && event.type == sf::Event::MouseButtonPressed)
-		{
-			if (m_ActionToDo)
-			{
-				m_ActionToDo();
-			}
-			else
-			{
-				spdlog::warn("Button pressed, but no action set to it!");
-			}
-		}
 	}
 
 	void Button::setTextAlignment()

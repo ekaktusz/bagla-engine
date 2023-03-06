@@ -6,14 +6,15 @@
 
 #include <functional>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace bgl
 {
 	class Button : public Widget
 	{
 	public:
-		Button();
-		Button(const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo);
+		Button(const sf::RenderWindow& renderWindow);
+		Button(const sf::RenderWindow& renderWindow, const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo);
 
 		sf::Vector2f getSize() { return m_Size; }
 		sf::Vector2f getPosition() { return m_Position; }
@@ -40,6 +41,8 @@ namespace bgl
 		void updateColor();
 
 	private:
+		const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
+
 		sf::Text m_Text;
 		sf::Vector2f m_Position;
 		sf::Vector2f m_Size;
