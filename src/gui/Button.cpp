@@ -105,7 +105,6 @@ namespace bgl
 			{
 				if (m_ActionToDo)
 				{
-					spdlog::info("button clicked");
 					m_ActionToDo();
 				}
 				else
@@ -118,8 +117,6 @@ namespace bgl
 
 	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		//spdlog::info(std::to_string(m_FillColor.r) + " " + std::to_string(m_FillColor.g) + " " + std::to_string(m_FillColor.b));
-		spdlog::info(std::to_string(m_InnerButton.getPosition().x) + " " + std::to_string(m_InnerButton.getPosition().y));
 		target.draw(m_InnerButton);
 		target.draw(m_Text);
 	}
