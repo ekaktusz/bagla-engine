@@ -9,32 +9,24 @@
 
 namespace bgl
 {
-	TileLayer::TileLayer(const tmx::Map& map, unsigned int idx)
+	TileLayer::TileLayer(const tmx::Layer& tileLayer, const tmx::Map& map)
 	{
-		const auto& layers = map.getLayers();
-
-		bool isLayerValid = map.getOrientation() == tmx::Orientation::Orthogonal && idx < layers.size()
-			&& layers[idx]->getType() == tmx::Layer::Type::Tile;
-
-		if (!isLayerValid)
-		{
-			spdlog::error("Not a valid orthogonal layer, nothing will be drawn.");
-			return;
-		}
-
 		// round the chunk size to the nearest tile
 		const auto tileSize = map.getTileSize();
 		m_ChunkSize.x = std::floor(m_ChunkSize.x / tileSize.x) * tileSize.x;
 		m_ChunkSize.y = std::floor(m_ChunkSize.y / tileSize.y) * tileSize.y;
 		m_MapTileSize.x = map.getTileSize().x;
 		m_MapTileSize.y = map.getTileSize().y;
-		const auto& layer = layers[idx]->getLayerAs<tmx::TileLayer>();
-		createChunks(map, layer);
+		createChunks(map, tileLayer.getLayerAs<tmx::TileLayer>());
 
 		auto mapSize = map.getBounds();
 		m_GlobalBounds.width = mapSize.width;
 		m_GlobalBounds.height = mapSize.height;
-		spdlog::info("TileLayer: {}", idx);
+	}
+
+	TileLayer::~TileLayer()
+	{
+
 	}
 
 	const sf::FloatRect& TileLayer::getGlobalBounds() const

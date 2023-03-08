@@ -5,6 +5,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <spdlog/spdlog.h>
 
+#include <map/Map.h>
+
 namespace bgl
 {
 	AssetManager::AssetManager()
@@ -66,6 +68,18 @@ namespace bgl
 		m_FontHolder.try_emplace(id, std::move(font));
 	}
 	
+	void AssetManager::loadMap(const std::string& path, const std::string& id)
+	{
+		std::unique_ptr<Map> map = std::make_unique<Map>();
+		if (!map->loadFromFile(path))
+		{
+			spdlog::error("Failed to load map: " + path);
+			return;
+		}
+		spdlog::info("Map " + id + " loaded successfully : " + path);
+		m_MapHolder.try_emplace(id, std::move(map));
+	}
+
 	const sf::Texture& AssetManager::getTexture(const std::string& id) const
 	{
 		auto found = m_TextureHolder.find(id);
@@ -106,6 +120,16 @@ namespace bgl
 		return *found->second;
 	}
 
+	const Map& AssetManager::getMap(const std::string& id) const
+	{
+		auto found = m_MapHolder.find(id);
+		if (found == m_MapHolder.end())
+		{
+			spdlog::error("Cant find map by id: " + id);
+		}
+		return *found->second;
+	}
+
 	void AssetManager::unloadTexture(const std::string& id)
 	{
 		m_TextureHolder.erase(id);
@@ -125,4 +149,10 @@ namespace bgl
 	{
 		m_FontHolder.erase(id);
 	}
+
+	void AssetManager::unloadMap(const std::string& id)
+	{
+		m_MapHolder.erase(id);
+	}
+
 }

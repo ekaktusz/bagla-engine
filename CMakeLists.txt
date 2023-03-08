@@ -13,7 +13,11 @@ add_library(bagla-engine
 	"include/bagla-engine/asset-manager/AssetManager.h" 
 	"src/asset-manager/AssetManager.cpp" 
 	"src/gui/Button.cpp" 
+	"include/bagla-engine/map/Map.h"
+	"include/bagla-engine/map/ObjectLayer.h"
 	"include/bagla-engine/map/TileLayer.h"
+	"src/map/ObjectLayer.cpp"
+	"src/map/Map.cpp" 
 	"src/map/TileLayer.cpp" 
 	"src/map/TileLayerChunk.cpp")
 

@@ -20,7 +20,7 @@ namespace sf
 
 namespace tmx
 {
-	class Map;
+	class Layer;
 }
 
 namespace bgl
@@ -29,8 +29,8 @@ namespace bgl
 	{
 	public:
 		TileLayer(const TileLayer&) = delete;
-		TileLayer(const tmx::Map& map, unsigned int idx);
-		~TileLayer() = default;
+		TileLayer(const tmx::Layer& tileLayer, const tmx::Map& map);
+		~TileLayer();
 
 		TileLayer& operator=(const TileLayer&) = delete;
 
