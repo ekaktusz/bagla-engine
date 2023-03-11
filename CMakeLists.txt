@@ -22,6 +22,8 @@ add_library(bagla-engine
 	"src/map/TileLayerChunk.cpp")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
+target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite/include)
+
 
 find_package(SFML COMPONENTS system window graphics audio network CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)

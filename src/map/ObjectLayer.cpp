@@ -2,7 +2,6 @@
 
 namespace bgl
 {
-
 	ObjectLayer::ObjectLayer()
 	{
 

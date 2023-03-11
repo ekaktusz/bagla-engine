@@ -38,7 +38,7 @@ namespace bgl
 		sf::SoundBuffer& getSoundBuffer(const std::string& id) const;
 		sf::Music& getMusic(const std::string& id);
 		const sf::Font& getFont(const std::string& id) const;
-		const Map& getMap(const std::string& id) const;
+		Map& getMap(const std::string& id) const;
 
 		void unloadTexture(const std::string& id);
 		void unloadSoundBuffer(const std::string& id);

@@ -120,7 +120,7 @@ namespace bgl
 		return *found->second;
 	}
 
-	const Map& AssetManager::getMap(const std::string& id) const
+	Map& AssetManager::getMap(const std::string& id) const
 	{
 		auto found = m_MapHolder.find(id);
 		if (found == m_MapHolder.end())
