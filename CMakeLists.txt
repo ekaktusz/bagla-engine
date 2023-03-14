@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.25)
 
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vendor/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  CACHE STRING "Vcpkg toolchain file")
+
 project(bagla-engine VERSION 0.1 DESCRIPTION "the simplest sfml extension library")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite)
@@ -19,7 +22,9 @@ add_library(bagla-engine
 	"src/map/ObjectLayer.cpp"
 	"src/map/Map.cpp" 
 	"src/map/TileLayer.cpp" 
-	"src/map/TileLayerChunk.cpp")
+	"src/map/TileLayerChunk.cpp" 
+	"include/bagla-engine/camera/Camera.h" 
+	"include/bagla-engine/GameObject.h" "include/bagla-engine/physics/RigidBody.h")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite/include)
@@ -27,10 +32,12 @@ target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendo
 
 find_package(SFML COMPONENTS system window graphics audio network CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
+find_package(box2d CONFIG REQUIRED)
 
 target_link_libraries(bagla-engine PRIVATE sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
 target_link_libraries(bagla-engine PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
 target_link_libraries(bagla-engine PRIVATE tmxlite)
+target_link_libraries(bagla-engine PRIVATE box2d::box2d)
 
 set_target_properties(bagla-engine PROPERTIES VERSION 0)
 set_target_properties(bagla-engine PROPERTIES SOVERSION 1)
