@@ -31,6 +31,9 @@ namespace bgl
 		void setOutlineThickness(float thickness);
 
 	private:
+		void drawCheckMark(sf::RenderTarget& target) const;
+
+	private:
 		const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
 
 		bool m_Checked;
