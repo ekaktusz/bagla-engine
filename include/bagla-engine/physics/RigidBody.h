@@ -1,21 +1,28 @@
 #pragma once
 
-#include <box2d/b2_body.h.h>
-#include <box2d/b2_shape.h>
+#include <box2d/b2_polygon_shape.h>
 #include <box2d/b2_fixture.h>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+
+class b2Body;
+class b2World;
 
 namespace bgl
 {
-	class RigidBody
+	class RigidBody final
 	{
 	public:
-		RigidBody();
+		RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic = true);
+		RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic = true);
 		~RigidBody();
 
 	private:
-		b2Body m_Body;
-		b2Shape m_Shape;
-		b2Fixture m_Fixture;
+		b2Body* m_Body;
+		b2BodyDef m_BodyDef;
+		b2PolygonShape m_Shape;
+		b2Fixture* m_Fixture;
 
+		sf::RectangleShape m_RigidBodyRectangleShape;
 	};
 }
