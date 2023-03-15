@@ -2,10 +2,11 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace bgl
 {
-	Slider::Slider() : m_Progress(0.5)
+	Slider::Slider(const sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow), m_Progress(0.5)
 	{
 		m_OuterSlider.setFillColor(sf::Color::Black);
 		m_OuterSlider.setOutlineColor(sf::Color::White);
@@ -20,7 +21,14 @@ namespace bgl
 		m_Indicator.setPosition(m_OuterSlider.getPosition().x + m_Progress * m_OuterSlider.getSize().x, m_OuterSlider.getPosition().y);
 		m_InnerSlider.setSize({ (m_OuterSlider.getSize().x - 4) * m_Progress, m_InnerSlider.getSize().y });
 
-		
+		sf::Vector2i mousePosition = sf::Mouse::getPosition(m_RenderWindow);
+		if (m_OuterSlider.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+		{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				m_Progress = std::abs(m_OuterSlider.getPosition().x - mousePosition.x) / m_OuterSlider.getSize().x;
+			}
+		}
 	}
 
 	void Slider::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -32,14 +40,14 @@ namespace bgl
 
 	void Slider::handleEvent(const sf::Event& event)
 	{
-		if (event.type == sf::Event::MouseButtonPressed)
-		{
-			if (m_OuterSlider.getGlobalBounds().contains(
-				sf::Vector2f(event.mouseButton.x, event.mouseButton.y)))
-			{
-				m_Progress = std::abs(m_OuterSlider.getPosition().x - event.mouseButton.x) / m_OuterSlider.getSize().x;
-			}
-		}
+		//if (event.type == sf::Event::MouseButtonPressed)
+		//{
+		//	if (m_OuterSlider.getGlobalBounds().contains(
+		//		sf::Vector2f(event.mouseButton.x, event.mouseButton.y)))
+		//	{
+		//		m_Progress = std::abs(m_OuterSlider.getPosition().x - event.mouseButton.x) / m_OuterSlider.getSize().x;
+		//	}
+		//}
 	}
 
 	void Slider::setSize(sf::Vector2f size)
