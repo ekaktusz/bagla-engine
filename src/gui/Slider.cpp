@@ -17,6 +17,9 @@ namespace bgl
 
 	void Slider::update(const sf::Time& dt)
 	{
+		m_Indicator.setPosition(m_OuterSlider.getPosition().x + m_Progress * m_OuterSlider.getSize().x, m_OuterSlider.getPosition().y);
+		m_InnerSlider.setSize({ (m_OuterSlider.getSize().x - 4) * m_Progress, m_InnerSlider.getSize().y });
+
 		
 	}
 
