@@ -24,7 +24,7 @@ add_library(bagla-engine
 	"src/map/TileLayer.cpp" 
 	"src/map/TileLayerChunk.cpp" 
 	"include/bagla-engine/camera/Camera.h" 
-	"include/bagla-engine/GameObject.h" "include/bagla-engine/physics/RigidBody.h" "src/physics/RigidBody.cpp" "include/bagla-engine/gui/CheckBox.h" "src/gui/CheckBox.cpp" "include/bagla-engine/gui/Slider.h" "src/gui/Slider.cpp" "include/bagla-engine/gui/FocusLock.h" "include/bagla-engine/MathExtensions.h")
+	"include/bagla-engine/GameObject.h" "include/bagla-engine/physics/RigidBody.h" "src/physics/RigidBody.cpp" "include/bagla-engine/gui/CheckBox.h" "src/gui/CheckBox.cpp" "include/bagla-engine/gui/Slider.h" "src/gui/Slider.cpp" "include/bagla-engine/gui/FocusLock.h" "include/bagla-engine/MathExtensions.h" "src/gui/FocusLock.cpp")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite/include)

@@ -3,6 +3,7 @@
 #include <spdlog/spdlog.h>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <gui/FocusLock.h>
 
 namespace bgl
 {
@@ -101,7 +102,7 @@ namespace bgl
 		if (m_InnerButton.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
 		{
 			m_InnerButton.setFillColor(m_HoverColor);
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) 
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !FocusLock::isLocked()) 
 			{
 				if (m_ActionToDo)
 				{

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "gui/Widget.h"
 
 namespace bgl
@@ -6,29 +7,13 @@ namespace bgl
 	class FocusLock
 	{
 	public:
-		static void lockFocus(const Widget* widget)
-		{
-			s_LockedWidget = widget;
-		}
+		static void lockFocus(const Widget* widget);
+		static void unlockFocus();
 
-		static void unlockFocus()
-		{
-			s_LockedWidget = nullptr;
-		}
-
-		static bool isLocked()
-		{
-			return s_LockedWidget != nullptr;
-		}
-
-		static bool isWidgetInFocus(const Widget* widget)
-		{
-			return widget == s_LockedWidget;
-		}
+		static bool isLocked();
+		static bool isWidgetInFocus(const Widget* widget);
 
 	private:
 		static const Widget* s_LockedWidget;
 	};
-
-	const Widget* FocusLock::s_LockedWidget = nullptr;
 }
