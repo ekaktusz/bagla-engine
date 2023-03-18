@@ -3,6 +3,8 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "gui/FocusLock.h"
+#include "MathExtensions.h"
 
 namespace bgl
 {
@@ -26,8 +28,16 @@ namespace bgl
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				m_Progress = std::abs(m_OuterSlider.getPosition().x - mousePosition.x) / m_OuterSlider.getSize().x;
+				if (!FocusLock::isLocked())
+				{
+					FocusLock::lockFocus(this);
+				}
 			}
+		}
+
+		if (FocusLock::isWidgetInFocus(this))
+		{
+			m_Progress = mid(0.f, (mousePosition.x - m_OuterSlider.getPosition().x) / m_OuterSlider.getSize().x, 1.f);
 		}
 	}
 
@@ -40,14 +50,10 @@ namespace bgl
 
 	void Slider::handleEvent(const sf::Event& event)
 	{
-		//if (event.type == sf::Event::MouseButtonPressed)
-		//{
-		//	if (m_OuterSlider.getGlobalBounds().contains(
-		//		sf::Vector2f(event.mouseButton.x, event.mouseButton.y)))
-		//	{
-		//		m_Progress = std::abs(m_OuterSlider.getPosition().x - event.mouseButton.x) / m_OuterSlider.getSize().x;
-		//	}
-		//}
+		if (event.type == sf::Event::MouseButtonReleased && FocusLock::isWidgetInFocus(this))
+		{
+			FocusLock::unlockFocus();
+		}
 	}
 
 	void Slider::setSize(sf::Vector2f size)
