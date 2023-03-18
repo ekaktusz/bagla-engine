@@ -38,6 +38,10 @@ namespace bgl
 		if (FocusLock::isWidgetInFocus(this))
 		{
 			m_Progress = mid(0.f, (mousePosition.x - m_OuterSlider.getPosition().x) / m_OuterSlider.getSize().x, 1.f);
+			if (m_OnProgressChange)
+			{
+				m_OnProgressChange(m_Progress);
+			}
 		}
 	}
 
@@ -54,6 +58,11 @@ namespace bgl
 		{
 			FocusLock::unlockFocus();
 		}
+	}
+
+	float Slider::getProgress() const
+	{
+		return m_Progress;
 	}
 
 	void Slider::setSize(sf::Vector2f size)
