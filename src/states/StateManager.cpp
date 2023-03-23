@@ -6,7 +6,7 @@
 
 namespace bgl
 {
-	void StateManager::pushState(std::unique_ptr<State> state)
+	void StateManager::handlePushState(std::unique_ptr<State> state)
 	{
 		if (!m_States.empty())
 		{
@@ -16,7 +16,7 @@ namespace bgl
 	}
 
 
-	void StateManager::popState()
+	void StateManager::handlePopState()
 	{
 		IF_EMPTY_RETURN
 		
@@ -28,7 +28,7 @@ namespace bgl
 		}
 	}
 
-	void StateManager::switchState(std::unique_ptr<State> state)
+	void StateManager::handleSwitchState(std::unique_ptr<State> state)
 	{
 		IF_EMPTY_RETURN
 
@@ -37,24 +37,66 @@ namespace bgl
 	}
 
 
+	void StateManager::applyPendingChanges()
+	{
+		for (StateManagerRequest& pendingRequest : m_RequestQueue)
+		{
+			if (pendingRequest.requestType == StateManagerRequestType::Pop)
+			{
+				handlePopState();
+			}
+			else if (pendingRequest.requestType == StateManagerRequestType::Push)
+			{
+				handlePushState(std::move(pendingRequest.requestState));
+			}
+			else if (pendingRequest.requestType == StateManagerRequestType::Switch)
+			{
+				handleSwitchState(std::move(pendingRequest.requestState));
+			}
+		}
+
+		m_RequestQueue.clear();
+	}
+
 	void StateManager::update(const sf::Time& dt)
 	{
-		IF_EMPTY_RETURN
-
-		m_States.top()->update(dt);
+		if (!m_States.empty())
+		{
+			m_States.top()->update(dt);
+		}
+		applyPendingChanges();
 	}
 
 	void StateManager::draw() const
 	{
-		IF_EMPTY_RETURN
-
-		m_States.top()->draw();
+		if (!m_States.empty())
+		{
+			m_States.top()->draw();
+		}
 	}
 
 	void StateManager::handleEvent(const sf::Event& event)
 	{
-		IF_EMPTY_RETURN
-
-		m_States.top()->handleEvent(event);
+		if (!m_States.empty())
+		{
+			m_States.top()->handleEvent(event);
+		}
+		applyPendingChanges();
 	}
+
+	void StateManager::pushState(std::unique_ptr<State> state)
+	{
+		m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Push });
+	}
+
+	void StateManager::popState()
+	{
+		m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Pop });
+	}
+
+	void StateManager::switchState(std::unique_ptr<State> state)
+	{
+		m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Switch });
+	}
+
 }
