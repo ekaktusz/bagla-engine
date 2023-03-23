@@ -1,5 +1,3 @@
-# bägla-engine
-
 ![banner](./assets/logo.png)
 
 bägla is not really a game engine, just some useful extra things I find very useful when dealing with game development in SFML. Consider it as an other extension library, like [Thor](https://github.com/Bromeon/Thor) or [Heavy](https://github.com/xSnapi/Heavy).
