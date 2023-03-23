@@ -126,6 +126,16 @@ namespace bgl
 	{
 	}
 
+	void Button::setSoundOnSelect(const sf::SoundBuffer& soundBuffer)
+	{
+		m_SoundOnSelect.setBuffer(soundBuffer);
+	}
+
+	void Button::setSoundOnHover(const sf::SoundBuffer& soundBuffer)
+	{
+		m_SoundOnHover.setBuffer(soundBuffer);
+	}
+
 	void Button::refreshTextOrigin()
 	{
 		sf::Vector2f center{ m_Text.getGlobalBounds().width / 2.f, m_Text.getGlobalBounds().height / 2.f };

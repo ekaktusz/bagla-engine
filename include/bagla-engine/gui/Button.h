@@ -7,6 +7,8 @@
 #include <functional>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Audio/Sound.hpp>
+
 
 namespace bgl
 {
@@ -34,6 +36,9 @@ namespace bgl
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void handleEvent(const sf::Event& event) override;
 
+		void setSoundOnSelect(const sf::SoundBuffer& soundBuffer);
+		void setSoundOnHover(const sf::SoundBuffer& soundBuffer);
+
 	private:
 		void refreshTextOrigin();
 		void refreshTextPosition();
@@ -56,6 +61,9 @@ namespace bgl
 		float m_OutlineThickness;
 
 		sf::RectangleShape m_InnerButton;
+
+		sf::Sound m_SoundOnSelect;
+		sf::Sound m_SoundOnHover;
 	};
 
 }
