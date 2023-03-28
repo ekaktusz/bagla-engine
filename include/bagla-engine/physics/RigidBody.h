@@ -17,6 +17,9 @@ namespace bgl
 		RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic = true);
 		~RigidBody();
 
+		sf::Vector2f getPosition() const;
+		void setPosition(sf::Vector2f position);
+
 	private:
 		b2Body* m_Body;
 		b2BodyDef m_BodyDef;

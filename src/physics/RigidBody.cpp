@@ -13,7 +13,7 @@ namespace bgl
 		m_RigidBodyRectangleShape.setPosition(x, y);
 		m_RigidBodyRectangleShape.setFillColor(sf::Color::Green);
 
-		if (dynamic) m_BodyDef.type == b2_dynamicBody;
+		if (dynamic) m_BodyDef.type = b2_dynamicBody;
 
 		float bx = (x + sx / 2) / PPM;
 		float by = -(y + sy / 2) / PPM;
@@ -21,13 +21,13 @@ namespace bgl
 		m_Shape.SetAsBox(sx / PPM / 2, sy / PPM / 2);
 
 		m_Body = world.CreateBody(&m_BodyDef);
-		m_Fixture = m_Body->CreateFixture(&m_Shape, 0.0);
+		m_Fixture = m_Body->CreateFixture(&m_Shape, 1.0);
 		m_Body->SetFixedRotation(true);
 	}
 
 	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic /*= true*/) : RigidBody(position.x, position.y, size.x, size.y, world, dynamic)
 	{
-
+		
 	}
 
 
@@ -35,4 +35,12 @@ namespace bgl
 	{
 
 	}
+
+	sf::Vector2f RigidBody::getPosition() const
+	{
+		float x = m_Body->GetPosition().x * PPM;
+		float y = -m_Body->GetPosition().y * PPM;
+		return sf::Vector2f(x - m_RigidBodyRectangleShape.getSize().x / 2, y - m_RigidBodyRectangleShape.getSize().y / 2);
+	}
+
 }
