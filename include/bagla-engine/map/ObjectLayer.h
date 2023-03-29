@@ -10,9 +10,9 @@ namespace bgl
 	class ObjectLayer
 	{
 	public:
-		ObjectLayer(const tmx::ObjectGroup& objectGroup);
+		ObjectLayer(tmx::ObjectGroup& objectGroup);
 		~ObjectLayer();
 	private:
-		tmx::ObjectGroup m_ObjectGroup;
+		tmx::ObjectGroup& m_ObjectGroup;
 	};
 }

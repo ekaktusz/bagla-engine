@@ -3,7 +3,7 @@
 
 namespace bgl
 {
-	ObjectLayer::ObjectLayer(const tmx::ObjectGroup& objectGroup)
+	ObjectLayer::ObjectLayer(tmx::ObjectGroup& objectGroup) : m_ObjectGroup(objectGroup)
 	{
 
 	}
