@@ -3,7 +3,11 @@
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include "physics/RigidBody.h"
-#include <tmxlite/ObjectGroup.hpp>
+
+namespace tmx
+{
+	class ObjectGroup;
+}
 
 namespace bgl
 {
