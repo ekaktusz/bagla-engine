@@ -2,6 +2,7 @@
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
 #include <spdlog/spdlog.h>
+#include <tmxlite/ObjectGroup.hpp>
 
 namespace bgl
 {
@@ -25,7 +26,7 @@ namespace bgl
 			return false;
 		}
 		
-		for (const auto& layer : m_Map->getLayers())
+		for (auto& layer : m_Map->getLayers())
 		{
 			if (layer->getType() == tmx::Layer::Type::Tile)
 			{
@@ -34,7 +35,7 @@ namespace bgl
 			}
 			else if (layer->getType() == tmx::Layer::Type::Object)
 			{
-				std::unique_ptr<ObjectLayer> objectLayer = std::make_unique<ObjectLayer>();
+				std::unique_ptr<ObjectLayer> objectLayer = std::make_unique<ObjectLayer>(layer->getLayerAs<tmx::ObjectGroup>());
 				m_ObjectLayers.try_emplace(layer->getName(), std::move(objectLayer));
 			}
 		}

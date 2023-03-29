@@ -1,8 +1,9 @@
 #include "map/ObjectLayer.h"
+#include "tmxlite/ObjectGroup.hpp"
 
 namespace bgl
 {
-	ObjectLayer::ObjectLayer()
+	ObjectLayer::ObjectLayer(const tmx::ObjectGroup& objectGroup)
 	{
 
 	}
