@@ -26,6 +26,8 @@ namespace bgl
 		b2PolygonShape m_Shape;
 		b2Fixture* m_Fixture;
 
+		b2World& m_World;
+
 		sf::RectangleShape m_RigidBodyRectangleShape;
 	};
 }

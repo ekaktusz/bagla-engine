@@ -18,5 +18,6 @@ namespace bgl
 		~ObjectLayer();
 	private:
 		tmx::ObjectGroup& m_ObjectGroup;
+		std::vector<RigidBody> m_RigidBodies;
 	};
 }

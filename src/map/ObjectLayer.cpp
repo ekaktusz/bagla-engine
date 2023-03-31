@@ -13,6 +13,15 @@ namespace bgl
 				
 			}
 		}
+
+		const auto& objects = objectGroup.getObjects();
+		for (const auto& object : objects)
+		{
+			if (object.getShape() == tmx::Object::Shape::Rectangle)
+			{
+				
+			}
+		}
 	}
 
 	ObjectLayer::~ObjectLayer()

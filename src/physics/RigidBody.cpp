@@ -7,7 +7,7 @@ namespace bgl
 {
 	static constexpr float PPM = 32.f;
 
-	RigidBody::RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic /*= true*/)
+	RigidBody::RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic /*= true*/) : m_World(world)
 	{
 		m_RigidBodyRectangleShape.setSize({sx, sy});
 		m_RigidBodyRectangleShape.setPosition(x, y);
@@ -33,7 +33,8 @@ namespace bgl
 
 	RigidBody::~RigidBody()
 	{
-
+		m_Body->DestroyFixture(m_Fixture);
+		m_World.DestroyBody(m_Body);
 	}
 
 	sf::Vector2f RigidBody::getPosition() const
