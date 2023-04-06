@@ -13,12 +13,14 @@ namespace bgl
 	class RigidBody final
 	{
 	public:
-		RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic = true);
-		RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic = true);
+		RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic = true, float density = 0.f);
+		RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic = true, float density = 0.f);
 		~RigidBody();
 
 		sf::Vector2f getPosition() const;
 		void setPosition(sf::Vector2f position);
+
+		void setLinearVelocity(sf::Vector2f velocity);
 
 	private:
 		b2Body* m_Body;

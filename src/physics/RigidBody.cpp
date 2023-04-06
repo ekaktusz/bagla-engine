@@ -7,7 +7,7 @@ namespace bgl
 {
 	static constexpr float PPM = 32.f;
 
-	RigidBody::RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic /*= true*/) : m_World(world)
+	RigidBody::RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic /*= true*/, float density) : m_World(world)
 	{
 		m_RigidBodyRectangleShape.setSize({sx, sy});
 		m_RigidBodyRectangleShape.setPosition(x, y);
@@ -21,11 +21,11 @@ namespace bgl
 		m_Shape.SetAsBox(sx / PPM / 2, sy / PPM / 2);
 
 		m_Body = world.CreateBody(&m_BodyDef);
-		m_Fixture = m_Body->CreateFixture(&m_Shape, 1.0);
+		m_Fixture = m_Body->CreateFixture(&m_Shape, density);
 		m_Body->SetFixedRotation(true);
 	}
 
-	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic /*= true*/) : RigidBody(position.x, position.y, size.x, size.y, world, dynamic)
+	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic /*= true*/, float density) : RigidBody(position.x, position.y, size.x, size.y, world, dynamic, density)
 	{
 		
 	}
@@ -42,6 +42,11 @@ namespace bgl
 		float x = m_Body->GetPosition().x * PPM;
 		float y = -m_Body->GetPosition().y * PPM;
 		return sf::Vector2f(x - m_RigidBodyRectangleShape.getSize().x / 2, y - m_RigidBodyRectangleShape.getSize().y / 2);
+	}
+
+	void RigidBody::setLinearVelocity(sf::Vector2f velocity)
+	{
+		m_Body->SetLinearVelocity({ velocity.x, velocity.y });
 	}
 
 }
