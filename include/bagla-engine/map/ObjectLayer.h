@@ -3,6 +3,7 @@
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include "physics/RigidBody.h"
+#include <memory>
 
 namespace tmx
 {
@@ -14,10 +15,12 @@ namespace bgl
 	class ObjectLayer
 	{
 	public:
-		ObjectLayer(tmx::ObjectGroup& objectGroup);
+		ObjectLayer(tmx::ObjectGroup& objectGroup, b2World* world = nullptr);
 		~ObjectLayer();
 	private:
 		tmx::ObjectGroup& m_ObjectGroup;
-		std::vector<RigidBody> m_RigidBodies;
+		b2World* m_World;
+		
+		std::vector<std::unique_ptr<RigidBody>> m_RigidBodies;
 	};
 }
