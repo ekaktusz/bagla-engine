@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "gui/FocusLock.h"
 #include "MathExtensions.h"
+#include <cmath>
 
 namespace bgl
 {

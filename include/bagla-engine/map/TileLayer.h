@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <map>
+#include <cmath>
 
 #include <tmxlite/TileLayer.hpp>
 #include <tmxlite/Tileset.hpp>
@@ -166,8 +167,8 @@ namespace bgl
 
 		Chunk::Ptr& getChunkAndTransform(int x, int y, sf::Vector2u& chunkRelative)
 		{
-			uint32_t chunkX = floor((x * m_MapTileSize.x) / m_ChunkSize.x);
-			uint32_t chunkY = floor((y * m_MapTileSize.y) / m_ChunkSize.y);
+			uint32_t chunkX = std::floor((x * m_MapTileSize.x) / m_ChunkSize.x);
+			uint32_t chunkY = std::floor((y * m_MapTileSize.y) / m_ChunkSize.y);
 			chunkRelative.x = ((x * m_MapTileSize.x) - chunkX * m_ChunkSize.x) / m_MapTileSize.x;
 			chunkRelative.y = ((y * m_MapTileSize.y) - chunkY * m_ChunkSize.y) / m_MapTileSize.y;
 			return m_Chunks[chunkX + static_cast<std::vector<Chunk::Ptr, std::allocator<Chunk::Ptr>>::size_type>(chunkY) * m_ChunkCount.x];

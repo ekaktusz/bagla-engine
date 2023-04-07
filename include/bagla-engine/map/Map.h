@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "map/TileLayer.h"
-#include "map/Objectlayer.h"
+#include "map/ObjectLayer.h"
 
 namespace bgl
 {
