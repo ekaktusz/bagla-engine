@@ -21,6 +21,7 @@ namespace bgl
 		void setPosition(sf::Vector2f position);
 
 		void setLinearVelocity(sf::Vector2f velocity);
+		void setGravityScale(float gravityScale);
 
 	private:
 		b2Body* m_Body;

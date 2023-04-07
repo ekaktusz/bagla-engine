@@ -49,4 +49,8 @@ namespace bgl
 		m_Body->SetLinearVelocity({ velocity.x, velocity.y });
 	}
 
+	void RigidBody::setGravityScale(float gravityScale)
+	{
+		m_Body->SetGravityScale(gravityScale);
+	}
 }
