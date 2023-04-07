@@ -2,6 +2,7 @@
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_world.h>
+#include <box2d/box2d.h>
 
 namespace bgl
 {
@@ -21,8 +22,16 @@ namespace bgl
 		m_Shape.SetAsBox(sx / PPM / 2, sy / PPM / 2);
 
 		m_Body = world.CreateBody(&m_BodyDef);
-		m_Fixture = m_Body->CreateFixture(&m_Shape, density);
+
+		b2FixtureDef fixtureDef;
+		//  (uintptr_t) this;
+		fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+		fixtureDef.shape = &m_Shape;
+		fixtureDef.density = density;
+
+		m_Fixture = m_Body->CreateFixture(&fixtureDef);
 		m_Body->SetFixedRotation(true);
+		
 	}
 
 	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic /*= true*/, float density) : RigidBody(position.x, position.y, size.x, size.y, world, dynamic, density)

@@ -4,6 +4,7 @@
 #include <box2d/b2_fixture.h>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <functional>
 
 class b2Body;
 class b2World;
@@ -23,6 +24,10 @@ namespace bgl
 		void setLinearVelocity(sf::Vector2f velocity);
 		void setGravityScale(float gravityScale);
 
+		void setOnContact(std::function<void()> onContact);
+
+		void onContact(RigidBody* rigidBody);
+
 	private:
 		b2Body* m_Body;
 		b2BodyDef m_BodyDef;
@@ -32,5 +37,7 @@ namespace bgl
 		b2World& m_World;
 
 		sf::RectangleShape m_RigidBodyRectangleShape;
+
+		std::function<void(RigidBody*)> m_OnContact;
 	};
 }
