@@ -24,7 +24,7 @@ namespace bgl
 		void setLinearVelocity(sf::Vector2f velocity);
 		void setGravityScale(float gravityScale);
 
-		void setOnContact(std::function<void()> onContact);
+		void setOnContact(std::function<void(RigidBody*)> onContact);
 
 		void onContact(RigidBody* rigidBody);
 

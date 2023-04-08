@@ -62,4 +62,18 @@ namespace bgl
 	{
 		m_Body->SetGravityScale(gravityScale);
 	}
+
+	void RigidBody::setOnContact(std::function<void(RigidBody*)> onContact)
+	{
+		m_OnContact = onContact;
+	}
+
+	void RigidBody::onContact(RigidBody* other)
+	{
+		if (m_OnContact)
+		{
+			m_OnContact(other);
+		}
+	}
+
 }

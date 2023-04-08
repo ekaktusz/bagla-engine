@@ -16,4 +16,15 @@ namespace bgl
 	{
 
 	}
+
+	void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+	{
+
+	}
+
+	void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+	{
+
+	}
+
 }
