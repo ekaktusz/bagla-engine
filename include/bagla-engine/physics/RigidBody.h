@@ -24,9 +24,9 @@ namespace bgl
 		void setLinearVelocity(sf::Vector2f velocity);
 		void setGravityScale(float gravityScale);
 
-		void setOnContact(std::function<void(RigidBody*)> onContact);
+		void setOnContact(std::function<void(RigidBody*, sf::Vector2f)> onContact);
 
-		void onContact(RigidBody* rigidBody);
+		void onContact(RigidBody* rigidBody, sf::Vector2f collisionNormal);
 
 	private:
 		b2Body* m_Body;
@@ -38,6 +38,6 @@ namespace bgl
 
 		sf::RectangleShape m_RigidBodyRectangleShape;
 
-		std::function<void(RigidBody*)> m_OnContact;
+		std::function<void(RigidBody*, sf::Vector2f)> m_OnContact;
 	};
 }

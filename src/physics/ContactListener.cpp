@@ -1,5 +1,8 @@
 #include "physics/ContactListener.h"
 #include "physics/RigidBody.h"
+#include <string>
+#include <spdlog/spdlog.h>
+#include <box2d/box2d.h>
 
 namespace bgl
 {
@@ -8,8 +11,14 @@ namespace bgl
 		 RigidBody* rigidBodyA = reinterpret_cast<RigidBody*>(contact->GetFixtureA()->GetUserData().pointer);
 		 RigidBody* rigidBodyB = reinterpret_cast<RigidBody*>(contact->GetFixtureB()->GetUserData().pointer);
 
-		 rigidBodyA->onContact(rigidBodyB);
-		 rigidBodyB->onContact(rigidBodyA);
+		 b2Vec2 b2collisionNormal = contact->GetManifold()->localNormal;
+		 sf::Vector2f collisionNormal{b2collisionNormal.x, b2collisionNormal.y};
+
+		 rigidBodyA->onContact(rigidBodyB, collisionNormal);
+		 rigidBodyB->onContact(rigidBodyA, collisionNormal);
+
+		 spdlog::info("BeginContact collision normal: x: "  + std::to_string(contact->GetManifold()->localNormal.x) 
+			 + " y: " + std::to_string(contact->GetManifold()->localNormal.y));
 	}
 
 	void ContactListener::EndContact(b2Contact* contact)
