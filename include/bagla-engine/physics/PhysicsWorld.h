@@ -4,9 +4,12 @@
 #include <memory>
 #include "physics/ContactListener.h"
 
+#include <SFML/Graphics/Drawable.hpp>
+
+
 namespace bgl
 {
-	class PhysicsWorld
+	class PhysicsWorld : public sf::Drawable
 	{
 	public:
 		static PhysicsWorld& getInstance()
@@ -18,6 +21,7 @@ namespace bgl
 		~PhysicsWorld();
 
 		void update();
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		PhysicsWorld();

@@ -20,4 +20,10 @@ namespace bgl
 		static constexpr int32 positionIterations = 3;
 		m_World->Step(timeStep, velocityIterations, positionIterations);
 	}
+
+	void PhysicsWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		
+	}
+
 }
