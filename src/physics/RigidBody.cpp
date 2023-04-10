@@ -88,5 +88,4 @@ namespace bgl
 			m_EndContact(other, collisionNormal);
 		}
 	}
-
 }
