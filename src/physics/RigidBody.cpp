@@ -63,16 +63,29 @@ namespace bgl
 		m_Body->SetGravityScale(gravityScale);
 	}
 
-	void RigidBody::setOnContact(std::function<void(RigidBody*, sf::Vector2f)> onContact)
+	void RigidBody::setBeginContact(std::function<void(RigidBody*, sf::Vector2f)> beginContact)
 	{
-		m_OnContact = onContact;
+		m_BeginContact = beginContact;
 	}
 
-	void RigidBody::onContact(RigidBody* other, sf::Vector2f collisionNormal)
+	void RigidBody::setEndContact(std::function<void(RigidBody*, sf::Vector2f)> endContact)
 	{
-		if (m_OnContact)
+		m_EndContact = endContact;
+	}
+
+	void RigidBody::beginContact(RigidBody* other, sf::Vector2f collisionNormal)
+	{
+		if (m_BeginContact)
 		{
-			m_OnContact(other, collisionNormal);
+			m_BeginContact(other, collisionNormal);
+		}
+	}
+
+	void RigidBody::endContact(RigidBody* other, sf::Vector2f collisionNormal)
+	{
+		if (m_EndContact)
+		{
+			m_EndContact(other, collisionNormal);
 		}
 	}
 

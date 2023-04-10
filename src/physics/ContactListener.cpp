@@ -14,8 +14,8 @@ namespace bgl
 		 b2Vec2 b2collisionNormal = contact->GetManifold()->localNormal;
 		 sf::Vector2f collisionNormal{b2collisionNormal.x, b2collisionNormal.y};
 
-		 rigidBodyA->onContact(rigidBodyB, collisionNormal);
-		 rigidBodyB->onContact(rigidBodyA, collisionNormal);
+		 rigidBodyA->beginContact(rigidBodyB, collisionNormal);
+		 rigidBodyB->beginContact(rigidBodyA, collisionNormal);
 
 		 spdlog::info("BeginContact collision normal: x: "  + std::to_string(contact->GetManifold()->localNormal.x) 
 			 + " y: " + std::to_string(contact->GetManifold()->localNormal.y));
