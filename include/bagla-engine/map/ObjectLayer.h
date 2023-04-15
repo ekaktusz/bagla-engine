@@ -15,11 +15,10 @@ namespace bgl
 	class ObjectLayer
 	{
 	public:
-		ObjectLayer(tmx::ObjectGroup& objectGroup, b2World* world = nullptr);
+		ObjectLayer(tmx::ObjectGroup& objectGroup);
 		~ObjectLayer();
 	private:
 		tmx::ObjectGroup& m_ObjectGroup;
-		b2World* m_World;
 		
 		std::vector<std::unique_ptr<RigidBody>> m_RigidBodies;
 	};

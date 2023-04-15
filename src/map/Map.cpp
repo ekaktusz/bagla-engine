@@ -16,7 +16,7 @@ namespace bgl
 
 	}
 
-	bool Map::loadFromFile(const std::string& filePath, b2World* world)
+	bool Map::loadFromFile(const std::string& filePath)
 	{
 		m_Map = std::make_unique<tmx::Map>();
 		bool res = m_Map->load(filePath);
@@ -35,7 +35,7 @@ namespace bgl
 			}
 			else if (layer->getType() == tmx::Layer::Type::Object)
 			{
-				std::unique_ptr<ObjectLayer> objectLayer = std::make_unique<ObjectLayer>(layer->getLayerAs<tmx::ObjectGroup>(), world);
+				std::unique_ptr<ObjectLayer> objectLayer = std::make_unique<ObjectLayer>(layer->getLayerAs<tmx::ObjectGroup>());
 				m_ObjectLayers.try_emplace(layer->getName(), std::move(objectLayer));
 			}
 		}

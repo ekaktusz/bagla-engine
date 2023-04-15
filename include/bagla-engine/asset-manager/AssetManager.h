@@ -34,7 +34,7 @@ namespace bgl
 		void loadSoundBuffer(const std::string& path, const std::string& id);
 		void loadMusic(const std::string& path, const std::string& id);
 		void loadFont(const std::string& path, const std::string& id);
-		void loadMap(const std::string& path, const std::string& id, b2World* world = nullptr);
+		void loadMap(const std::string& path, const std::string& id);
 
 		const sf::Texture& getTexture(const std::string& id) const;
 		sf::SoundBuffer& getSoundBuffer(const std::string& id) const;

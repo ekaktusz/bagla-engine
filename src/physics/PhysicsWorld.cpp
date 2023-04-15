@@ -13,17 +13,11 @@ namespace bgl
 		m_World->SetContactListener(&m_ContactListener);
 	}
 
-	void PhysicsWorld::update()
+	void PhysicsWorld::update(const sf::Time& dt)
 	{
 		static constexpr float timeStep = 1.0f / 60.0f;
 		static constexpr int32 velocityIterations = 8;
 		static constexpr int32 positionIterations = 3;
 		m_World->Step(timeStep, velocityIterations, positionIterations);
 	}
-
-	void PhysicsWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	{
-		
-	}
-
 }

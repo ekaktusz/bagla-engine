@@ -4,11 +4,13 @@
 #include <box2d/b2_world.h>
 #include <box2d/box2d.h>
 
+#include "physics/PhysicsWorld.h"
+
 namespace bgl
 {
 	static constexpr float PPM = 32.f;
 
-	RigidBody::RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic /*= true*/, float density) : m_World(world)
+	RigidBody::RigidBody(float x, float y, float sx, float sy, bool dynamic /*= true*/, float density)
 	{
 		m_RigidBodyRectangleShape.setSize({sx, sy});
 		m_RigidBodyRectangleShape.setPosition(x, y);
@@ -21,7 +23,8 @@ namespace bgl
 		m_BodyDef.position.Set(bx, by);
 		m_Shape.SetAsBox(sx / PPM / 2, sy / PPM / 2);
 
-		m_Body = world.CreateBody(&m_BodyDef);
+		m_Body = PhysicsWorld::getInstance().m_World->CreateBody(&m_BodyDef);
+		//m_Body = world.CreateBody(&m_BodyDef);
 
 		b2FixtureDef fixtureDef;
 		//  (uintptr_t) this;
@@ -34,7 +37,7 @@ namespace bgl
 		
 	}
 
-	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic /*= true*/, float density) : RigidBody(position.x, position.y, size.x, size.y, world, dynamic, density)
+	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic /*= true*/, float density) : RigidBody(position.x, position.y, size.x, size.y, dynamic, density)
 	{
 		
 	}
@@ -43,7 +46,7 @@ namespace bgl
 	RigidBody::~RigidBody()
 	{
 		m_Body->DestroyFixture(m_Fixture);
-		m_World.DestroyBody(m_Body);
+		PhysicsWorld::getInstance().m_World->DestroyBody(m_Body);
 	}
 
 	sf::Vector2f RigidBody::getPosition() const

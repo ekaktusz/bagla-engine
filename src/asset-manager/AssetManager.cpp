@@ -68,10 +68,10 @@ namespace bgl
 		m_FontHolder.try_emplace(id, std::move(font));
 	}
 	
-	void AssetManager::loadMap(const std::string& path, const std::string& id, b2World* world)
+	void AssetManager::loadMap(const std::string& path, const std::string& id)
 	{
 		std::unique_ptr<Map> map = std::make_unique<Map>();
-		if (!map->loadFromFile(path, world))
+		if (!map->loadFromFile(path))
 		{
 			spdlog::error("Failed to load map: " + path);
 			return;

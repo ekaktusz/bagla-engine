@@ -14,8 +14,8 @@ namespace bgl
 	class RigidBody final
 	{
 	public:
-		RigidBody(float x, float y, float sx, float sy, b2World& world, bool dynamic = true, float density = 0.f);
-		RigidBody(sf::Vector2f position, sf::Vector2f size, b2World& world, bool dynamic = true, float density = 0.f);
+		RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
+		RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
 		~RigidBody();
 
 		sf::Vector2f getPosition() const;
@@ -35,8 +35,6 @@ namespace bgl
 		b2BodyDef m_BodyDef;
 		b2PolygonShape m_Shape;
 		b2Fixture* m_Fixture;
-
-		b2World& m_World;
 
 		sf::RectangleShape m_RigidBodyRectangleShape;
 

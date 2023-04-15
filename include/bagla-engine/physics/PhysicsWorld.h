@@ -6,10 +6,14 @@
 
 #include <SFML/Graphics/Drawable.hpp>
 
+namespace sf
+{
+	class Time;
+}
 
 namespace bgl
 {
-	class PhysicsWorld : public sf::Drawable
+	class PhysicsWorld
 	{
 	public:
 		static PhysicsWorld& getInstance()
@@ -20,13 +24,15 @@ namespace bgl
 
 		~PhysicsWorld();
 
-		void update();
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void update(const sf::Time& dt);
+
+	public:
+		std::unique_ptr<b2World> m_World;
 
 	private:
 		PhysicsWorld();
 
-		std::unique_ptr<b2World> m_World;
+	private:
 		ContactListener m_ContactListener;
 	};
 }

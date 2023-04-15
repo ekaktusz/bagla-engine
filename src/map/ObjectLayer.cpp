@@ -4,7 +4,7 @@
 
 namespace bgl
 {
-	ObjectLayer::ObjectLayer(tmx::ObjectGroup& objectGroup, b2World* world) : m_ObjectGroup(objectGroup), m_World(world)
+	ObjectLayer::ObjectLayer(tmx::ObjectGroup& objectGroup) : m_ObjectGroup(objectGroup)
 	{
 		const auto& properties = objectGroup.getProperties();
 		bool isSolid = false;
@@ -20,9 +20,9 @@ namespace bgl
 		const auto& objects = objectGroup.getObjects();
 		for (const auto& object : objects)
 		{
-			if (object.getShape() == tmx::Object::Shape::Rectangle && m_World != nullptr)
+			if (object.getShape() == tmx::Object::Shape::Rectangle)
 			{
-				std::unique_ptr<RigidBody> tileRigidBody = std::make_unique<RigidBody>(object.getPosition().x, object.getPosition().y, object.getPosition().x + object.getAABB().width, object.getPosition().y + object.getAABB().height, *world, false);
+				std::unique_ptr<RigidBody> tileRigidBody = std::make_unique<RigidBody>(object.getPosition().x, object.getPosition().y, object.getPosition().x + object.getAABB().width, object.getPosition().y + object.getAABB().height, false);
 				m_RigidBodies.push_back(std::move(tileRigidBody));
 			}
 		}

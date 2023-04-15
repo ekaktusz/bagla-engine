@@ -14,7 +14,7 @@ namespace bgl
 		Map();
 		~Map();
 
-		bool loadFromFile(const std::string& filePath, b2World* world = nullptr);
+		bool loadFromFile(const std::string& filePath);
 
 		const TileLayer& getTileLayer(const std::string& name);
 		const ObjectLayer& getObjectLayer(const std::string& name);
