@@ -5,6 +5,7 @@
 #include "physics/ContactListener.h"
 
 #include <SFML/Graphics/Drawable.hpp>
+#include "physics/DebugDraw.h"
 
 namespace sf
 {
@@ -13,7 +14,7 @@ namespace sf
 
 namespace bgl
 {
-	class PhysicsWorld
+	class PhysicsWorld : public sf::Drawable
 	{
 	public:
 		static PhysicsWorld& getInstance()
@@ -25,6 +26,7 @@ namespace bgl
 		~PhysicsWorld();
 
 		void update(const sf::Time& dt);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	public:
 		std::unique_ptr<b2World> m_World;
@@ -34,5 +36,6 @@ namespace bgl
 
 	private:
 		ContactListener m_ContactListener;
+		DebugDraw m_DebugDraw;
 	};
 }

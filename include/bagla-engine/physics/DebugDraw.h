@@ -1,6 +1,6 @@
 #pragma once
 
-#include <b2_draw.h>
+#include <box2d/b2_draw.h>
 
 namespace bgl
 {
