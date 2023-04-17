@@ -12,8 +12,6 @@ namespace bgl
 	{
 		m_World = std::make_unique<b2World>(b2Vec2(.0f, -40.f ));
 		m_World->SetContactListener(&m_ContactListener);
-
-		
 	}
 
 	void PhysicsWorld::update(const sf::Time& dt)
@@ -26,7 +24,7 @@ namespace bgl
 
 	void PhysicsWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		//m_World->DebugDraw();
+		if (m_DebugDraw != nullptr) m_World->DebugDraw();
 	}
 
 	void PhysicsWorld::initDebugDraw(sf::RenderWindow& renderWindow)
@@ -34,6 +32,26 @@ namespace bgl
 		m_DebugDraw = std::make_unique<DebugDraw>(renderWindow);
 		m_World->SetDebugDraw(&*m_DebugDraw);
 		m_DebugDraw->SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit);
+	}
+
+	float PhysicsWorld::scaleToGraphics(float f)
+	{
+		return f * PIXEL_PER_METER;
+	}
+
+	sf::Vector2f PhysicsWorld::scaleToGraphics(b2Vec2 coordinates)
+	{
+		return {scaleToGraphics(coordinates.x), scaleToGraphics(coordinates.y)};
+	}
+
+	float PhysicsWorld::scaleToPhysics(float f)
+	{
+		return f / PIXEL_PER_METER;
+	}
+
+	b2Vec2 PhysicsWorld::scaleToPhysics(sf::Vector2f coordinates)
+	{
+		return { scaleToPhysics(coordinates.x), scaleToPhysics(coordinates.y) };
 	}
 
 }
