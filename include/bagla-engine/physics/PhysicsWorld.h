@@ -28,6 +28,8 @@ namespace bgl
 		void update(const sf::Time& dt);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		void initDebugDraw(sf::RenderWindow& renderWindow);
+
 	public:
 		std::unique_ptr<b2World> m_World;
 
@@ -36,6 +38,6 @@ namespace bgl
 
 	private:
 		ContactListener m_ContactListener;
-		DebugDraw m_DebugDraw;
+		std::unique_ptr<DebugDraw> m_DebugDraw;
 	};
 }

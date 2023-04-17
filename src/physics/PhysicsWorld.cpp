@@ -12,8 +12,8 @@ namespace bgl
 	{
 		m_World = std::make_unique<b2World>(b2Vec2(.0f, -40.f ));
 		m_World->SetContactListener(&m_ContactListener);
-		m_World->SetDebugDraw(&m_DebugDraw);
-		m_DebugDraw.SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit);
+
+		
 	}
 
 	void PhysicsWorld::update(const sf::Time& dt)
@@ -26,7 +26,14 @@ namespace bgl
 
 	void PhysicsWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		m_World->DebugDraw();
+		//m_World->DebugDraw();
+	}
+
+	void PhysicsWorld::initDebugDraw(sf::RenderWindow& renderWindow)
+	{
+		m_DebugDraw = std::make_unique<DebugDraw>(renderWindow);
+		m_World->SetDebugDraw(&*m_DebugDraw);
+		m_DebugDraw->SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit);
 	}
 
 }

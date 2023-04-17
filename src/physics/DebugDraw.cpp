@@ -1,8 +1,14 @@
 #include "physics/DebugDraw.h"
 #include <spdlog/spdlog.h>	
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace bgl
 {
+
+	DebugDraw::DebugDraw(sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow)
+	{
+
+	}
 
 	void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 	{
