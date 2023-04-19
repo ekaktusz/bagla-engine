@@ -6,6 +6,7 @@
 #include "gui/FocusLock.h"
 #include "MathExtensions.h"
 #include <cmath>
+#include <spdlog/spdlog.h>
 
 namespace bgl
 {
@@ -75,6 +76,20 @@ namespace bgl
 	float Slider::getProgress() const
 	{
 		return m_Progress;
+	}
+
+	void Slider::setProgress(float progress)
+	{
+		if (progress > 1 || progress < 0)
+		{
+			spdlog::warn("not valid progress: " + std::to_string(progress));
+			return;
+		}
+		m_Progress = progress;
+		if (m_OnProgressChange)
+		{
+			m_OnProgressChange(m_Progress);
+		}
 	}
 
 	void Slider::setSize(sf::Vector2f size)

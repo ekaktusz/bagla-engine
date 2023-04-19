@@ -22,6 +22,7 @@ namespace bgl
 		void handleEvent(const sf::Event& event) override;
 
 		float getProgress() const;
+		void setProgress(float progress);
 
 		void setSize(sf::Vector2f size);
 		void setPosition(sf::Vector2f position);
