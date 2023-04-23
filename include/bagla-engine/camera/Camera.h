@@ -25,6 +25,10 @@ namespace bgl
 		void setPosition(float x, float y);
 		void setPosition(sf::Vector2f position);
 		sf::Vector2f getPosition() const;
+
+		void setCenterPosition(float x, float y);
+		void setCenterPosition(sf::Vector2f position);
+		sf::Vector2f getCenterPosition() const;
 		
 		void setScale(float scale);
 		float getScale() const;
@@ -35,8 +39,8 @@ namespace bgl
 		void update(const sf::Time& dt);
 		
 	private:
-		sf::View m_View;
 		sf::RenderWindow& m_AttachedRenderWindow;
+		sf::View m_View;
 		sf::FloatRect m_WorldBoundaries;
 	};
 
