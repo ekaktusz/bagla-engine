@@ -39,7 +39,7 @@ add_library(bagla-engine
 	"include/bagla-engine/physics/PhysicsWorld.h" 
 	"src/physics/PhysicsWorld.cpp"
 	"include/bagla-engine/physics/DebugDraw.h"
-	"src/physics/DebugDraw.cpp")
+	"src/physics/DebugDraw.cpp" "src/camera/Camera.cpp")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite/include)

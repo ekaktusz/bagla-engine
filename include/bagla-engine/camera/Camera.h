@@ -1,4 +1,4 @@
-#pramga once
+#pragma once
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -6,8 +6,8 @@
 
 namespace sf
 {
-	class View;
 	class Time;
+	class RenderWindow;
 }
 
 namespace bgl
@@ -20,10 +20,14 @@ namespace bgl
 
 		void setWorldBoundaries(float x, float y, float w, float h);
 		void setWorldBoundaries(sf::FloatRect boundaries);
+		sf::FloatRect getWorldBoundaries() const;
+		
 		void setPosition(float x, float y);
 		void setPosition(sf::Vector2f position);
 		sf::Vector2f getPosition() const;
+		
 		void setScale(float scale);
+		float getScale() const;
 
 		void setAngle(float angle);
 		float getAngle() const;
