@@ -33,6 +33,7 @@ namespace bgl
 	void Camera::setPosition(float x, float y)
 	{
 		m_View.setCenter(x + m_View.getSize().x / 2.f, y + m_View.getSize().x / 2.f);
+		flush();
 	}
 
 	void Camera::setPosition(sf::Vector2f position)
@@ -48,11 +49,13 @@ namespace bgl
 	void Camera::setCenterPosition(float x, float y)
 	{
 		m_View.setCenter(x, y);
+		flush();
 	}
 
 	void Camera::setCenterPosition(sf::Vector2f position)
 	{
 		m_View.setCenter(position);
+		flush();
 	}
 
 	sf::Vector2f Camera::getCenterPosition() const
@@ -63,11 +66,13 @@ namespace bgl
 	void Camera::setScale(float scale)
 	{
 		m_View.zoom(scale);
+		flush();
 	}
 
 	void Camera::setAngle(float angle)
 	{
 		m_View.setRotation(angle);
+		flush();
 	}
 
 	float Camera::getAngle() const
@@ -75,9 +80,16 @@ namespace bgl
 		return m_View.getRotation();
 	}
 
-	void Camera::update(const sf::Time& dt)
+	void Camera::move(sf::Vector2f movement)
+	{
+		m_View.move(movement);
+		flush();
+	}
+
+	void Camera::flush()
 	{
 		m_AttachedRenderWindow.setView(m_View);
 	}
+
 
 }

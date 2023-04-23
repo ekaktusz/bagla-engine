@@ -36,7 +36,10 @@ namespace bgl
 		void setAngle(float angle);
 		float getAngle() const;
 
-		void update(const sf::Time& dt);
+		void move(sf::Vector2f movement);
+
+	private:
+		void flush();
 		
 	private:
 		sf::RenderWindow& m_AttachedRenderWindow;
