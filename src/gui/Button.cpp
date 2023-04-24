@@ -102,17 +102,6 @@ namespace bgl
 		if (m_InnerButton.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
 		{
 			m_InnerButton.setFillColor(m_HoverColor);
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !FocusLock::isLocked()) 
-			{
-				if (m_ActionToDo)
-				{
-					m_ActionToDo();
-				}
-				else
-				{
-					spdlog::warn("Button is clicked, but no action set.");
-				}
-			}
 		}
 	}
 
@@ -124,6 +113,20 @@ namespace bgl
 
 	void Button::handleEvent(const sf::Event& event)
 	{
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (m_InnerButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+			{
+				if (m_ActionToDo)
+				{
+					m_ActionToDo();
+				}
+				else
+				{
+					spdlog::warn("Button is clicked, but no action set.");
+				}
+			}
+		}
 	}
 
 	void Button::setSoundOnSelect(const sf::SoundBuffer& soundBuffer)
