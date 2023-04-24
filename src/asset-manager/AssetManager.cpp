@@ -100,7 +100,7 @@ namespace bgl
 		return *found->second;
 	}
 
-	sf::Music& AssetManager::getMusic(const std::string& id)
+	sf::Music& AssetManager::getMusic(const std::string& id) const
 	{
 		auto found = m_MusicHolder.find(id);
 		if (found == m_MusicHolder.end())
