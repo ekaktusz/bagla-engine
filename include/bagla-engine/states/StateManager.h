@@ -18,16 +18,18 @@ namespace bgl
 		void pushState(std::unique_ptr<State> state);
 		void popState();
 		void switchState(std::unique_ptr<State> state);
+		void resetToFirstState();
 
 		void applyPendingChanges();
 	private:
 		void handlePushState(std::unique_ptr<State> state);
 		void handlePopState();
 		void handleSwitchState(std::unique_ptr<State> state);
+		void handleResetToFirstState();
 
 		enum class StateManagerRequestType
 		{
-			Push, Pop, Switch
+			Push, Pop, Switch, Reset
 		};
 
 		struct StateManagerRequest

@@ -37,6 +37,18 @@ namespace bgl
 	}
 
 
+	void StateManager::handleResetToFirstState()
+	{
+		IF_EMPTY_RETURN
+
+		while (m_States.size() > 1)
+		{
+			m_States.pop();
+		}
+
+		m_States.top()->onResume();
+	}
+
 	void StateManager::applyPendingChanges()
 	{
 		for (StateManagerRequest& pendingRequest : m_RequestQueue)
@@ -52,6 +64,10 @@ namespace bgl
 			else if (pendingRequest.requestType == StateManagerRequestType::Switch)
 			{
 				handleSwitchState(std::move(pendingRequest.requestState));
+			}
+			else if (pendingRequest.requestType == StateManagerRequestType::Reset)
+			{
+				handleResetToFirstState();
 			}
 		}
 
@@ -97,6 +113,11 @@ namespace bgl
 	void StateManager::switchState(std::unique_ptr<State> state)
 	{
 		m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Switch });
+	}
+
+	void StateManager::resetToFirstState()
+	{
+		m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Reset });
 	}
 
 }
