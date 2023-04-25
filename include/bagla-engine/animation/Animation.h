@@ -1,5 +1,9 @@
 #pragma once
 
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Clock.hpp>
+
 namespace bgl
 {
 	class Animation
