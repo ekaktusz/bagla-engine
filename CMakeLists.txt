@@ -39,20 +39,21 @@ add_library(bagla-engine
 	"include/bagla-engine/physics/PhysicsWorld.h" 
 	"src/physics/PhysicsWorld.cpp"
 	"include/bagla-engine/physics/DebugDraw.h"
-	"src/physics/DebugDraw.cpp" "src/camera/Camera.cpp")
+	"src/physics/DebugDraw.cpp" "src/camera/Camera.cpp" "include/bagla-engine/animation/Animation.h")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite/include)
 
-
 find_package(SFML COMPONENTS system window graphics audio network CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(box2d CONFIG REQUIRED)
+find_package(Tweeny CONFIG REQUIRED)
 
 target_link_libraries(bagla-engine PRIVATE sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
 target_link_libraries(bagla-engine PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
 target_link_libraries(bagla-engine PRIVATE tmxlite)
 target_link_libraries(bagla-engine PRIVATE box2d::box2d)
+target_link_libraries(bagla-engine  PRIVATE tweeny)
 
 set_target_properties(bagla-engine PROPERTIES VERSION 0)
 set_target_properties(bagla-engine PROPERTIES SOVERSION 1)
