@@ -3,7 +3,7 @@
 namespace bgl
 {
 	Animation::Animation(const sf::Texture& spriteSheetTexture, sf::Vector2u frameSize, 
-		sf::Vector2u startFrameCoordinates, sf::Vector2u endFrameCoordinates, float deltaTime, bool repeating /*= true*/) : 
+		sf::Vector2u startFrameCoordinates, sf::Vector2u endFrameCoordinates, const sf::Time& deltaTime, bool repeating /*= true*/) : 
 		m_SpriteSheet(spriteSheetTexture),
 		m_FrameSize(frameSize), 
 		m_StartFrameCoordinates(startFrameCoordinates), 
@@ -31,7 +31,7 @@ namespace bgl
 
 	void Animation::setRepeating(bool repeating)
 	{
-
+		m_Repeating = repeating;
 	}
 
 	bool Animation::getRepeating() const
@@ -39,12 +39,12 @@ namespace bgl
 		return m_Repeating;
 	}
 
-	void Animation::setDeltaTime(float deltaTime)
+	void Animation::setDeltaTime(const sf::Time& deltaTime)
 	{
-
+		m_DeltaTime = deltaTime;
 	}
 
-	float Animation::getDeltaTime() const
+	const sf::Time& Animation::getDeltaTime() const
 	{
 		return m_DeltaTime;
 	}

@@ -2,7 +2,6 @@
 
 #include "GameObject.h"
 
-
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Clock.hpp>
@@ -12,7 +11,7 @@ namespace bgl
 	class Animation : public GameObject
 	{
 	public:
-		Animation(const sf::Texture& spriteSheetTexture, sf::Vector2u frameSize, sf::Vector2u startFrameCoordinates, sf::Vector2u endFrameCoordinates, float deltaTime, bool repeating = true);
+		Animation(const sf::Texture& spriteSheetTexture, sf::Vector2u frameSize, sf::Vector2u startFrameCoordinates, sf::Vector2u endFrameCoordinates, const sf::Time& deltaTime, bool repeating = true);
 		~Animation();
 
 		void play();
@@ -21,8 +20,8 @@ namespace bgl
 		void setRepeating(bool repeating);
 		bool getRepeating() const;
 
-		void setDeltaTime(float deltaTime);
-		float getDeltaTime() const;
+		void setDeltaTime(const sf::Time& deltaTime);
+		const sf::Time& getDeltaTime() const;
 
 		void update(const sf::Time& dt) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -37,7 +36,7 @@ namespace bgl
 		sf::Vector2u m_FrameSize;
 		sf::Vector2u m_StartFrameCoordinates;
 		sf::Vector2u m_EndFrameCoordinates;
-		float m_DeltaTime;
+		sf::Time m_DeltaTime;
 		sf::Clock m_Timer;
 		sf::IntRect m_CurrentFrame;
 		bool m_Playing;
