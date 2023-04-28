@@ -1,5 +1,6 @@
 #include "animation/Animation.h"
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <spdlog/spdlog.h>
 
 namespace bgl
 {
@@ -9,13 +10,13 @@ namespace bgl
 		m_FrameSize(frameSize), 
 		m_StartFrameCoordinates(startFrameCoordinates), 
 		m_EndFrameCoordinates(endFrameCoordinates), 
+		m_CurrentFrameCoordinates(startFrameCoordinates),
 		m_DeltaTime(deltaTime), 
 		m_Repeating(repeating)
 	{
 		m_Sprite.setTexture(m_SpriteSheet);
-		m_CurrentFrame = { frameSize.x * startFrameCoordinates.x, frameSize.y * startFrameCoordinates.y, frameSize.x, frameSize.y };
-		//spdlog::info("x:" << std::to_string(m_CurrentFrame.top) << "y:" <<)
-		//m_Sprite.setTextureRect(m_CurrentFrame);
+		m_CurrentFrame = { frameSize.x * m_CurrentFrameCoordinates.x, frameSize.y * m_CurrentFrameCoordinates.y, frameSize.x, frameSize.y };
+		m_Sprite.setTextureRect(m_CurrentFrame);
 	}
 
 	Animation::~Animation()
@@ -25,12 +26,11 @@ namespace bgl
 
 	void Animation::play()
 	{
-
+		m_Timer.restart();
 	}
 
 	void Animation::pause()
 	{
-
 	}
 
 	void Animation::setRepeating(bool repeating)
@@ -73,7 +73,11 @@ namespace bgl
 
 	void Animation::update(const sf::Time& dt)
 	{
-
+		if (m_Timer.getElapsedTime() >= m_DeltaTime)
+		{
+			jumpToNextFrame();
+			m_Timer.restart();
+		}
 	}
 
 	void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -84,5 +88,31 @@ namespace bgl
 	void Animation::handleEvent(const sf::Event& event)
 	{
 
+	}
+
+	void Animation::jumpToNextFrame()
+	{
+		const sf::Vector2f gridSize(m_SpriteSheet.getSize().x / m_FrameSize.x, m_SpriteSheet.getSize().y / m_FrameSize.y);
+
+		if (m_EndFrameCoordinates.y != m_StartFrameCoordinates.y)
+		{
+
+		}
+		else
+		{
+			if (m_CurrentFrameCoordinates.x < m_EndFrameCoordinates.x)
+			{
+				m_CurrentFrameCoordinates.x++;
+			}
+			else
+			{
+				m_CurrentFrameCoordinates.x = 0;
+			}
+		}
+
+		m_CurrentFrame.left = m_FrameSize.x * m_CurrentFrameCoordinates.x;
+		m_CurrentFrame.top = m_FrameSize.y * m_CurrentFrameCoordinates.y;
+
+		m_Sprite.setTextureRect(m_CurrentFrame);
 	}
 }

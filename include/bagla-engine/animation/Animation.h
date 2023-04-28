@@ -28,22 +28,31 @@ namespace bgl
 		void setDeltaTime(const sf::Time& deltaTime);
 		const sf::Time& getDeltaTime() const;
 
+		void setScale(sf::Vector2f scale);
+		void setScale(float x, float y);
+		sf::Vector2f getScale() const;
+
 		void update(const sf::Time& dt) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void handleEvent(const sf::Event& event) override;
 
 	private:
-		void nextFrame();
+		void jumpToNextFrame();
 
 	private:
 		sf::Sprite m_Sprite;
 		sf::Texture m_SpriteSheet;
-		sf::Vector2u m_FrameSize;
-		sf::Vector2u m_StartFrameCoordinates;
-		sf::Vector2u m_EndFrameCoordinates;
+
+		sf::Vector2i m_FrameSize;
+		sf::Vector2i m_StartFrameCoordinates;
+		sf::Vector2i m_EndFrameCoordinates;
+		sf::Vector2i m_CurrentFrameCoordinates;
+
+		sf::IntRect m_CurrentFrame;
+
 		sf::Time m_DeltaTime;
 		sf::Clock m_Timer;
-		sf::IntRect m_CurrentFrame;
+
 		bool m_Playing;
 		bool m_Repeating;
 	};
