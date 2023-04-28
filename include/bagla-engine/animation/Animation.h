@@ -11,7 +11,7 @@ namespace bgl
 	class Animation : public GameObject
 	{
 	public:
-		Animation(const sf::Texture& spriteSheetTexture, sf::Vector2u frameSize, sf::Vector2u startFrameCoordinates, sf::Vector2u endFrameCoordinates, const sf::Time& deltaTime, bool repeating = true);
+		Animation(const sf::Texture& spriteSheetTexture, sf::Vector2i frameSize, sf::Vector2i startFrameCoordinates, sf::Vector2i endFrameCoordinates, const sf::Time& deltaTime, bool repeating = true);
 		~Animation();
 
 		void play();
@@ -19,6 +19,11 @@ namespace bgl
 		
 		void setRepeating(bool repeating);
 		bool getRepeating() const;
+
+		void setPosition(float x, float y);
+		void setPosition(sf::Vector2f position);
+
+		sf::Vector2f getPosition() const;
 
 		void setDeltaTime(const sf::Time& deltaTime);
 		const sf::Time& getDeltaTime() const;
