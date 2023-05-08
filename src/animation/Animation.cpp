@@ -71,6 +71,21 @@ namespace bgl
 		return m_DeltaTime;
 	}
 
+	void Animation::setScale(sf::Vector2f scale)
+	{
+		m_Sprite.setScale(scale);
+	}
+
+	void Animation::setScale(float x, float y)
+	{
+		m_Sprite.setScale(x, y);
+	}
+
+	sf::Vector2f Animation::getScale() const
+	{
+		return m_Sprite.getScale();
+	}
+
 	void Animation::update(const sf::Time& dt)
 	{
 		if (m_Timer.getElapsedTime() >= m_DeltaTime)
