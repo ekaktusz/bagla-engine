@@ -25,6 +25,8 @@ namespace bgl
 
 		sf::Vector2f getPosition() const;
 
+		sf::Vector2f getSize() const;
+
 		void setDeltaTime(const sf::Time& deltaTime);
 		const sf::Time& getDeltaTime() const;
 

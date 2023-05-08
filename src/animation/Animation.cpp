@@ -56,6 +56,11 @@ namespace bgl
 	}
 
 
+	sf::Vector2f Animation::getSize() const
+	{
+		return { m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height };
+	}
+
 	void Animation::setPosition(sf::Vector2f position)
 	{
 		setPosition(position.x, position.y);
