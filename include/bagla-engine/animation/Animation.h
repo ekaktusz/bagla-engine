@@ -55,7 +55,7 @@ namespace bgl
 		sf::Time m_DeltaTime;
 		sf::Clock m_Timer;
 
-		bool m_Playing;
-		bool m_Repeating;
+		bool m_Playing = false;
+		bool m_Repeating = true;
 	};
 }

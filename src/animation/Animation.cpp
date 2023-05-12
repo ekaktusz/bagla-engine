@@ -17,6 +17,8 @@ namespace bgl
 		m_Sprite.setTexture(m_SpriteSheet);
 		m_CurrentFrame = { frameSize.x * m_CurrentFrameCoordinates.x, frameSize.y * m_CurrentFrameCoordinates.y, frameSize.x, frameSize.y };
 		m_Sprite.setTextureRect(m_CurrentFrame);
+
+		play();
 	}
 
 	Animation::~Animation()
@@ -26,11 +28,16 @@ namespace bgl
 
 	void Animation::play()
 	{
-		m_Timer.restart();
+		if (!m_Playing)
+		{
+			m_Timer.restart();
+			m_Playing = true;
+		}
 	}
 
 	void Animation::pause()
 	{
+		m_Playing = false;
 	}
 
 	void Animation::setRepeating(bool repeating)
@@ -93,6 +100,7 @@ namespace bgl
 
 	void Animation::update(const sf::Time& dt)
 	{
+		if (!m_Playing) return;
 		if (m_Timer.getElapsedTime() >= m_DeltaTime)
 		{
 			jumpToNextFrame();
