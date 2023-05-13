@@ -8,5 +8,7 @@ The things that it provides (or will in the future)
 - Map support for Tiled maps (with tmxlite)
 - Physics system (with box2d) (even for maps)
 - State manager
+- Animations
+- Particle system
 
 My open-source game in progress [Pitty-Putty](https://github.com/ekaktusz/pitty-putty) is a demonstration with it's capabilities.
