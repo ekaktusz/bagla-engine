@@ -69,6 +69,16 @@ namespace bgl
 		}
 	}
 
+	void AnimationComponent::flipHorizontally(bool flip)
+	{
+
+	}
+
+	void AnimationComponent::flipVertically(bool flip)
+	{
+
+	}
+
 	void AnimationComponent::pause()
 	{
 		m_Animations[m_CurrentAnimationID]->pause();

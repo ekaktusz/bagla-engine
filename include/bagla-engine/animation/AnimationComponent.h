@@ -33,6 +33,9 @@ namespace bgl
 		void setScale(float x, float y);
 		void setScale(sf::Vector2f scale);
 
+		void flipHorizontally(bool flip);
+		void flipVertically(bool flip);
+
 		void pause();
 		void play();
 
