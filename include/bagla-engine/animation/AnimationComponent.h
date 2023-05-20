@@ -6,6 +6,8 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 
+#include "animation/Animation.h"
+
 namespace sf 
 { 
 	class Time; 
@@ -13,9 +15,7 @@ namespace sf
 }
 
 namespace bgl
-{ 
-	class Animation;
-
+{
 	class AnimationComponent : public sf::Drawable
 	{
 	public:
@@ -29,6 +29,9 @@ namespace bgl
 
 		void setPosition(float x, float y);
 		void setPosition(sf::Vector2f position);
+
+		void setScale(float x, float y);
+		void setScale(sf::Vector2f scale);
 
 		void pause();
 		void play();

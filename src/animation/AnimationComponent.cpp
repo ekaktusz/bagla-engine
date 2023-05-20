@@ -39,12 +39,34 @@ namespace bgl
 
 	void AnimationComponent::setPosition(float x, float y)
 	{
-		
+		for (auto& animation : m_Animations)
+		{
+			animation.second->setPosition(x, y);
+		}
 	}
 
 	void AnimationComponent::setPosition(sf::Vector2f position)
 	{
+		for (auto& animation : m_Animations)
+		{
+			animation.second->setPosition(position);
+		}
+	}
 
+	void AnimationComponent::setScale(float x, float y)
+	{
+		for (auto& animation : m_Animations)
+		{
+			animation.second->setScale(x, y);
+		}
+	}
+
+	void AnimationComponent::setScale(sf::Vector2f scale)
+	{
+		for (auto& animation : m_Animations)
+		{
+			animation.second->setScale(scale);
+		}
 	}
 
 	void AnimationComponent::pause()
