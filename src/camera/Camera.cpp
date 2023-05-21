@@ -90,6 +90,4 @@ namespace bgl
 	{
 		m_AttachedRenderWindow.setView(m_View);
 	}
-
-
 }

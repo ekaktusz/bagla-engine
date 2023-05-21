@@ -118,13 +118,27 @@ namespace bgl
 
 	}
 
+	void Animation::flipHorizontally(bool flip)
+	{
+		if (m_FlippedHorizontally != flip)
+		{
+			m_FlippedHorizontally = flip;
+			jumpToNextFrame(); // cause the flip is not applied on the current frame. could be nicer
+		}
+	}
+
+	void Animation::flipVertically(bool flip)
+	{
+		m_FlippedVertically = flip;
+	}
+
 	void Animation::jumpToNextFrame()
 	{
 		const sf::Vector2f gridSize(m_SpriteSheet.getSize().x / m_FrameSize.x, m_SpriteSheet.getSize().y / m_FrameSize.y);
 
 		if (m_EndFrameCoordinates.y != m_StartFrameCoordinates.y)
 		{
-
+			// TODO
 		}
 		else
 		{
@@ -141,6 +155,16 @@ namespace bgl
 		m_CurrentFrame.left = m_FrameSize.x * m_CurrentFrameCoordinates.x;
 		m_CurrentFrame.top = m_FrameSize.y * m_CurrentFrameCoordinates.y;
 
+		if (m_FlippedHorizontally)
+		{
+			m_CurrentFrame.width = -std::abs(m_CurrentFrame.width);
+			m_CurrentFrame.left += std::abs(m_CurrentFrame.width);
+		}	
+		else
+		{
+			m_CurrentFrame.width = std::abs(m_CurrentFrame.width);
+		}
+			
 		m_Sprite.setTextureRect(m_CurrentFrame);
 	}
 }

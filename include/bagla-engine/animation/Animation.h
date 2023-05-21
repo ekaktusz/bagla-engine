@@ -38,6 +38,9 @@ namespace bgl
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void handleEvent(const sf::Event& event) override;
 
+		void flipHorizontally(bool flip);
+		void flipVertically(bool flip);
+
 	private:
 		void jumpToNextFrame();
 
@@ -57,5 +60,8 @@ namespace bgl
 
 		bool m_Playing = false;
 		bool m_Repeating = true;
+
+		bool m_FlippedHorizontally = false;
+		bool m_FlippedVertically = false;
 	};
 }

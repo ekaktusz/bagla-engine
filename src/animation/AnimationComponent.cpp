@@ -71,12 +71,18 @@ namespace bgl
 
 	void AnimationComponent::flipHorizontally(bool flip)
 	{
-
+		for (auto& animation : m_Animations)
+		{
+			animation.second->flipHorizontally(flip);
+		}
 	}
 
 	void AnimationComponent::flipVertically(bool flip)
 	{
-
+		for (auto& animation : m_Animations)
+		{
+			animation.second->flipVertically(flip);
+		}
 	}
 
 	void AnimationComponent::pause()
