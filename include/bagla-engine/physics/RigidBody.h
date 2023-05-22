@@ -16,10 +16,17 @@ namespace bgl
 	public:
 		RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
 		RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
+
+		void initialize(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
+
 		~RigidBody();
 
 		sf::Vector2f getPosition() const;
 		void setPosition(sf::Vector2f position);
+		void setPosition(float x, float y);
+
+		sf::Vector2f getSize() const;
+		void setSize(float sx, float sy);
 
 		void setLinearVelocity(sf::Vector2f velocity);
 		void setGravityScale(float gravityScale);

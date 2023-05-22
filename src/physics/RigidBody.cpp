@@ -12,22 +12,32 @@ namespace bgl
 
 	RigidBody::RigidBody(float x, float y, float sx, float sy, bool dynamic /*= true*/, float density)
 	{
-		m_RigidBodyRectangleShape.setSize({sx, sy});
+		initialize(x, y, sx, sy, dynamic, density);
+
+	}
+
+	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic /*= true*/, float density) : RigidBody(position.x, position.y, size.x, size.y, dynamic, density)
+	{
+		initialize(position.x, position.y, size.x, size.y, dynamic, density);
+	}
+
+
+	void RigidBody::initialize(float x, float y, float sx, float sy, bool dynamic /*= true*/, float density /*= 0.f*/)
+	{
+		m_RigidBodyRectangleShape.setSize({ sx, sy });
 		m_RigidBodyRectangleShape.setPosition(x, y);
 		m_RigidBodyRectangleShape.setFillColor(sf::Color::Green);
 
 		if (dynamic) m_BodyDef.type = b2_dynamicBody;
 
-		float bx = PhysicsWorld::scaleToPhysics(x + sx / 2) ;
+		float bx = PhysicsWorld::scaleToPhysics(x + sx / 2);
 		float by = -PhysicsWorld::scaleToPhysics(y + sy / 2);
 		m_BodyDef.position.Set(bx, by);
 		m_Shape.SetAsBox(PhysicsWorld::scaleToPhysics(sx) / 2, PhysicsWorld::scaleToPhysics(sy) / 2);
 
 		m_Body = PhysicsWorld::getInstance().m_World->CreateBody(&m_BodyDef);
-		//m_Body = world.CreateBody(&m_BodyDef);
 
 		b2FixtureDef fixtureDef;
-		//  (uintptr_t) this;
 		fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 		fixtureDef.shape = &m_Shape;
 		fixtureDef.density = density;
@@ -35,12 +45,6 @@ namespace bgl
 		m_Fixture = m_Body->CreateFixture(&fixtureDef);
 		m_Body->SetFixedRotation(true);
 	}
-
-	RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic /*= true*/, float density) : RigidBody(position.x, position.y, size.x, size.y, dynamic, density)
-	{
-		
-	}
-
 
 	RigidBody::~RigidBody()
 	{
@@ -53,6 +57,28 @@ namespace bgl
 		float x = PhysicsWorld::scaleToGraphics(m_Body->GetPosition().x);
 		float y = -PhysicsWorld::scaleToGraphics(m_Body->GetPosition().y);
 		return sf::Vector2f(x - m_RigidBodyRectangleShape.getSize().x / 2, y - m_RigidBodyRectangleShape.getSize().y / 2);
+	}
+
+	void RigidBody::setPosition(sf::Vector2f position)
+	{
+		m_Body->SetTransform(PhysicsWorld::scaleToPhysics(position), m_Body->GetAngle());
+	}
+
+	void RigidBody::setPosition(float x, float y)
+	{
+		setPosition({ x,y });
+	}
+
+	sf::Vector2f RigidBody::getSize() const
+	{
+		return m_RigidBodyRectangleShape.getSize();
+	}
+
+	void RigidBody::setSize(float sx, float sy)
+	{
+		float density = m_Fixture->GetDensity();
+		m_Body->DestroyFixture(m_Fixture);
+		initialize(getPosition().x, getPosition().y, sx, sy, m_BodyDef.type == b2_dynamicBody, density);
 	}
 
 	void RigidBody::setLinearVelocity(sf::Vector2f velocity)
