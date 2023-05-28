@@ -10,5 +10,6 @@ The things that it provides (or will in the future)
 - State manager
 - Animations
 - Particle system
+- Lights (with box2d)
 
 My open-source game in progress [Pitty-Putty](https://github.com/ekaktusz/pitty-putty) is a demonstration with it's capabilities.
