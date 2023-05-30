@@ -6,11 +6,14 @@
 
 #include <SFML/Graphics/Drawable.hpp>
 #include "physics/DebugDraw.h"
+#include <vector>
 
 namespace sf
 {
 	class Time;
 }
+
+class b2Body;
 
 namespace bgl
 {
@@ -30,6 +33,7 @@ namespace bgl
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void initDebugDraw(sf::RenderWindow& renderWindow);
 
+		void destroyBody(b2Body* body);
 
 		static constexpr float PIXEL_PER_METER = 32.f;
 
@@ -47,5 +51,7 @@ namespace bgl
 	private:
 		ContactListener m_ContactListener;
 		std::unique_ptr<DebugDraw> m_DebugDraw;
+
+		std::vector<b2Body*> m_BodiesToDestroy;
 	};
 }

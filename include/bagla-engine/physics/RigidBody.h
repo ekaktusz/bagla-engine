@@ -17,8 +17,6 @@ namespace bgl
 		RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
 		RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
 
-		void initialize(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
-
 		~RigidBody();
 
 		sf::Vector2f getPosition() const;
@@ -29,6 +27,8 @@ namespace bgl
 		void setSize(float sx, float sy);
 
 		void setLinearVelocity(sf::Vector2f velocity);
+		void setLinearVelocity(float vx, float vy);
+
 		void setGravityScale(float gravityScale);
 
 		void setBeginContact(std::function<void(RigidBody*, sf::Vector2f)> beginContact);
@@ -36,6 +36,9 @@ namespace bgl
 
 		void beginContact(RigidBody* other, sf::Vector2f collisionNormal);
 		void endContact(RigidBody* other, sf::Vector2f collisionNormal);
+
+	private:
+		void initialize(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
 
 	private:
 		b2Body* m_Body;

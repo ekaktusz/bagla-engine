@@ -48,8 +48,7 @@ namespace bgl
 
 	RigidBody::~RigidBody()
 	{
-		m_Body->DestroyFixture(m_Fixture);
-		PhysicsWorld::getInstance().m_World->DestroyBody(m_Body);
+		PhysicsWorld::getInstance().destroyBody(m_Body);
 	}
 
 	sf::Vector2f RigidBody::getPosition() const
@@ -84,6 +83,11 @@ namespace bgl
 	void RigidBody::setLinearVelocity(sf::Vector2f velocity)
 	{
 		m_Body->SetLinearVelocity(PhysicsWorld::scaleToPhysics({ velocity.x, velocity.y }));
+	}
+
+	void RigidBody::setLinearVelocity(float vx, float vy)
+	{
+		m_Body->SetLinearVelocity(PhysicsWorld::scaleToPhysics({ vx, vy }));
 	}
 
 	void RigidBody::setGravityScale(float gravityScale)
