@@ -31,6 +31,8 @@ namespace bgl
 		void setBeginContact(std::function<void(RigidBody*, sf::Vector2f)> beginContact);
 		void setEndContact(std::function<void(RigidBody*, sf::Vector2f)> endContact);
 
+		void setSensor(bool sensor) { m_Fixture->SetSensor(sensor); }
+
 		void beginContact(RigidBody* other, sf::Vector2f collisionNormal);
 		void endContact(RigidBody* other, sf::Vector2f collisionNormal);
 
