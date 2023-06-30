@@ -1,6 +1,6 @@
 #include "map/ObjectLayer.h"
 #include "tmxlite/ObjectGroup.hpp"
-#include "physics/RigidBody.h"
+#include "physics/PhysicsWorld.h"
 #include <spdlog/spdlog.h>
 
 namespace bgl
@@ -21,11 +21,11 @@ namespace bgl
 		const auto& objects = objectGroup.getObjects();
 		for (const auto& object : objects)
 		{
-			if (object.getShape() == tmx::Object::Shape::Rectangle)
+			if (object.getShape() == tmx::Object::Shape::Rectangle && isSolid)
 			{
-				std::unique_ptr<RigidBody> tileRigidBody = std::make_unique<RigidBody>(object.getPosition().x, object.getPosition().y, object.getAABB().width, object.getAABB().height, false);
+				RigidBody* tileRigidBody = PhysicsWorld::getInstance().newRigidBody(object.getPosition().x, object.getPosition().y, object.getAABB().width, object.getAABB().height, false);
 				spdlog::info("x: " + std::to_string(object.getPosition().x) + " y:" + std::to_string(object.getPosition().y) + " w:" + std::to_string(object.getAABB().width) + " h:" + std::to_string(object.getAABB().height));
-				m_RigidBodies.push_back(std::move(tileRigidBody));
+				m_RigidBodies.push_back(tileRigidBody);
 			}
 		}
 	}

@@ -13,10 +13,10 @@ namespace sf
 	class Time;
 }
 
-class b2Body;
-
 namespace bgl
 {
+	class RigidBody;
+
 	class PhysicsWorld : public sf::Drawable
 	{
 	public:
@@ -33,7 +33,9 @@ namespace bgl
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void initDebugDraw(sf::RenderWindow& renderWindow);
 
-		void destroyBody(b2Body* body);
+		void destroyRigidBody(bgl::RigidBody* body);
+		bgl::RigidBody* newRigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
+		bgl::RigidBody* newRigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
 
 		static constexpr float PIXEL_PER_METER = 32.f;
 
@@ -52,6 +54,6 @@ namespace bgl
 		ContactListener m_ContactListener;
 		std::unique_ptr<DebugDraw> m_DebugDraw;
 
-		std::vector<b2Body*> m_BodiesToDestroy;
+		std::vector<bgl::RigidBody*> m_BodiesToDestroy;
 	};
 }

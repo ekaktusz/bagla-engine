@@ -48,7 +48,6 @@ namespace bgl
 
 	RigidBody::~RigidBody()
 	{
-		PhysicsWorld::getInstance().destroyBody(m_Body);
 	}
 
 	sf::Vector2f RigidBody::getPosition() const

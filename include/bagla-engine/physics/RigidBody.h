@@ -14,9 +14,6 @@ namespace bgl
 	class RigidBody final
 	{
 	public:
-		RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
-		RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
-
 		~RigidBody();
 
 		sf::Vector2f getPosition() const;
@@ -38,9 +35,14 @@ namespace bgl
 		void endContact(RigidBody* other, sf::Vector2f collisionNormal);
 
 	private:
+		RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
+		RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
+
 		void initialize(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
 
 	private:
+		friend class PhysicsWorld;
+
 		b2Body* m_Body;
 		b2BodyDef m_BodyDef;
 		b2PolygonShape m_Shape;

@@ -20,6 +20,6 @@ namespace bgl
 	private:
 		tmx::ObjectGroup& m_ObjectGroup;
 		
-		std::vector<std::unique_ptr<RigidBody>> m_RigidBodies;
+		std::vector<RigidBody*> m_RigidBodies;
 	};
 }

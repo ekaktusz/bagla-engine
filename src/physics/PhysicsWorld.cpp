@@ -1,6 +1,7 @@
 #include "physics/PhysicsWorld.h"
 #include <box2d/b2_draw.h>
 #include <box2d/b2_body.h>
+#include "physics/RigidBody.h"
 
 namespace bgl
 {
@@ -24,8 +25,10 @@ namespace bgl
 
 		for (auto* body : m_BodiesToDestroy)
 		{
-			m_World->DestroyBody(body);
+			m_World->DestroyBody(body->m_Body);
+			delete body;
 		}
+		m_BodiesToDestroy.clear();
 	}
 
 	void PhysicsWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -40,9 +43,19 @@ namespace bgl
 		m_DebugDraw->SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit);
 	}
 
-	void PhysicsWorld::destroyBody(b2Body* body)
+	void PhysicsWorld::destroyRigidBody(bgl::RigidBody* body)
 	{
 		m_BodiesToDestroy.push_back(body);
+	}
+
+	bgl::RigidBody* PhysicsWorld::newRigidBody(float x, float y, float sx, float sy, bool dynamic /*= true*/, float density /*= 0.f*/)
+	{
+		return new bgl::RigidBody(x, y, sx, sy, dynamic, density);
+	}
+
+	bgl::RigidBody* PhysicsWorld::newRigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic /*= true*/, float density /*= 0.f*/)
+	{
+		return new bgl::RigidBody(position, size, dynamic, density);
 	}
 
 	float PhysicsWorld::scaleToGraphics(float f)
