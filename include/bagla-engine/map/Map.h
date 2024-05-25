@@ -16,8 +16,8 @@ namespace bgl
 
 		bool loadFromFile(const std::string& filePath);
 
-		const TileLayer& getTileLayer(const std::string& name);
-		const ObjectLayer& getObjectLayer(const std::string& name);
+		const TileLayer& getTileLayer(const std::string& name) const;
+		const ObjectLayer& getObjectLayer(const std::string& name) const;
 		//TileLayer getTileLayer(unsigned int idx);
 		//ObjectLayer getObjectLayer(unsigned int idx);
 

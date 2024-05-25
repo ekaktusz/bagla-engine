@@ -43,12 +43,12 @@ namespace bgl
 		return true;
 	}
 
-	const bgl::TileLayer& Map::getTileLayer(const std::string& name)
+	const bgl::TileLayer& Map::getTileLayer(const std::string& name) const
 	{
 		auto found = m_TileLayers.find(name);
 		if (found == m_TileLayers.end())
 		{
-			spdlog::error("Cant find tilelayer with name: " + name);
+			spdlog::error("Cant find TileLayer with name: " + name);
 		}
 		return *found->second;
 	}
