@@ -1,8 +1,10 @@
 #include "physics/PhysicsWorld.h"
-#include <box2d/b2_draw.h>
-#include <box2d/b2_body.h>
 #include "physics/RigidBody.h"
-#include <box2d/b2_settings.h>
+#include <box2d/b2_draw.h>
+#include <box2d/b2_math.h>
+#include <box2d/b2_types.h>
+#include <box2d/b2_world.h>
+#include <memory>
 
 
 namespace bgl
