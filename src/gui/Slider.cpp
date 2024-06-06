@@ -20,7 +20,7 @@ namespace bgl
 		m_Indicator.setFillColor(sf::Color::Red);
 
 		m_Text.setString("");
-		m_Text.setColor(sf::Color::White);
+		m_Text.setFillColor(sf::Color::White);
 		m_Text.setOutlineColor(sf::Color::Black);
 		m_Text.setOutlineThickness(1);
 	}
