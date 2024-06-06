@@ -53,4 +53,14 @@ namespace bgl
 		return *found->second;
 	}
 
+	const bgl::ObjectLayer& Map::getObjectLayer(const std::string& name) const
+	{
+		auto found = m_ObjectLayers.find(name);
+		if (found == m_ObjectLayers.end())
+		{
+			spdlog::error("Cant find ObjectLayer with name: " + name);
+		}
+		return *found->second;
+	}
+
 }

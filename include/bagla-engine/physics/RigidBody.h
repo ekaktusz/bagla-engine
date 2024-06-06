@@ -6,6 +6,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <functional>
 
+#include <any>
+
 class b2Body;
 class b2World;
 
@@ -36,6 +38,13 @@ namespace bgl
 		void beginContact(RigidBody* other, sf::Vector2f collisionNormal);
 		void endContact(RigidBody* other, sf::Vector2f collisionNormal);
 
+		void setUserCustomData(std::any userCustomData) {
+			m_UserCustomData = userCustomData;
+		}
+		std::any getUserCustomData() {
+			return m_UserCustomData;
+		}
+
 	private:
 		RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
 		RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
@@ -54,5 +63,7 @@ namespace bgl
 
 		std::function<void(RigidBody*, sf::Vector2f)> m_BeginContact;
 		std::function<void(RigidBody*, sf::Vector2f)> m_EndContact;
+
+		std::any m_UserCustomData;
 	};
 }

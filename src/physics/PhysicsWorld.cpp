@@ -2,6 +2,8 @@
 #include <box2d/b2_draw.h>
 #include <box2d/b2_body.h>
 #include "physics/RigidBody.h"
+#include <box2d/b2_settings.h>
+
 
 namespace bgl
 {
