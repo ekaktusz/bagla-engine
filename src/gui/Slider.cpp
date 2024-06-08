@@ -92,6 +92,11 @@ namespace bgl
 		}
 	}
 
+	sf::Vector2f Slider::getSize() const
+	{
+		return m_OuterSlider.getSize();
+	}
+
 	void Slider::setSize(sf::Vector2f size)
 	{
 		m_OuterSlider.setSize(size);
@@ -99,6 +104,11 @@ namespace bgl
 		m_Indicator.setSize({ 5, size.y });
 
 		m_Text.setCharacterSize(m_InnerSlider.getSize().y);
+	}
+
+	sf::Vector2f Slider::getPosition() const
+	{
+		return m_OuterSlider.getPosition();
 	}
 
 	void Slider::setPosition(sf::Vector2f position)

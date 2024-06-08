@@ -1,9 +1,16 @@
 #pragma once
 
 #include "gui/Widget.h"
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <functional>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Time.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
+#include <string>
 
 namespace sf
 {
@@ -24,7 +31,10 @@ namespace bgl
 		float getProgress() const;
 		void setProgress(float progress);
 
+		sf::Vector2f getSize() const;
 		void setSize(sf::Vector2f size);
+
+		sf::Vector2f getPosition() const;
 		void setPosition(sf::Vector2f position);
 
 		void updateTextPosition();
