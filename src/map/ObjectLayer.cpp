@@ -34,6 +34,9 @@ namespace bgl
 
 	ObjectLayer::~ObjectLayer()
 	{
-
+		for (RigidBody* rigidBody : m_RigidBodies) 
+		{
+			PhysicsWorld::getInstance().destroyRigidBody(rigidBody);
+		}
 	}
 }
