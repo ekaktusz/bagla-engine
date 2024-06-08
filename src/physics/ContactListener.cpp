@@ -1,8 +1,12 @@
 #include "physics/ContactListener.h"
 #include "physics/RigidBody.h"
-#include <string>
+#include <box2d/b2_collision.h>
+#include <box2d/b2_contact.h>
+#include <box2d/b2_math.h>
+#include <box2d/b2_world_callbacks.h>
+#include <SFML/System/Vector2.hpp>
 #include <spdlog/spdlog.h>
-#include <box2d/box2d.h>
+#include <string>
 
 namespace bgl
 {
