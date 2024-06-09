@@ -3,7 +3,16 @@
 #include <spdlog/spdlog.h>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Mouse.hpp>
-#include <gui/FocusLock.h>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <cmath>
+#include <functional>
+#include <string>
 
 namespace bgl
 {
