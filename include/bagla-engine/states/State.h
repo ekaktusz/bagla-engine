@@ -21,6 +21,7 @@ namespace bgl
 		virtual void draw() const = 0;
 		virtual void handleEvent(const sf::Event& event) = 0;
 
+		virtual void onStart() {}
 		virtual void onResume() {}
 		virtual void onPause() {}
 
