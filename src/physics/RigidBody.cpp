@@ -61,7 +61,7 @@ namespace bgl
 
 	void RigidBody::setPosition(sf::Vector2f position)
 	{
-		m_Body->SetTransform(PhysicsWorld::scaleToPhysics(position), m_Body->GetAngle());
+		m_Body->SetTransform(PhysicsWorld::scaleToPhysics({position.x, -position.y}), m_Body->GetAngle());
 	}
 
 	void RigidBody::setPosition(float x, float y)

@@ -24,8 +24,6 @@ namespace bgl
 	{
 		IF_EMPTY_RETURN
 
-		m_States.top()->onStop();
-
 		m_States.pop();
 
 		if (!m_States.empty())
