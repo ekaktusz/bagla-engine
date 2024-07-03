@@ -1,8 +1,11 @@
 #include "states/StateManager.h"
+
+#include <memory>
 #include <spdlog/spdlog.h>
+#include <states/State.h>
+#include <type_traits>
 
 #define IF_EMPTY_RETURN if (m_States.empty()) { spdlog::error("State stack is empty!"); return; }
-
 
 namespace bgl
 {
@@ -13,13 +16,16 @@ namespace bgl
 			m_States.top()->onPause();
 		}
 		m_States.push(std::move(state));
+		m_States.top()->onStart();
 	}
 
 
 	void StateManager::handlePopState()
 	{
 		IF_EMPTY_RETURN
-		
+
+		m_States.top()->onStop();
+
 		m_States.pop();
 
 		if (!m_States.empty())
