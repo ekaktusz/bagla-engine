@@ -35,7 +35,8 @@ namespace bgl
 			}
 			else if (layer->getType() == tmx::Layer::Type::Object)
 			{
-				std::unique_ptr<ObjectLayer> objectLayer = std::make_unique<ObjectLayer>(layer->getLayerAs<tmx::ObjectGroup>());
+				tmx::ObjectGroup& objectGroup = layer->getLayerAs<tmx::ObjectGroup>();
+				std::unique_ptr<ObjectLayer> objectLayer = std::make_unique<ObjectLayer>(objectGroup);
 				m_ObjectLayers.try_emplace(layer->getName(), std::move(objectLayer));
 			}
 		}
