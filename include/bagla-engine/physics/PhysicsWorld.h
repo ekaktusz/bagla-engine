@@ -21,6 +21,8 @@ namespace bgl
 	{
 	public:
 
+		friend class RigidBody;
+
 		static PhysicsWorld& getInstance()
 		{
 			static PhysicsWorld s_Instance;
@@ -44,13 +46,12 @@ namespace bgl
 		static float scaleToGraphics(float f);
 		static float scaleToPhysics(float f);
 
-	public:
-		std::unique_ptr<b2World> m_World;
-
 	private:
 		PhysicsWorld();
 
 	private:
+		std::unique_ptr<b2World> m_World;
+		
 		ContactListener m_ContactListener;
 		std::unique_ptr<DebugDraw> m_DebugDraw;
 
