@@ -32,17 +32,17 @@ namespace bgl
 
 		updateTextPosition();
 
-		sf::Vector2i mousePosition = sf::Mouse::getPosition(m_RenderWindow);
-		if (m_OuterSlider.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				if (!FocusLock::isLocked())
-				{
-					FocusLock::lockFocus(this);
-				}
-			}
-		}
+		const sf::Vector2i mousePosition = sf::Mouse::getPosition(m_RenderWindow);
+		// if (m_OuterSlider.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+		// {
+		// 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		// 	{
+		// 		if (!FocusLock::isLocked())
+		// 		{
+		// 			FocusLock::lockFocus(this);
+		// 		}
+		// 	}
+		// }
 
 		if (FocusLock::isWidgetInFocus(this))
 		{
@@ -67,6 +67,16 @@ namespace bgl
 
 	void Slider::handleEvent(const sf::Event& event)
 	{
+		const sf::Vector2i mousePosition = sf::Mouse::getPosition(m_RenderWindow);
+		
+		if (event.type == sf::Event::MouseButtonPressed && !FocusLock::isWidgetInFocus(this))
+		{
+			if (m_OuterSlider.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+			{
+				FocusLock::lockFocus(this);
+			}
+		}
+
 		if (event.type == sf::Event::MouseButtonReleased && FocusLock::isWidgetInFocus(this))
 		{
 			FocusLock::unlockFocus();
