@@ -32,7 +32,14 @@ namespace bgl
 
 	void Camera::setPosition(float x, float y)
 	{
-		m_View.setCenter(x + m_View.getSize().x / 2.f, y + m_View.getSize().x / 2.f);
+		// Adjust position to ensure the camera stays within the world boundaries
+        const float halfWidth = m_View.getSize().x / 2.f;
+        const float halfHeight = m_View.getSize().y / 2.f;
+
+        const float newX = std::max(m_WorldBoundaries.left + halfWidth, std::min(x + halfWidth, m_WorldBoundaries.left + m_WorldBoundaries.width - halfWidth)) - halfWidth;
+        const float newY = std::max(m_WorldBoundaries.top + halfHeight, std::min(y + halfHeight, m_WorldBoundaries.top + m_WorldBoundaries.height - halfHeight)) - halfHeight;
+
+        m_View.setCenter(x + halfWidth, y + halfHeight);
 		flush();
 	}
 
@@ -48,14 +55,20 @@ namespace bgl
 
 	void Camera::setCenterPosition(float x, float y)
 	{
-		m_View.setCenter(x, y);
+		// Adjust position to ensure the camera stays within the world boundaries
+        const float halfWidth = m_View.getSize().x / 2.f;
+        const float halfHeight = m_View.getSize().y / 2.f;
+
+        const float newX = std::max(m_WorldBoundaries.left + halfWidth, std::min(x, m_WorldBoundaries.left + m_WorldBoundaries.width - halfWidth));
+        const float newY = std::max(m_WorldBoundaries.top + halfHeight, std::min(y, m_WorldBoundaries.top + m_WorldBoundaries.height - halfHeight));
+
+        m_View.setCenter(newX, newY);
 		flush();
 	}
 
 	void Camera::setCenterPosition(sf::Vector2f position)
 	{
-		m_View.setCenter(position);
-		flush();
+		setCenterPosition(position.x, position.y);
 	}
 
 	sf::Vector2f Camera::getCenterPosition() const
@@ -82,8 +95,8 @@ namespace bgl
 
 	void Camera::move(sf::Vector2f movement)
 	{
-		m_View.move(movement);
-		flush();
+		sf::Vector2f newPosition = m_View.getCenter() + movement;
+        setCenterPosition(newPosition);
 	}
 
 	void Camera::flush()
