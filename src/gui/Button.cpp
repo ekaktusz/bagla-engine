@@ -104,6 +104,11 @@ namespace bgl
 		m_HoverColor = color;
 	}
 
+	void Button::setCornerRadius(float radius)
+	{
+		m_InnerButton.setCornerRadius(radius);
+	}
+
 	void Button::update(const sf::Time& dt)
 	{
 		m_InnerButton.setFillColor(m_FillColor);

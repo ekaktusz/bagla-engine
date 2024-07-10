@@ -5,9 +5,9 @@
 #include <SFML/Graphics/Text.hpp>
 
 #include <functional>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
+#include "graphics/RoundedRectangleShape.h"
 
 
 namespace bgl
@@ -23,6 +23,7 @@ namespace bgl
 
 		void setString(const std::string& buttonString);
 		void setActionTodo(std::function<void()> actionToDo);
+		
 		void setPosition(sf::Vector2f position);
 		void setSize(sf::Vector2f size);
 		void setFillColor(sf::Color color);
@@ -31,6 +32,7 @@ namespace bgl
 		void setTextColor(sf::Color color);
 		void setFont(const sf::Font& font);
 		void setHoverColor(sf::Color color);
+		void setCornerRadius(float radius);
 
 		void update(const sf::Time& dt) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -60,10 +62,12 @@ namespace bgl
 
 		float m_OutlineThickness;
 
-		sf::RectangleShape m_InnerButton;
+		bgl::RoundedRectangleShape m_InnerButton;
 
 		sf::Sound m_SoundOnSelect;
 		sf::Sound m_SoundOnHover;
+
+
 	};
 
 }

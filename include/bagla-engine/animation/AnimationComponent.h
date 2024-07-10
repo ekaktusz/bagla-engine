@@ -1,10 +1,11 @@
 #pragma once
 
-#include <string>
 #include <memory>
+#include <string>
 #include <unordered_map>
-#include <SFML/Graphics/RenderStates.hpp>
+
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
 #include "animation/Animation.h"
 
@@ -20,7 +21,7 @@ namespace bgl
 	{
 	public:
 		AnimationComponent() = default;
-
+		
 		void addAnimation(const std::string& id, std::unique_ptr<Animation> animation);
 		void removeAnimation(const std::string& id);
 
@@ -42,7 +43,7 @@ namespace bgl
 		void play();
 
 	private:
-		std::unordered_map<std::string, std::unique_ptr<Animation>> m_Animations;
+		std::unordered_map<std::string, std::unique_ptr<Animation>> m_Animations; 
 		std::string m_CurrentAnimationID;
 	};
 }
