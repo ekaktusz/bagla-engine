@@ -8,7 +8,7 @@
 
 namespace bgl
 {
-	class StateManager
+	class StateManager 
 	{
 	public:
 		void update(const sf::Time& dt);

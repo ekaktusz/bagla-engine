@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics/Shape.hpp>
-#include <cmath>
 #include <SFML/System/Vector2.hpp>
 
 namespace bgl
