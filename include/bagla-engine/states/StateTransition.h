@@ -10,19 +10,25 @@
 
 namespace bgl
 {
+
+  // currently only fade in and out, lets work on it later
   class StateTransition : public bgl::GameObject
   {
   public:
-    StateTransition(sf::Vector2f screenSize) 
+    StateTransition() 
     {
-      m_TransitionBackground = sf::RectangleShape(screenSize);
-	    m_TransitionBackground.setFillColor(sf::Color(0,0,0,255));
-	
+      m_TransitionBackground = sf::RectangleShape({1270, 720}); //TODO(ekaktusz): how to get screensize here
+	    m_TransitionBackground.setFillColor(sf::Color(0,0,0,0));
+    }
+
+    void start() 
+    {
+      m_TransitionStarted = true;
     }
      
     virtual void update(const sf::Time& dt) override 
     {
-	    if (m_TransitionClock.getElapsedTime() < m_TransitionDuration) 
+	    if (m_TransitionStarted && !isTransitionOver()) 
       {
         float alpha = bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
         m_TransitionBackground.setFillColor(sf::Color(0,0,0, alpha));
@@ -38,10 +44,19 @@ namespace bgl
 		{
 		  
 		}
+
+    bool isTransitionOver() 
+    {
+      return m_TransitionClock.getElapsedTime() > m_TransitionDuration;
+    }
+
+    enum class Type { Open, Close };
 		
-  private:  
+  private:
     sf::RectangleShape m_TransitionBackground;
 	  sf::Clock m_TransitionClock;
 	  sf::Time m_TransitionDuration = sf::seconds(2.f);
+
+    bool m_TransitionStarted = false;
   };
 }

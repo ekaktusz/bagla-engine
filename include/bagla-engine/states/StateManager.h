@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "State.h"
-#include "states/StateTransition.h"
 
 namespace bgl
 {
@@ -45,7 +44,6 @@ namespace bgl
 	private:
 		std::vector<StateManagerRequest> m_RequestQueue;
 		std::stack <std::unique_ptr<State>> m_States;
-		
 	};
 
 }

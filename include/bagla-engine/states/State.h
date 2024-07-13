@@ -1,5 +1,7 @@
 #pragma once
 
+#include "states/StateTransition.h"
+
 namespace sf
 {
 	class Time;
@@ -28,6 +30,9 @@ namespace bgl
 	protected:
 		StateManager& m_StateManager;
 		sf::RenderWindow& m_RenderWindow;
+
+		StateTransition m_OpenTransition;
+		StateTransition m_CloseTransition;
 	};
 
 }

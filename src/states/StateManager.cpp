@@ -19,7 +19,6 @@ namespace bgl
 		m_States.top()->onStart();
 	}
 
-
 	void StateManager::handlePopState()
 	{
 		IF_EMPTY_RETURN
