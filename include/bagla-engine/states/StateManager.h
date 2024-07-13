@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "State.h"
+#include "states/StateTransition.h"
 
 namespace bgl
 {
@@ -27,6 +28,8 @@ namespace bgl
 		void handleSwitchState(std::unique_ptr<State> state);
 		void handleResetToFirstState();
 
+
+	private:
 		enum class StateManagerRequestType
 		{
 			Push, Pop, Switch, Reset
@@ -39,9 +42,10 @@ namespace bgl
 			StateManagerRequestType requestType;
 		};
 
+	private:
 		std::vector<StateManagerRequest> m_RequestQueue;
-
 		std::stack <std::unique_ptr<State>> m_States;
+		
 	};
 
 }
