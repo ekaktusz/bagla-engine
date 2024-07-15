@@ -15,22 +15,41 @@ namespace bgl
   class StateTransition : public bgl::GameObject
   {
   public:
-    StateTransition() 
+    enum class Type { Open, Close };
+
+  public:
+    StateTransition(Type type) : m_Type(type)
     {
       m_TransitionBackground = sf::RectangleShape({1270, 720}); //TODO(ekaktusz): how to get screensize here
-	    m_TransitionBackground.setFillColor(sf::Color(0,0,0,0));
     }
 
     void start() 
     {
       m_TransitionStarted = true;
+      m_TransitionClock.restart();
+
+      if (m_Type == Type::Close) 
+      {
+	      m_TransitionBackground.setFillColor(sf::Color(0,0,0,0));
+      } 
+      else if (m_Type == Type::Open) 
+      {
+        m_TransitionBackground.setFillColor(sf::Color(0,0,0,255));
+      }
+
     }
      
     virtual void update(const sf::Time& dt) override 
     {
 	    if (m_TransitionStarted && !isTransitionOver()) 
       {
-        float alpha = bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
+        const float alpha = [&]() {
+          switch (m_Type) {
+            case Type::Close: return bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
+            case Type::Open: return 255 - bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
+            default: return 0.f;
+          }
+        }(); 
         m_TransitionBackground.setFillColor(sf::Color(0,0,0, alpha));
       }
     }
@@ -45,17 +64,18 @@ namespace bgl
 		  
 		}
 
-    bool isTransitionOver() 
+    bool isTransitionOver() const
     {
       return m_TransitionClock.getElapsedTime() > m_TransitionDuration;
     }
 
-    enum class Type { Open, Close };
 		
   private:
     sf::RectangleShape m_TransitionBackground;
 	  sf::Clock m_TransitionClock;
 	  sf::Time m_TransitionDuration = sf::seconds(2.f);
+
+    Type m_Type;
 
     bool m_TransitionStarted = false;
   };

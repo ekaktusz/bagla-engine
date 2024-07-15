@@ -16,7 +16,10 @@ namespace bgl
 	class State
 	{
 	public:
-		State(StateManager& stateManager, sf::RenderWindow& renderWindow) : m_StateManager(stateManager), m_RenderWindow(renderWindow) {}
+		State(StateManager& stateManager, sf::RenderWindow& renderWindow) : 
+			m_StateManager(stateManager), 
+			m_RenderWindow(renderWindow)
+		 {}
 		virtual ~State() {}
 
 		virtual void update(const sf::Time& dt) = 0;
@@ -31,8 +34,6 @@ namespace bgl
 		StateManager& m_StateManager;
 		sf::RenderWindow& m_RenderWindow;
 
-		StateTransition m_OpenTransition;
-		StateTransition m_CloseTransition;
 	};
 
 }
