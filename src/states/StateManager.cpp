@@ -17,6 +17,7 @@ namespace bgl
 		}
 		m_States.push(std::move(state));
 		m_States.top()->onStart();
+		m_OpenTransition.start();
 	}
 
 
@@ -29,6 +30,7 @@ namespace bgl
 		if (!m_States.empty())
 		{
 			m_States.top()->onResume();
+			m_OpenTransition.start();
 		}
 	}
 
@@ -51,6 +53,7 @@ namespace bgl
 		}
 
 		m_States.top()->onResume();
+		m_OpenTransition.start();
 	}
 
 	void StateManager::applyPendingChanges()
@@ -83,6 +86,7 @@ namespace bgl
 		if (!m_States.empty())
 		{
 			m_States.top()->update(dt);
+			m_OpenTransition.update(dt);
 		}
 		applyPendingChanges();
 	}
@@ -92,6 +96,7 @@ namespace bgl
 		if (!m_States.empty())
 		{
 			m_RenderWindow.draw(*m_States.top());
+			m_RenderWindow.draw(m_OpenTransition);
 			m_RenderWindow.display();
 		}
 	}
@@ -101,6 +106,7 @@ namespace bgl
 		if (!m_States.empty())
 		{
 			m_States.top()->handleEvent(event);
+			m_OpenTransition.handleEvent(event);
 		}
 		applyPendingChanges();
 	}

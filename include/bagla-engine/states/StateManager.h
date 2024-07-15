@@ -46,6 +46,10 @@ namespace bgl
 
 		std::stack <std::unique_ptr<State>> m_States;
 		sf::RenderWindow& m_RenderWindow;
+
+
+		StateTransition m_OpenTransition {StateTransition::Type::Open};
+		StateTransition m_CloseTransition {StateTransition::Type::Close};
 	};
 
 }
