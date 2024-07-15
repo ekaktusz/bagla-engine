@@ -91,7 +91,8 @@ namespace bgl
 	{
 		if (!m_States.empty())
 		{
-			m_States.top()->draw();
+			m_RenderWindow.draw(*m_States.top());
+			m_RenderWindow.display();
 		}
 	}
 
