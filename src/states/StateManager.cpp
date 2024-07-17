@@ -87,8 +87,9 @@ namespace bgl
 		{
 			m_States.top()->update(dt);
 			m_OpenTransition.update(dt);
+			m_CloseTransition.update(dt);
 		}
-		applyPendingChanges();
+		applyPendingChangesWithTransition();
 	}
 
 	void StateManager::draw() const
@@ -97,6 +98,7 @@ namespace bgl
 		{
 			m_RenderWindow.draw(*m_States.top());
 			m_RenderWindow.draw(m_OpenTransition);
+			if (m_CloseTransition.isTransitionRunning()) m_RenderWindow.draw(m_CloseTransition);
 			m_RenderWindow.display();
 		}
 	}
@@ -108,7 +110,24 @@ namespace bgl
 			m_States.top()->handleEvent(event);
 			m_OpenTransition.handleEvent(event);
 		}
-		applyPendingChanges();
+		applyPendingChangesWithTransition();
+
+	}
+
+	void StateManager::applyPendingChangesWithTransition()
+	{
+		if (m_CloseTransition.isTransitionOver())
+		{
+			spdlog::info("apply pending changes");
+			applyPendingChanges();
+			m_CloseTransition.reset();
+		}
+
+		if (!m_RequestQueue.empty() && !m_CloseTransition.isTransitionStarted())
+		{
+			spdlog::info("transition started");
+			m_CloseTransition.start();
+		}
 	}
 
 	void StateManager::pushState(std::unique_ptr<State> state)

@@ -18,6 +18,8 @@ namespace bgl
 		void draw() const;
 		void handleEvent(const sf::Event& event);
 
+		void applyPendingChangesWithTransition();
+
 		void pushState(std::unique_ptr<State> state);
 		void popState();
 		void switchState(std::unique_ptr<State> state);

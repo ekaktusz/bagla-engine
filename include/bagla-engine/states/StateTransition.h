@@ -67,18 +67,28 @@ namespace bgl
 
     bool isTransitionOver() const
     {
-      return m_TransitionClock.getElapsedTime() > m_TransitionDuration;
+        return m_TransitionStarted && ( m_TransitionClock.getElapsedTime() > m_TransitionDuration);
     }
 
     bool isTransitionRunning() const
     {
       return m_TransitionStarted && !isTransitionOver();
     }
+
+    bool isTransitionStarted() const
+    {
+        return m_TransitionStarted;
+    }
+
+    void reset() 
+    {
+        m_TransitionStarted = false;
+    }
 		
   private:
     sf::RectangleShape m_TransitionBackground;
-	  sf::Clock m_TransitionClock;
-	  sf::Time m_TransitionDuration = sf::seconds(2.f);
+	sf::Clock m_TransitionClock;
+	sf::Time m_TransitionDuration = sf::seconds(2.f);
 
     Type m_Type;
 
