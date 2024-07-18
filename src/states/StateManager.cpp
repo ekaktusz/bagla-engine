@@ -98,7 +98,7 @@ namespace bgl
 		{
 			m_RenderWindow.draw(*m_States.top());
 			m_RenderWindow.draw(m_OpenTransition);
-			if (m_CloseTransition.isTransitionRunning()) m_RenderWindow.draw(m_CloseTransition);
+			if (m_CloseTransition.isTransitionStarted()) m_RenderWindow.draw(m_CloseTransition);
 			m_RenderWindow.display();
 		}
 	}

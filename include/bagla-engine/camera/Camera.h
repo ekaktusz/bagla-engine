@@ -38,11 +38,13 @@ namespace bgl
 
 		void move(sf::Vector2f movement);
 
+		void attach(sf::RenderWindow& renderWindow);
+
 	private:
 		void flush();
 		
 	private:
-		sf::RenderWindow& m_AttachedRenderWindow;
+		sf::RenderWindow* m_AttachedRenderWindow = nullptr;
 		sf::View m_View;
 		sf::FloatRect m_WorldBoundaries;
 	};

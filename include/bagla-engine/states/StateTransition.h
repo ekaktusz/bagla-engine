@@ -88,7 +88,7 @@ namespace bgl
   private:
     sf::RectangleShape m_TransitionBackground;
 	sf::Clock m_TransitionClock;
-	sf::Time m_TransitionDuration = sf::seconds(2.f);
+	sf::Time m_TransitionDuration = sf::seconds(0.5f);
 
     Type m_Type;
 
