@@ -10,88 +10,30 @@
 
 namespace bgl
 {
-
-  // currently only fade in and out, lets work on it later
   class StateTransition : public bgl::GameObject
   {
   public:
     enum class Type { Open, Close };
 
   public:
-    StateTransition(Type type) : m_Type(type)
-    {
-      m_TransitionBackground = sf::RectangleShape({1270, 720}); //TODO(ekaktusz): how to get screensize here
-    }
+    StateTransition(Type type);
 
-    void start() 
-    {
-      m_TransitionStarted = true;
-      m_TransitionClock.restart();
+	virtual void update(const sf::Time& dt) override;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void handleEvent(const sf::Event& event) override;
 
-      if (m_Type == Type::Close) 
-      {
-	      m_TransitionBackground.setFillColor(sf::Color(0,0,0,0));
-      } 
-      else if (m_Type == Type::Open) 
-      {
-        m_TransitionBackground.setFillColor(sf::Color(0,0,0,255));
-      }
-
-    }
-     
-    virtual void update(const sf::Time& dt) override 
-    {
-	    if (m_TransitionStarted && !isTransitionOver()) 
-      {
-        const float alpha = [&]() {
-          switch (m_Type) {
-            case Type::Close: return bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
-            case Type::Open: return 255 - bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
-            default: return 0.f;
-          }
-        }(); 
-        m_TransitionBackground.setFillColor(sf::Color(0,0,0, alpha));
-      }
-
-		}
-
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override
-		{
-	    target.draw(m_TransitionBackground);
-		}
-		
-		virtual void handleEvent(const sf::Event& event) override
-		{
-		  
-		}
-
-    bool isTransitionOver() const
-    {
-        return m_TransitionStarted && ( m_TransitionClock.getElapsedTime() > m_TransitionDuration);
-    }
-
-    bool isTransitionRunning() const
-    {
-      return m_TransitionStarted && !isTransitionOver();
-    }
-
-    bool isTransitionStarted() const
-    {
-        return m_TransitionStarted;
-    }
-
-    void reset() 
-    {
-        m_TransitionStarted = false;
-    }
+    void start();
+	void reset();
+    
+    bool isTransitionOver() const;
+    bool isTransitionRunning() const;
+    bool isTransitionStarted() const;
 		
   private:
-    sf::RectangleShape m_TransitionBackground;
-	sf::Clock m_TransitionClock;
+    sf::RectangleShape m_TransitionBackground{};
+	sf::Clock m_TransitionClock{};
 	sf::Time m_TransitionDuration = sf::seconds(0.5f);
-
     Type m_Type;
-
     bool m_TransitionStarted = false;
   };
 }

@@ -47,7 +47,8 @@ add_library(bagla-engine
 	"src/animation/AnimationComponent.cpp"
 	"include/bagla-engine/graphics/RoundedRectangleShape.h"
 	"src/graphics/RoundedRectangleShape.cpp"
-	"include/bagla-engine/states/StateTransition.h")
+	"include/bagla-engine/states/StateTransition.h"
+	"src/states/StateTransition.cpp")
 
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/bagla-engine)
 target_include_directories(bagla-engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vendor/tmxlite/include)
