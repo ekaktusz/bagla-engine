@@ -18,9 +18,9 @@ namespace bgl
   public:
     StateTransition(Type type);
 
-	virtual void update(const sf::Time& dt) override;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	virtual void handleEvent(const sf::Event& event) override;
+	void update(const sf::Time& dt) override;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void handleEvent(const sf::Event& event) override;
 
     void start();
 	void reset();
