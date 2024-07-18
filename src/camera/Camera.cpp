@@ -4,10 +4,8 @@
 namespace bgl
 {
 	Camera::Camera(sf::RenderWindow& renderWindow) :
-		m_AttachedRenderWindow(renderWindow),
 		m_View(sf::Vector2f(0.f, 0.f), static_cast<sf::Vector2f>(renderWindow.getSize()))
 	{
-		m_AttachedRenderWindow.setView(m_View);
 	}
 
 	Camera::~Camera()
@@ -99,8 +97,13 @@ namespace bgl
         setCenterPosition(newPosition);
 	}
 
+	void Camera::attach(sf::RenderWindow& renderWindow)
+	{
+		m_AttachedRenderWindow = &renderWindow;
+	}
+
 	void Camera::flush()
 	{
-		m_AttachedRenderWindow.setView(m_View);
+		m_AttachedRenderWindow->setView(m_View);
 	}
 }

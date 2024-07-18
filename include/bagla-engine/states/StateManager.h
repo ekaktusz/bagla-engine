@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <stack>
 #include <memory>
 #include <vector>
@@ -11,9 +12,13 @@ namespace bgl
 	class StateManager 
 	{
 	public:
+		StateManager(sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow) {}
+
 		void update(const sf::Time& dt);
 		void draw() const;
 		void handleEvent(const sf::Event& event);
+
+		void applyPendingChangesWithTransition();
 
 		void pushState(std::unique_ptr<State> state);
 		void popState();
@@ -42,6 +47,11 @@ namespace bgl
 		std::vector<StateManagerRequest> m_RequestQueue;
 
 		std::stack <std::unique_ptr<State>> m_States;
+		sf::RenderWindow& m_RenderWindow;
+
+
+		StateTransition m_OpenTransition {StateTransition::Type::Open};
+		StateTransition m_CloseTransition {StateTransition::Type::Close};
 	};
 
 }
