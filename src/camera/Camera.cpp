@@ -48,7 +48,7 @@ namespace bgl
 
 	sf::Vector2f Camera::getPosition() const
 	{
-		return { m_View.getCenter().x + m_View.getSize().x / 2.f,  m_View.getCenter().y + m_View.getSize().y / 2.f };
+		return { m_View.getCenter().x - m_View.getSize().x / 2.f,  m_View.getCenter().y - m_View.getSize().y / 2.f };
 	}
 
 	void Camera::setCenterPosition(float x, float y)
