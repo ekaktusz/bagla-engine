@@ -42,7 +42,7 @@ namespace bgl
 			m_Sprite.setScale(scale);
 		}
 
-		const sf::FloatRect& getGlobalBounds() const
+		sf::FloatRect getGlobalBounds() const
 		{
 			return m_Sprite.getGlobalBounds();
 		}

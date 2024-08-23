@@ -1,15 +1,16 @@
 #include "graphics/ParallaxBackground.h"
 
+
+#include <spdlog/spdlog.h>
+
 namespace bgl
 {
-	const sf::FloatRect& ParallaxBackground::getGlobalBounds() const
+	std::optional<sf::FloatRect> ParallaxBackground::getGlobalBounds() const
 	{
-		static const sf::FloatRect defaultRect{0.f, 0.f, 0.f, 0.f};
-
 		if (m_ParallaxLayers.empty())
 		{
 			spdlog::error("empty parallax background, bounds are undefined");
-			return defaultRect;
+			return std::nullopt;
 		}
 
 		return m_ParallaxLayers.front().getGlobalBounds();

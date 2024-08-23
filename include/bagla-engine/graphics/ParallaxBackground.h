@@ -2,12 +2,10 @@
 
 #include "GameObject.h"
 #include "graphics/ParallaxLayer.h"
-
-#include <spdlog/spdlog.h>
-
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <vector>
 
-#include <exception>
+#include <optional>
 
 namespace bgl
 {
@@ -17,7 +15,7 @@ namespace bgl
 
 		ParallaxBackground() = default;
 
-		const sf::FloatRect& getGlobalBounds() const;
+		std::optional<sf::FloatRect> getGlobalBounds() const;
 
 		void setPosition(sf::Vector2f position);
 		void setScale(sf::Vector2f scale);
@@ -25,7 +23,7 @@ namespace bgl
 		void update(const sf::Time& dt) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		void handleEvent(const sf::Event& event);
+		void handleEvent(const sf::Event& event) override;
 
 		void addLayer(const ParallaxLayer& parallaxLayer);
 
