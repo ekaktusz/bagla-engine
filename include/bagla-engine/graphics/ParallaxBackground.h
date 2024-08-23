@@ -1,10 +1,13 @@
 #pragma once
 
 #include "GameObject.h"
+#include "graphics/ParallaxLayer.h"
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
+#include <spdlog/spdlog.h>
+
 #include <SFML/Graphics/RenderTarget.hpp>
+
+#include <exception>
 
 namespace bgl
 {
@@ -14,48 +17,19 @@ namespace bgl
 
 		ParallaxBackground() = default;
 
-		void initialize(const sf::Texture& backgroundTexture)
-		{
-			m_Texture = backgroundTexture;
-			m_Sprite.setTexture(backgroundTexture);
-			m_Sprite.setPosition(0.f, 0.f);
-		}
+		const sf::FloatRect& getGlobalBounds() const;
 
-		void setScale(sf::Vector2f scale)
-		{
-			m_Sprite.setScale(scale);
-		}
+		void setPosition(sf::Vector2f position);
+		void setScale(sf::Vector2f scale);
 
-		const sf::FloatRect& getGlobalBounds() 
-		{
-			return m_Sprite.getGlobalBounds();
-		}
+		void update(const sf::Time& dt) override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		void setPosition(sf::Vector2f position)
-		{
-			m_Sprite.setPosition(position);
-		}
+		void handleEvent(const sf::Event& event);
 
-		void update(const sf::Time& dt) override
-		{
-			//throw std::logic_error("The method or operation is not implemented.");
-		}
-
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override
-		{
-			//throw std::logic_error("The method or operation is not implemented.");
-			target.draw(m_Sprite);
-		}
-
-
-		void handleEvent(const sf::Event& event) override
-		{
-			//throw std::logic_error("The method or operation is not implemented.");
-		}
+		void addLayer(const ParallaxLayer& parallaxLayer);
 
 	private:
-		sf::Sprite m_Sprite;
-		sf::Texture m_Texture;
+		std::vector<ParallaxLayer> m_ParallaxLayers;
 	};
 }
