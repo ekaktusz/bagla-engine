@@ -3,52 +3,30 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include "GameObject.h"
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Shader.hpp>
 
 namespace bgl
 {
-	class ParallaxLayer : public GameObject
+	class ParallaxLayer : public sf::Drawable
 	{
 	public:
-		explicit ParallaxLayer(const sf::Texture& backgroundTexture)
-			: m_Texture(backgroundTexture)
-		{
-			m_Sprite.setTexture(backgroundTexture);
-			m_Sprite.setPosition(0.f, 0.f);
-		}
+		ParallaxLayer(const sf::Texture& backgroundTexture, float distanceFromCamera, float offsetY = 0.f);
+		
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void update(sf::Vector2f cameraPosition);
+		void setScale(sf::Vector2f scale);
+		void setPosition(sf::Vector2f position);
 
-		void update(const sf::Time& dt) override
-		{
-			//throw std::logic_error("The method or operation is not implemented.");
-		}
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override
-		{
-			target.draw(m_Sprite);
-		}
-
-		void handleEvent(const sf::Event& event) override
-		{
-			
-		}
-
-		void setPosition(sf::Vector2f position) 
-		{
-			m_Sprite.setPosition(position);
-		}
-
-		void setScale(sf::Vector2f scale) 
-		{
-			m_Sprite.setScale(scale);
-		}
-
-		sf::FloatRect getGlobalBounds() const
-		{
-			return m_Sprite.getGlobalBounds();
-		}
+		sf::FloatRect getGlobalBounds() const;
 
 	private:
 		sf::Sprite m_Sprite;
 		sf::Texture m_Texture;
+
+		sf::Shader m_ParallaxShader;
+
+		float m_DistanceFromCamera;
+		float m_OffsetY;
 	};
 }

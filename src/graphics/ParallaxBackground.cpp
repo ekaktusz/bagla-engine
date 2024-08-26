@@ -1,5 +1,6 @@
 #include "graphics/ParallaxBackground.h"
 
+#include "camera/Camera.h"
 
 #include <spdlog/spdlog.h>
 
@@ -13,14 +14,14 @@ namespace bgl
 			return std::nullopt;
 		}
 
-		return m_ParallaxLayers.front().getGlobalBounds();
+		return m_ParallaxLayers.front()->getGlobalBounds();
 	}
 
 	void ParallaxBackground::setPosition(sf::Vector2f position)
 	{
 		for (auto& parallaxLayer : m_ParallaxLayers)
 		{
-			parallaxLayer.setPosition(position);
+			parallaxLayer->setPosition(position);
 		}
 	}
 
@@ -28,16 +29,24 @@ namespace bgl
 	{
 		for (auto& parallaxLayer : m_ParallaxLayers)
 		{
-			parallaxLayer.setScale(scale);
+			parallaxLayer->setScale(scale);
 		}
+	}
+
+	void ParallaxBackground::attachToCamera(Camera& camera)
+	{
+		m_attachedCamera = &camera;
 	}
 
 	void ParallaxBackground::update(const sf::Time& dt)
 	{
-		//throw std::logic_error("The method or operation is not implemented.");
+		if (m_attachedCamera == nullptr) return;
+
+		const sf::Vector2f cameraPosition = m_attachedCamera->getPosition();
+
 		for (auto& parallaxLayer : m_ParallaxLayers)
 		{
-			parallaxLayer.update(dt);
+			parallaxLayer->update(cameraPosition);
 		}
 	}
 
@@ -46,22 +55,15 @@ namespace bgl
 		//throw std::logic_error("The method or operation is not implemented.");
 		for (const auto& parallaxLayer : m_ParallaxLayers)
 		{
-			target.draw(parallaxLayer);
+			target.draw(*parallaxLayer);
 		}
 	}
 
-	void ParallaxBackground::handleEvent(const sf::Event& event) 
+
+	void ParallaxBackground::addLayer(std::unique_ptr<ParallaxLayer> parallaxLayer)
 	{
-		//throw std::logic_error("The method or operation is not implemented.");
-		for (auto& parallaxLayer : m_ParallaxLayers)
-		{
-			parallaxLayer.handleEvent(event);
-		}
+		m_ParallaxLayers.push_back(std::move(parallaxLayer));
 	}
 
-	void ParallaxBackground::addLayer(const ParallaxLayer& parallaxLayer)
-	{
-		m_ParallaxLayers.push_back(parallaxLayer);
-	}
 }
 
