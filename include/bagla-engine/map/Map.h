@@ -21,6 +21,8 @@ namespace bgl
 		//TileLayer getTileLayer(unsigned int idx);
 		//ObjectLayer getObjectLayer(unsigned int idx);
 
+		sf::Vector2f getSize() const;
+
 	private:
 		std::unique_ptr<tmx::Map> m_Map;
 

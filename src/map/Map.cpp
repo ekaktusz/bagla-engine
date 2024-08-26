@@ -64,4 +64,11 @@ namespace bgl
 		return *found->second;
 	}
 
+	sf::Vector2f Map::getSize() const
+	{
+		spdlog::info(" tilsize: x: " + std::to_string(m_Map->getTileSize().x) + " y: " + std::to_string(m_Map->getTileSize().y) );
+		spdlog::info(" tilcount: x: " + std::to_string(m_Map->getTileCount().x) + " y: " + std::to_string(m_Map->getTileCount().y));
+		return { (float) m_Map->getTileSize().x * m_Map->getTileCount().x, (float) m_Map->getTileSize().y * m_Map->getTileCount().y };
+	}
+
 }
