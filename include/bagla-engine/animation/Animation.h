@@ -12,13 +12,12 @@ namespace bgl
 	{
 	public:
 		Animation(const sf::Texture& spriteSheetTexture, sf::Vector2i frameSize, sf::Vector2i startFrameCoordinates, sf::Vector2i endFrameCoordinates, const sf::Time& deltaTime, bool repeating = true);
-		~Animation();
 
 		void play();
 		void pause();
-		
+
 		void setRepeating(bool repeating);
-		bool getRepeating() const;
+		bool getRepeating()  const;
 
 		void setPosition(float x, float y);
 		void setPosition(sf::Vector2f position);
@@ -28,7 +27,7 @@ namespace bgl
 		sf::Vector2f getSize() const;
 
 		void setDeltaTime(const sf::Time& deltaTime);
-		const sf::Time& getDeltaTime() const;
+		const sf::Time& getDeltaTime()  const;
 
 		void setScale(sf::Vector2f scale);
 		void setScale(float x, float y);

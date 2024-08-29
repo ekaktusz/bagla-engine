@@ -21,11 +21,6 @@ namespace bgl
 		play();
 	}
 
-	Animation::~Animation()
-	{
-
-	}
-
 	void Animation::play()
 	{
 		if (!m_Playing)
