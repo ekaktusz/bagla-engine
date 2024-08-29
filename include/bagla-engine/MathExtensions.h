@@ -22,9 +22,4 @@ namespace bgl
     	return out_min + ((x - in_min) * (out_max - out_min)) / (in_max - in_min);
 	}
 
-	static int randomInt(int min, int max)
-	{
-		return rand() % (max - min + 1) + min;
-	}
-
 }
