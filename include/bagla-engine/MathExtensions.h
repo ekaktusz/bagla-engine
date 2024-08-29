@@ -10,11 +10,10 @@ namespace bgl
 			return b;
 
 		// Checking for a
-		else if ((b < a && a < c) || (c < a && a < b))
+		if ((b < a && a < c) || (c < a && a < b))
 			return a;
 
-		else
-			return c;
+		return c;
 	}
 
 	template <typename T>
