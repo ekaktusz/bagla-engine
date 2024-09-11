@@ -1,73 +1,77 @@
 #pragma once
 
 #include "gui/Widget.h"
-#include <string>
 #include <SFML/Graphics/Text.hpp>
+#include <string>
 
-#include <functional>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Audio/Sound.hpp>
 #include "graphics/RoundedRectangleShape.h"
-
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <functional>
 
 namespace bgl
 {
-	class Button : public Widget
+class Button : public Widget
+{
+public:
+	Button(const sf::RenderWindow& renderWindow);
+	Button(const sf::RenderWindow& renderWindow, const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo);
+
+	sf::Vector2f getSize()
 	{
-	public:
-		Button(const sf::RenderWindow& renderWindow);
-		Button(const sf::RenderWindow& renderWindow, const std::string& buttonString, sf::Vector2f position, sf::Vector2f size, std::function<void()> actionToDo);
+		return m_Size;
+	}
 
-		sf::Vector2f getSize() { return m_Size; }
-		sf::Vector2f getPosition() { return m_Position; }
+	sf::Vector2f getPosition()
+	{
+		return m_Position;
+	}
 
-		void setString(const std::string& buttonString);
-		void setActionTodo(std::function<void()> actionToDo);
-		
-		void setPosition(sf::Vector2f position);
-		void setSize(sf::Vector2f size);
-		void setFillColor(sf::Color color);
-		void setOutlineColor(sf::Color color);
-		void setOutlineThickness(float thickness);
-		void setTextColor(sf::Color color);
-		void setFont(const sf::Font& font);
-		void setHoverColor(sf::Color color);
-		void setCornerRadius(float radius);
+	void setString(const std::string& buttonString);
+	void setActionTodo(std::function<void()> actionToDo);
 
-		void update(const sf::Time& dt) override;
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		void handleEvent(const sf::Event& event) override;
+	void setPosition(sf::Vector2f position);
+	void setSize(sf::Vector2f size);
+	void setFillColor(sf::Color color);
+	void setOutlineColor(sf::Color color);
+	void setOutlineThickness(float thickness);
+	void setTextColor(sf::Color color);
+	void setFont(const sf::Font& font);
+	void setHoverColor(sf::Color color);
+	void setCornerRadius(float radius);
 
-		void setSoundOnSelect(const sf::SoundBuffer& soundBuffer);
-		void setSoundOnHover(const sf::SoundBuffer& soundBuffer);
+	void update(const sf::Time& dt) override;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void handleEvent(const sf::Event& event) override;
 
-	private:
-		void refreshTextOrigin();
-		void refreshTextPosition();
-		void initializeInnerButton();
+	void setSoundOnSelect(const sf::SoundBuffer& soundBuffer);
+	void setSoundOnHover(const sf::SoundBuffer& soundBuffer);
 
-	private:
-		const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
+private:
+	void refreshTextOrigin();
+	void refreshTextPosition();
+	void initializeInnerButton();
 
-		sf::Text m_Text;
-		sf::Vector2f m_Position;
-		sf::Vector2f m_Size;
+private:
+	const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
 
-		std::function<void()> m_ActionToDo;
+	sf::Text m_Text;
+	sf::Vector2f m_Position;
+	sf::Vector2f m_Size;
 
-		sf::Color m_FillColor;
-		sf::Color m_OutlineColor;
-		sf::Color m_TextColor;
-		sf::Color m_HoverColor;
+	std::function<void()> m_ActionToDo;
 
-		float m_OutlineThickness;
+	sf::Color m_FillColor;
+	sf::Color m_OutlineColor;
+	sf::Color m_TextColor;
+	sf::Color m_HoverColor;
 
-		bgl::RoundedRectangleShape m_InnerButton;
+	float m_OutlineThickness;
 
-		sf::Sound m_SoundOnSelect;
-		sf::Sound m_SoundOnHover;
+	bgl::RoundedRectangleShape m_InnerButton;
 
-
-	};
+	sf::Sound m_SoundOnSelect;
+	sf::Sound m_SoundOnHover;
+};
 
 }

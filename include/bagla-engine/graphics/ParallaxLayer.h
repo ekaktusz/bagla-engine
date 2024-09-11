@@ -1,32 +1,32 @@
 #pragma once
 
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Shader.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Shader.hpp>
 
 namespace bgl
 {
-	class ParallaxLayer : public sf::Drawable
-	{
-	public:
-		ParallaxLayer(const sf::Texture& backgroundTexture, float distanceFromCamera, float offsetY = 0.f);
-		
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		void update(sf::Vector2f cameraPosition);
-		void setScale(sf::Vector2f scale);
-		void setPosition(sf::Vector2f position);
+class ParallaxLayer : public sf::Drawable
+{
+public:
+	ParallaxLayer(const sf::Texture& backgroundTexture, float distanceFromCamera, float offsetY = 0.f);
 
-		sf::FloatRect getGlobalBounds() const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void update(sf::Vector2f cameraPosition);
+	void setScale(sf::Vector2f scale);
+	void setPosition(sf::Vector2f position);
 
-	private:
-		sf::Sprite m_Sprite;
-		sf::Texture m_Texture;
+	sf::FloatRect getGlobalBounds() const;
 
-		sf::Shader m_ParallaxShader;
+private:
+	sf::Sprite m_Sprite;
+	sf::Texture m_Texture;
 
-		float m_DistanceFromCamera;
-		float m_OffsetY;
-	};
+	sf::Shader m_ParallaxShader;
+
+	float m_DistanceFromCamera;
+	float m_OffsetY;
+};
 }

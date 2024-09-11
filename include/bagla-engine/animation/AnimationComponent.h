@@ -9,41 +9,41 @@
 
 #include "animation/Animation.h"
 
-namespace sf 
-{ 
-	class Time; 
-	class RenderTarget;
+namespace sf
+{
+class Time;
+class RenderTarget;
 }
 
 namespace bgl
 {
-	class AnimationComponent : public sf::Drawable
-	{
-	public:
-		AnimationComponent() = default;
-		
-		void addAnimation(const std::string& id, std::unique_ptr<Animation> animation);
-		void removeAnimation(const std::string& id);
+class AnimationComponent : public sf::Drawable
+{
+public:
+	AnimationComponent() = default;
 
-		void update(const sf::Time& dt);
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void addAnimation(const std::string& id, std::unique_ptr<Animation> animation);
+	void removeAnimation(const std::string& id);
 
-		void setCurrentAnimation(const std::string& id);
+	void update(const sf::Time& dt);
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		void setPosition(float x, float y);
-		void setPosition(sf::Vector2f position);
+	void setCurrentAnimation(const std::string& id);
 
-		void setScale(float x, float y);
-		void setScale(sf::Vector2f scale);
+	void setPosition(float x, float y);
+	void setPosition(sf::Vector2f position);
 
-		void flipHorizontally(bool flip);
-		void flipVertically(bool flip);
+	void setScale(float x, float y);
+	void setScale(sf::Vector2f scale);
 
-		void pause();
-		void play();
+	void flipHorizontally(bool flip);
+	void flipVertically(bool flip);
 
-	private:
-		std::unordered_map<std::string, std::unique_ptr<Animation>> m_Animations; 
-		std::string m_CurrentAnimationID;
-	};
+	void pause();
+	void play();
+
+private:
+	std::unordered_map<std::string, std::unique_ptr<Animation>> m_Animations;
+	std::string m_CurrentAnimationID;
+};
 }

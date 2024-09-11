@@ -5,149 +5,152 @@
 #include <states/State.h>
 #include <type_traits>
 
-#define IF_EMPTY_RETURN if (m_States.empty()) { spdlog::error("State stack is empty!"); return; }
+#define IF_EMPTY_RETURN                                                                                                                                                  \
+	if (m_States.empty())                                                                                                                                                \
+	{                                                                                                                                                                    \
+		spdlog::error("State stack is empty!");                                                                                                                          \
+		return;                                                                                                                                                          \
+	}
 
 namespace bgl
 {
-	void StateManager::handlePushState(std::unique_ptr<State> state)
+void StateManager::handlePushState(std::unique_ptr<State> state)
+{
+	if (!m_States.empty())
 	{
-		if (!m_States.empty())
-		{
-			m_States.top()->onPause();
-		}
-		m_States.push(std::move(state));
-		m_States.top()->onStart();
-		m_OpenTransition.start();
+		m_States.top()->onPause();
 	}
+	m_States.push(std::move(state));
+	m_States.top()->onStart();
+	m_OpenTransition.start();
+}
 
+void StateManager::handlePopState()
+{
+	IF_EMPTY_RETURN
 
-	void StateManager::handlePopState()
+	m_States.pop();
+
+	if (!m_States.empty())
 	{
-		IF_EMPTY_RETURN
-
-		m_States.pop();
-
-		if (!m_States.empty())
-		{
-			m_States.top()->onResume();
-			m_OpenTransition.start();
-		}
-	}
-
-	void StateManager::handleSwitchState(std::unique_ptr<State> state)
-	{
-		IF_EMPTY_RETURN
-
-		popState();
-		pushState(std::move(state));
-	}
-
-
-	void StateManager::handleResetToFirstState()
-	{
-		IF_EMPTY_RETURN
-
-		while (m_States.size() > 1)
-		{
-			m_States.pop();
-		}
-
 		m_States.top()->onResume();
 		m_OpenTransition.start();
 	}
+}
 
-	void StateManager::applyPendingChanges()
+void StateManager::handleSwitchState(std::unique_ptr<State> state)
+{
+	IF_EMPTY_RETURN
+
+	popState();
+	pushState(std::move(state));
+}
+
+void StateManager::handleResetToFirstState()
+{
+	IF_EMPTY_RETURN
+
+	while (m_States.size() > 1)
 	{
-		for (StateManagerRequest& pendingRequest : m_RequestQueue)
-		{
-			if (pendingRequest.requestType == StateManagerRequestType::Pop)
-			{
-				handlePopState();
-			}
-			else if (pendingRequest.requestType == StateManagerRequestType::Push)
-			{
-				handlePushState(std::move(pendingRequest.requestState));
-			}
-			else if (pendingRequest.requestType == StateManagerRequestType::Switch)
-			{
-				handleSwitchState(std::move(pendingRequest.requestState));
-			}
-			else if (pendingRequest.requestType == StateManagerRequestType::Reset)
-			{
-				handleResetToFirstState();
-			}
-		}
-
-		m_RequestQueue.clear();
+		m_States.pop();
 	}
 
-	void StateManager::update(const sf::Time& dt)
-	{
-		if (!m_States.empty())
-		{
-			m_States.top()->update(dt);
-			m_OpenTransition.update(dt);
-			m_CloseTransition.update(dt);
-		}
-		applyPendingChangesWithTransition();
-	}
+	m_States.top()->onResume();
+	m_OpenTransition.start();
+}
 
-	void StateManager::draw() const
+void StateManager::applyPendingChanges()
+{
+	for (StateManagerRequest& pendingRequest : m_RequestQueue)
 	{
-		if (!m_States.empty())
+		if (pendingRequest.requestType == StateManagerRequestType::Pop)
 		{
-			m_RenderWindow.draw(*m_States.top());
-			m_RenderWindow.draw(m_OpenTransition);
-			if (m_CloseTransition.isTransitionStarted()) m_RenderWindow.draw(m_CloseTransition);
-			m_RenderWindow.display();
+			handlePopState();
+		}
+		else if (pendingRequest.requestType == StateManagerRequestType::Push)
+		{
+			handlePushState(std::move(pendingRequest.requestState));
+		}
+		else if (pendingRequest.requestType == StateManagerRequestType::Switch)
+		{
+			handleSwitchState(std::move(pendingRequest.requestState));
+		}
+		else if (pendingRequest.requestType == StateManagerRequestType::Reset)
+		{
+			handleResetToFirstState();
 		}
 	}
 
-	void StateManager::handleEvent(const sf::Event& event)
-	{
-		if (!m_States.empty())
-		{
-			m_States.top()->handleEvent(event);
-			m_OpenTransition.handleEvent(event);
-		}
-		applyPendingChangesWithTransition();
+	m_RequestQueue.clear();
+}
 
+void StateManager::update(const sf::Time& dt)
+{
+	if (!m_States.empty())
+	{
+		m_States.top()->update(dt);
+		m_OpenTransition.update(dt);
+		m_CloseTransition.update(dt);
+	}
+	applyPendingChangesWithTransition();
+}
+
+void StateManager::draw() const
+{
+	if (!m_States.empty())
+	{
+		m_RenderWindow.draw(*m_States.top());
+		m_RenderWindow.draw(m_OpenTransition);
+		if (m_CloseTransition.isTransitionStarted())
+			m_RenderWindow.draw(m_CloseTransition);
+		m_RenderWindow.display();
+	}
+}
+
+void StateManager::handleEvent(const sf::Event& event)
+{
+	if (!m_States.empty())
+	{
+		m_States.top()->handleEvent(event);
+		m_OpenTransition.handleEvent(event);
+	}
+	applyPendingChangesWithTransition();
+}
+
+void StateManager::applyPendingChangesWithTransition()
+{
+	if (m_CloseTransition.isTransitionOver())
+	{
+		spdlog::info("apply pending changes");
+		applyPendingChanges();
+		m_CloseTransition.reset();
 	}
 
-	void StateManager::applyPendingChangesWithTransition()
+	if (!m_RequestQueue.empty() && !m_CloseTransition.isTransitionStarted())
 	{
-		if (m_CloseTransition.isTransitionOver())
-		{
-			spdlog::info("apply pending changes");
-			applyPendingChanges();
-			m_CloseTransition.reset();
-		}
-
-		if (!m_RequestQueue.empty() && !m_CloseTransition.isTransitionStarted())
-		{
-			spdlog::info("transition started");
-			m_CloseTransition.start();
-		}
+		spdlog::info("transition started");
+		m_CloseTransition.start();
 	}
+}
 
-	void StateManager::pushState(std::unique_ptr<State> state)
-	{
-		m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Push });
-	}
+void StateManager::pushState(std::unique_ptr<State> state)
+{
+	m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Push });
+}
 
-	void StateManager::popState()
-	{
-		m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Pop });
-	}
+void StateManager::popState()
+{
+	m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Pop });
+}
 
-	void StateManager::switchState(std::unique_ptr<State> state)
-	{
-		m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Switch });
-	}
+void StateManager::switchState(std::unique_ptr<State> state)
+{
+	m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Switch });
+}
 
-	void StateManager::resetToFirstState()
-	{
-		m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Reset });
-	}
+void StateManager::resetToFirstState()
+{
+	m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Reset });
+}
 
 }

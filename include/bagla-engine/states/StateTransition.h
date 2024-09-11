@@ -10,30 +10,34 @@
 
 namespace bgl
 {
-  class StateTransition : public bgl::GameObject
-  {
-  public:
-    enum class Type { Open, Close };
+class StateTransition : public bgl::GameObject
+{
+public:
+	enum class Type
+	{
+		Open,
+		Close
+	};
 
-  public:
-    StateTransition(Type type);
+public:
+	StateTransition(Type type);
 
 	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void handleEvent(const sf::Event& event) override;
 
-    void start();
+	void start();
 	void reset();
-    
-    bool isTransitionOver() const;
-    bool isTransitionRunning() const;
-    bool isTransitionStarted() const;
-		
-  private:
-    sf::RectangleShape m_TransitionBackground{};
-	sf::Clock m_TransitionClock{};
+
+	bool isTransitionOver() const;
+	bool isTransitionRunning() const;
+	bool isTransitionStarted() const;
+
+private:
+	sf::RectangleShape m_TransitionBackground {};
+	sf::Clock m_TransitionClock {};
 	sf::Time m_TransitionDuration = sf::seconds(0.5f);
-    Type m_Type;
-    bool m_TransitionStarted = false;
-  };
+	Type m_Type;
+	bool m_TransitionStarted = false;
+};
 }
