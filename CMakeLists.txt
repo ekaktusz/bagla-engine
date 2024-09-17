@@ -26,7 +26,7 @@ set(SOURCES
     src/physics/DebugDraw.cpp
     src/camera/Camera.cpp
     src/animation/Animation.cpp
-    src/animation/AnimationComponent.cpp
+    src/animation/AnimationContainer.cpp
     src/graphics/RoundedRectangleShape.cpp
     src/states/StateTransition.cpp
     src/graphics/ParallaxLayer.cpp
@@ -54,7 +54,7 @@ set(HEADERS
     include/bagla-engine/physics/PhysicsWorld.h
     include/bagla-engine/physics/DebugDraw.h
     include/bagla-engine/animation/Animation.h
-    include/bagla-engine/animation/AnimationComponent.h
+    include/bagla-engine/animation/AnimationContainer.h
     include/bagla-engine/graphics/RoundedRectangleShape.h
     include/bagla-engine/states/StateTransition.h
     include/bagla-engine/graphics/ParallaxBackground.h

@@ -1,4 +1,4 @@
-#include "animation/AnimationComponent.h"
+#include "animation/AnimationContainer.h"
 #include "animation/Animation.h"
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -13,18 +13,18 @@
 
 namespace bgl
 {
-void AnimationComponent::addAnimation(const std::string& id, std::unique_ptr<Animation> animation)
+void AnimationContainer::addAnimation(const std::string& id, std::unique_ptr<Animation> animation)
 {
 	if (m_Animations.empty())
 		m_CurrentAnimationID = id;
 	m_Animations.try_emplace(id, std::move(animation));
 }
 
-void AnimationComponent::removeAnimation(const std::string& id)
+void AnimationContainer::removeAnimation(const std::string& id)
 {
 	IF_EMPTY_RETURN
-	auto found = m_Animations.find(id);
-	if (found == m_Animations.end())
+
+	if (!m_Animations.contains(id))
 	{
 		spdlog::error("Can't find animation by id: " + id);
 		return;
@@ -39,26 +39,25 @@ void AnimationComponent::removeAnimation(const std::string& id)
 	m_Animations.erase(id);
 }
 
-void AnimationComponent::update(const sf::Time& dt)
+void AnimationContainer::update(const sf::Time& dt)
 {
 	IF_EMPTY_RETURN
 	m_Animations[m_CurrentAnimationID]->update(dt);
 }
 
-void AnimationComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void AnimationContainer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	IF_EMPTY_RETURN
 	target.draw(*m_Animations.at(m_CurrentAnimationID));
 }
 
-void AnimationComponent::setCurrentAnimation(const std::string& id)
+void AnimationContainer::setCurrentAnimation(const std::string& id)
 {
 	IF_EMPTY_RETURN
 	if (m_CurrentAnimationID == id)
 		return;
 
-	auto found = m_Animations.find(id);
-	if (found == m_Animations.end())
+	if (!m_Animations.contains(id))
 	{
 		spdlog::error("ID does not exist: " + id);
 		return;
@@ -68,61 +67,61 @@ void AnimationComponent::setCurrentAnimation(const std::string& id)
 	m_Animations[m_CurrentAnimationID]->play();
 }
 
-void AnimationComponent::setPosition(float x, float y)
+void AnimationContainer::setPosition(float x, float y)
 {
-	for (auto& animation : m_Animations)
+	for (auto& [id, animation] : m_Animations)
 	{
-		animation.second->setPosition(x, y);
+		animation->setPosition(x, y);
 	}
 }
 
-void AnimationComponent::setPosition(sf::Vector2f position)
+void AnimationContainer::setPosition(sf::Vector2f position)
 {
-	for (auto& animation : m_Animations)
+	for (auto& [id, animation] : m_Animations)
 	{
-		animation.second->setPosition(position);
+		animation->setPosition(position);
 	}
 }
 
-void AnimationComponent::setScale(float x, float y)
+void AnimationContainer::setScale(float x, float y)
 {
-	for (auto& animation : m_Animations)
+	for (auto& [id, animation] : m_Animations)
 	{
-		animation.second->setScale(x, y);
+		animation->setScale(x, y);
 	}
 }
 
-void AnimationComponent::setScale(sf::Vector2f scale)
+void AnimationContainer::setScale(sf::Vector2f scale)
 {
-	for (auto& animation : m_Animations)
+	for (auto& [id, animation] : m_Animations)
 	{
-		animation.second->setScale(scale);
+		animation->setScale(scale);
 	}
 }
 
-void AnimationComponent::flipHorizontally(bool flip)
+void AnimationContainer::flipHorizontally(bool flip)
 {
-	for (auto& animation : m_Animations)
+	for (auto& [id, animation] : m_Animations)
 	{
-		animation.second->flipHorizontally(flip);
+		animation->flipHorizontally(flip);
 	}
 }
 
-void AnimationComponent::flipVertically(bool flip)
+void AnimationContainer::flipVertically(bool flip)
 {
-	for (auto& animation : m_Animations)
+	for (auto& [id, animation] : m_Animations)
 	{
-		animation.second->flipVertically(flip);
+		animation->flipVertically(flip);
 	}
 }
 
-void AnimationComponent::pause()
+void AnimationContainer::pause()
 {
 	IF_EMPTY_RETURN
 	m_Animations[m_CurrentAnimationID]->pause();
 }
 
-void AnimationComponent::play()
+void AnimationContainer::play()
 {
 	IF_EMPTY_RETURN
 	m_Animations[m_CurrentAnimationID]->play();

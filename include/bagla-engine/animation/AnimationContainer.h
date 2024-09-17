@@ -17,10 +17,10 @@ class RenderTarget;
 
 namespace bgl
 {
-class AnimationComponent : public sf::Drawable
+class AnimationContainer : public sf::Drawable
 {
 public:
-	AnimationComponent() = default;
+	AnimationContainer() = default;
 
 	void addAnimation(const std::string& id, std::unique_ptr<Animation> animation);
 	void removeAnimation(const std::string& id);

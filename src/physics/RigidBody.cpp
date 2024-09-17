@@ -1,11 +1,11 @@
 #include "physics/RigidBody.h"
 
+#include "physics/PhysicsWorld.h"
+
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_world.h>
 #include <box2d/box2d.h>
-
-#include "physics/PhysicsWorld.h"
 
 namespace bgl
 {
@@ -46,8 +46,6 @@ void RigidBody::initialize(float x, float y, float sx, float sy, bool dynamic /*
 	m_Fixture = m_Body->CreateFixture(&fixtureDef);
 	m_Body->SetFixedRotation(true);
 }
-
-RigidBody::~RigidBody() {}
 
 sf::Vector2f RigidBody::getPosition() const
 {
@@ -103,6 +101,11 @@ void RigidBody::setEndContact(std::function<void(RigidBody*, sf::Vector2f)> endC
 	m_EndContact = endContact;
 }
 
+void RigidBody::setSensor(bool sensor)
+{
+	m_Fixture->SetSensor(sensor);
+}
+
 void RigidBody::beginContact(RigidBody* other, sf::Vector2f collisionNormal)
 {
 	if (m_BeginContact)
@@ -118,4 +121,15 @@ void RigidBody::endContact(RigidBody* other, sf::Vector2f collisionNormal)
 		m_EndContact(other, collisionNormal);
 	}
 }
+
+const std::any& RigidBody::getUserCustomData() const
+{
+	return m_UserCustomData;
+}
+
+void RigidBody::setUserCustomData(const std::any& userCustomData)
+{
+	m_UserCustomData = userCustomData;
+}
+
 }

@@ -2,22 +2,22 @@
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
-#include <functional>
 
 #include <any>
+#include <functional>
 
 class b2Body;
 class b2World;
 
 namespace bgl
 {
+
 class RigidBody final
 {
 public:
-	~RigidBody();
-
 	sf::Vector2f getPosition() const;
 	void setPosition(sf::Vector2f position);
 	void setPosition(float x, float y);
@@ -33,25 +33,16 @@ public:
 	void setBeginContact(std::function<void(RigidBody*, sf::Vector2f)> beginContact);
 	void setEndContact(std::function<void(RigidBody*, sf::Vector2f)> endContact);
 
-	void setSensor(bool sensor)
-	{
-		m_Fixture->SetSensor(sensor);
-	}
+	void setSensor(bool sensor);
 
 	void beginContact(RigidBody* other, sf::Vector2f collisionNormal);
 	void endContact(RigidBody* other, sf::Vector2f collisionNormal);
 
-	void setUserCustomData(std::any userCustomData)
-	{
-		m_UserCustomData = userCustomData;
-	}
-
-	std::any getUserCustomData()
-	{
-		return m_UserCustomData;
-	}
+	const std::any& getUserCustomData() const;
+	void setUserCustomData(const std::any& userCustomData);
 
 private:
+	// has to be instantiated through the physicsworld object
 	RigidBody(float x, float y, float sx, float sy, bool dynamic = true, float density = 0.f);
 	RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic = true, float density = 0.f);
 
@@ -72,4 +63,5 @@ private:
 
 	std::any m_UserCustomData;
 };
+
 }
