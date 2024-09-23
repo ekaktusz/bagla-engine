@@ -44,7 +44,7 @@ set(HEADERS
     include/bagla-engine/map/ObjectLayer.h
     include/bagla-engine/map/TileLayer.h
     include/bagla-engine/camera/Camera.h
-    include/bagla-engine/GameObject.h
+    include/bagla-engine/IGameObject.h
     include/bagla-engine/physics/RigidBody.h
     include/bagla-engine/gui/CheckBox.h
     include/bagla-engine/gui/Slider.h
