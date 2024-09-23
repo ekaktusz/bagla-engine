@@ -106,7 +106,6 @@ void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_Sprite);
 }
 
-void Animation::handleEvent(const sf::Event& event) {}
 
 void Animation::flipHorizontally(bool flip)
 {

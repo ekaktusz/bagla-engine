@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
@@ -41,7 +42,6 @@ public:
 
 	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void handleEvent(const sf::Event& event) override;
 
 	void flipHorizontally(bool flip);
 	void flipVertically(bool flip);

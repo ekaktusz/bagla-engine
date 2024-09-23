@@ -7,9 +7,9 @@ class Event;
 
 namespace bgl
 {
-class IEventHandler
+struct EventHandler
 {
-	virtual ~IEventHandler = default;
+	virtual ~EventHandler() = default;
 	virtual void handleEvent(const sf::Event& event) = 0;
 };
 }
