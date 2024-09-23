@@ -1,10 +1,13 @@
 #pragma once
 
 #include "physics/RigidBody.h"
-#include "tmxlite/Object.hpp"
+
 #include <SFML/Graphics/Rect.hpp>
+
 #include <memory>
 #include <vector>
+
+#include <tmxlite/Object.hpp>
 
 namespace tmx
 {

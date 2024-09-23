@@ -1,13 +1,14 @@
 #pragma once
 
-#include "gui/Widget.h"
-#include <SFML/Graphics/Text.hpp>
-#include <string>
-
 #include "graphics/RoundedRectangleShape.h"
+#include "gui/Widget.h"
+
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 #include <functional>
+#include <string>
 
 namespace bgl
 {

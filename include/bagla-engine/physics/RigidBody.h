@@ -3,11 +3,11 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include <box2d/b2_fixture.h>
-#include <box2d/b2_polygon_shape.h>
-
 #include <any>
 #include <functional>
+
+#include <box2d/b2_fixture.h>
+#include <box2d/b2_polygon_shape.h>
 
 class b2Body;
 class b2World;

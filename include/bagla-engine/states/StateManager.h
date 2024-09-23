@@ -1,22 +1,26 @@
 #pragma once
 
+#include "EventHandler.h"
+#include "GameObject.h"
+#include "State.h"
+#include "StateTransition.h"
+
 #include <SFML/Graphics/RenderWindow.hpp>
+
 #include <memory>
 #include <stack>
 #include <vector>
 
-#include "State.h"
-
 namespace bgl
 {
-class StateManager
+class StateManager : public GameObject, public EventHandler
 {
 public:
 	StateManager(sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow) {}
 
-	void update(const sf::Time& dt);
+	void update(const sf::Time& dt) override;
 	void draw() const;
-	void handleEvent(const sf::Event& event);
+	void handleEvent(const sf::Event& event) override;
 
 	void applyPendingChangesWithTransition();
 

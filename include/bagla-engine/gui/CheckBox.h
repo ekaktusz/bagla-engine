@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gui/Widget.h"
+
 #include <SFML/Graphics/RectangleShape.hpp>
 
 namespace sf

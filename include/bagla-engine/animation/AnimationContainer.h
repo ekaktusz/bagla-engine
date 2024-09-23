@@ -1,13 +1,13 @@
 #pragma once
 
-#include <memory>
-#include <string>
-#include <unordered_map>
+#include "animation/Animation.h"
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 
-#include "animation/Animation.h"
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 namespace sf
 {
@@ -17,7 +17,7 @@ class RenderTarget;
 
 namespace bgl
 {
-class AnimationContainer : public sf::Drawable
+class AnimationContainer : public GameObject, public sf::Drawable
 {
 public:
 	AnimationContainer() = default;
@@ -25,7 +25,7 @@ public:
 	void addAnimation(const std::string& id, std::unique_ptr<Animation> animation);
 	void removeAnimation(const std::string& id);
 
-	void update(const sf::Time& dt);
+	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	void setCurrentAnimation(const std::string& id);

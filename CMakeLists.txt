@@ -64,6 +64,7 @@ set(HEADERS
 
 # Create library
 add_library(bagla-engine ${SOURCES} ${HEADERS} "include/bagla-engine/IEventHandler.h")
+add_library(bagla-engine ${SOURCES} ${HEADERS})
 
 # Set include directories
 target_include_directories(bagla-engine PUBLIC 

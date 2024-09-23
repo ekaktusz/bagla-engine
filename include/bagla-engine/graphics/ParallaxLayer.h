@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameObject.h"
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Shader.hpp>

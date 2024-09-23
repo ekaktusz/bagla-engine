@@ -1,18 +1,18 @@
 #pragma once
 
-#include <cmath>
-#include <map>
-#include <vector>
-
-#include <tmxlite/TileLayer.hpp>
-#include <tmxlite/Tileset.hpp>
-
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Vertex.hpp>
 #include <SFML/System/Time.hpp>
+
+#include <cmath>
+#include <map>
+#include <vector>
+
+#include <tmxlite/TileLayer.hpp>
+#include <tmxlite/Tileset.hpp>
 
 namespace sf
 {

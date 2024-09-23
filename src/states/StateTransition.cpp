@@ -1,6 +1,7 @@
 #pragma once
 
 #include "states/StateTransition.h"
+#include "MathExtensions.h"
 
 namespace bgl
 {

@@ -1,4 +1,8 @@
 #pragma once
+
+#include "EventHandler.h"
+#include "GameObject.h"
+
 #include <SFML/Graphics/Drawable.hpp>
 
 namespace sf
@@ -9,11 +13,12 @@ class Event;
 
 namespace bgl
 {
-class Widget : public sf::Drawable
+class Widget : public GameObject, public sf::Drawable, public EventHandler
 {
 public:
-	virtual void update(const sf::Time& dt) = 0;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-	virtual void handleEvent(const sf::Event& event) = 0;
+	virtual ~Widget() = default;
+	void update(const sf::Time& dt) override = 0;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+	void handleEvent(const sf::Event& event) override = 0;
 };
 }

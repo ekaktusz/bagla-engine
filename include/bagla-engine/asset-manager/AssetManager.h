@@ -1,12 +1,14 @@
 #pragma once
 
+#include "map/Map.h"
+
+#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Graphics/Font.hpp>
+
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <map/Map.h>
-#include <SFML/Audio/Music.hpp>
 
 class b2World;
 

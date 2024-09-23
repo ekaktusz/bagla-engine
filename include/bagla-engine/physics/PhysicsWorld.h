@@ -1,12 +1,15 @@
 #pragma once
 
+#include "GameObject.h"
 #include "physics/ContactListener.h"
-#include <box2d/b2_world.h>
-#include <memory>
-
 #include "physics/DebugDraw.h"
-#include <SFML/Graphics/Drawable.hpp>
+
+#include <memory>
 #include <vector>
+
+#include <SFML/Graphics/Drawable.hpp>
+
+#include <box2d/b2_world.h>
 
 namespace sf
 {
@@ -17,7 +20,7 @@ namespace bgl
 {
 class RigidBody;
 
-class PhysicsWorld : public sf::Drawable
+class PhysicsWorld : public GameObject, public sf::Drawable
 {
 public:
 	friend class RigidBody;
@@ -30,7 +33,7 @@ public:
 
 	~PhysicsWorld();
 
-	void update(const sf::Time& dt);
+	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void initDebugDraw(sf::RenderWindow& renderWindow);
 

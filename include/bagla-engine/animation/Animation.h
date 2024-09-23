@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 
-
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
@@ -14,7 +14,7 @@ class Time;
 
 namespace bgl
 {
-class Animation : public GameObject
+class Animation : public GameObject, public sf::Drawable
 {
 public:
 	Animation(const sf::Texture& spriteSheetTexture, sf::Vector2i frameSize, sf::Vector2i startFrameCoordinates, sf::Vector2i endFrameCoordinates,

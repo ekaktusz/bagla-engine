@@ -1,7 +1,9 @@
 #pragma once
 
+#include "GameObject.h"
 #include "graphics/ParallaxLayer.h"
 
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
 
@@ -13,7 +15,7 @@ namespace bgl
 {
 class Camera;
 
-class ParallaxBackground : public sf::Drawable
+class ParallaxBackground : public GameObject, public sf::Drawable
 {
 public:
 	ParallaxBackground() = default;
@@ -25,9 +27,10 @@ public:
 
 	void attachToCamera(Camera& camera);
 
-	void update(const sf::Time& dt);
+	void update(const sf::Time& dt) override;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 	void addLayer(std::unique_ptr<ParallaxLayer> parallaxLayer);
 
 private:

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <memory>
-#include <unordered_map>
-
 #include "map/ObjectLayer.h"
 #include "map/TileLayer.h"
+
+#include <memory>
+#include <unordered_map>
 
 namespace bgl
 {
