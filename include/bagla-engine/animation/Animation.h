@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObject.h"
+#include "IGameObject.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -13,11 +13,18 @@ class Time;
 
 namespace bgl
 {
+<<<<<<< Updated upstream
 class Animation : public GameObject
 {
 public:
 	Animation(const sf::Texture& spriteSheetTexture, sf::Vector2i frameSize, sf::Vector2i startFrameCoordinates, sf::Vector2i endFrameCoordinates,
 		const sf::Time& deltaTime, bool repeating = true);
+=======
+	class Animation : public IGameObject, public sf::Drawable
+	{
+	public:
+		Animation(const sf::Texture& spriteSheetTexture, sf::Vector2i frameSize, sf::Vector2i startFrameCoordinates, sf::Vector2i endFrameCoordinates, const sf::Time& deltaTime, bool repeating = true);
+>>>>>>> Stashed changes
 
 	void play();
 	void pause();
@@ -39,9 +46,14 @@ public:
 	void setScale(float x, float y);
 	sf::Vector2f getScale() const;
 
+<<<<<<< Updated upstream
 	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void handleEvent(const sf::Event& event) override;
+=======
+		void update(const sf::Time& dt) override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+>>>>>>> Stashed changes
 
 	void flipHorizontally(bool flip);
 	void flipVertically(bool flip);
