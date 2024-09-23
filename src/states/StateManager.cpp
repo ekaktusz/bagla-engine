@@ -81,18 +81,8 @@ void StateManager::applyPendingChanges()
 		}
 	}
 
-<<<<<<< Updated upstream
 	m_RequestQueue.clear();
 }
-=======
-	void StateManager::handleEvent(const sf::Event& event)
-	{
-		if (!m_States.empty())
-		{
-			m_States.top()->handleEvent(event);
-		}
-		applyPendingChangesWithTransition();
->>>>>>> Stashed changes
 
 void StateManager::update(const sf::Time& dt)
 {

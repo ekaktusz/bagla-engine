@@ -57,15 +57,11 @@ void StateTransition::start()
 	{
 		m_TransitionBackground.setFillColor(sf::Color(0, 0, 0, 0));
 	}
-<<<<<<< Updated upstream
 	else if (m_Type == Type::Open)
 	{
 		m_TransitionBackground.setFillColor(sf::Color(0, 0, 0, 255));
 	}
 }
-=======
-
->>>>>>> Stashed changes
 
 void StateTransition::reset()
 {

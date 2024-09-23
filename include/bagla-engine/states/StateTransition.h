@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IGameObject.h"
+#include "GameObject.h"
 #include "MathExtensions.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -10,7 +10,6 @@
 
 namespace bgl
 {
-<<<<<<< Updated upstream
 class StateTransition : public bgl::GameObject
 {
 public:
@@ -19,18 +18,13 @@ public:
 		Open,
 		Close
 	};
-=======
-  class StateTransition : public IGameObject, public sf::Drawable
-  {
-  public:
-    enum class Type { Open, Close };
->>>>>>> Stashed changes
 
 public:
 	StateTransition(Type type);
 
 	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void handleEvent(const sf::Event& event) override;
 
 	void start();
 	void reset();

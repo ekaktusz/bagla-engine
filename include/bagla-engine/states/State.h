@@ -1,7 +1,6 @@
 #pragma once
 
-#include "IGameObject.h"
-#include "IEventHandler.h"
+#include "GameObject.h"
 #include "states/StateTransition.h"
 
 namespace sf
@@ -15,18 +14,10 @@ namespace bgl
 {
 class StateManager;
 
-<<<<<<< Updated upstream
 class State : public GameObject
 {
 public:
 	State(StateManager& stateManager, sf::RenderWindow& renderWindow) : m_StateManager(stateManager), m_RenderWindow(renderWindow) {}
-=======
-	class State : public IGameObject, public sf::Drawable, public IEventHandler
-	{
-	public:
-		State(StateManager& stateManager, sf::RenderWindow& renderWindow) : m_StateManager(stateManager), m_RenderWindow(renderWindow) {}
-		virtual ~State() {}
->>>>>>> Stashed changes
 
 	virtual ~State() {}
 
