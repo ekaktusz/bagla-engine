@@ -8,12 +8,21 @@
 
 namespace bgl
 {
-PhysicsWorld::~PhysicsWorld() {}
 
 PhysicsWorld::PhysicsWorld()
 {
 	m_World = std::make_unique<b2World>(b2Vec2(.0f, -40.f));
 	m_World->SetContactListener(&m_ContactListener);
+}
+
+void PhysicsWorld::cleanUp() 
+{
+	for (auto* body : m_BodiesToDestroy)
+	{
+		m_World->DestroyBody(body->m_Body);
+		delete body;
+	}
+	m_BodiesToDestroy.clear();
 }
 
 void PhysicsWorld::update(const sf::Time& dt)
