@@ -37,27 +37,27 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
 {
-	spdlog::warn("DrawCircle");
+	SPDLOG_WARN("DrawCircle");
 }
 
 void DebugDraw::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
 {
-	spdlog::warn("DrawSolidCircle");
+	SPDLOG_WARN("DrawSolidCircle");
 }
 
 void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
 {
-	spdlog::warn("DrawSegment");
+	SPDLOG_WARN("DrawSegment");
 }
 
 void DebugDraw::DrawTransform(const b2Transform& xf)
 {
-	spdlog::warn("DrawTransform");
+	SPDLOG_WARN("DrawTransform");
 }
 
 void DebugDraw::DrawPoint(const b2Vec2& p, float size, const b2Color& color)
 {
-	spdlog::warn("DrawPoint");
+	SPDLOG_WARN("DrawPoint");
 }
 
 }

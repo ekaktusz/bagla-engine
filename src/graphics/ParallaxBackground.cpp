@@ -10,7 +10,7 @@ std::optional<sf::FloatRect> ParallaxBackground::getGlobalBounds() const
 {
 	if (m_ParallaxLayers.empty())
 	{
-		spdlog::error("empty parallax background, bounds are undefined");
+		SPDLOG_ERROR("empty parallax background, bounds are undefined");
 		return std::nullopt;
 	}
 

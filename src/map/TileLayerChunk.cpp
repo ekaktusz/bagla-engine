@@ -25,8 +25,8 @@ TileLayer::Chunk::Chunk(const tmx::TileLayer& layer, std::vector<const tmx::Tile
 	{
 		if (ts->getImagePath().empty())
 		{
-			spdlog::info("This example does not support Collection of Images tilesets");
-			spdlog::info("Chunks using " + ts->getName() + " will not be created");
+			SPDLOG_INFO("This example does not support Collection of Images tilesets");
+			SPDLOG_INFO("Chunks using " + ts->getName() + " will not be created");
 			continue;
 		}
 		m_ChunkArrays.emplace_back(std::make_unique<ChunkArray>(*tr.find(ts->getImagePath())->second, *ts));

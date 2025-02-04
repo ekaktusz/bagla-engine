@@ -38,7 +38,7 @@ void ObjectLayer::initializeRigidBodies()
 			RigidBody* tileRigidBody =
 				PhysicsWorld::getInstance().newRigidBody(object.getPosition().x, object.getPosition().y, object.getAABB().width, object.getAABB().height, false);
 			tileRigidBody->setUserCustomData(std::string("solid"));
-			spdlog::info("x: " + std::to_string(object.getPosition().x) + " y:" + std::to_string(object.getPosition().y) + " w:" + std::to_string(object.getAABB().width)
+			SPDLOG_INFO("x: " + std::to_string(object.getPosition().x) + " y:" + std::to_string(object.getPosition().y) + " w:" + std::to_string(object.getAABB().width)
 				+ " h:" + std::to_string(object.getAABB().height));
 			m_RigidBodies.push_back(tileRigidBody);
 		}

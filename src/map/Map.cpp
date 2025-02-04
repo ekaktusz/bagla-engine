@@ -43,7 +43,7 @@ const bgl::TileLayer& Map::getTileLayer(const std::string& name) const
 	auto found = m_TileLayers.find(name);
 	if (found == m_TileLayers.end())
 	{
-		spdlog::error("Cant find TileLayer with name: " + name);
+		SPDLOG_ERROR("Cant find TileLayer with name: " + name);
 	}
 	return *found->second;
 }
@@ -53,15 +53,15 @@ const bgl::ObjectLayer& Map::getObjectLayer(const std::string& name) const
 	auto found = m_ObjectLayers.find(name);
 	if (found == m_ObjectLayers.end())
 	{
-		spdlog::error("Cant find ObjectLayer with name: " + name);
+		SPDLOG_ERROR("Cant find ObjectLayer with name: " + name);
 	}
 	return *found->second;
 }
 
 sf::Vector2f Map::getSize() const
 {
-	spdlog::info(" tilsize: x: " + std::to_string(m_Map->getTileSize().x) + " y: " + std::to_string(m_Map->getTileSize().y));
-	spdlog::info(" tilcount: x: " + std::to_string(m_Map->getTileCount().x) + " y: " + std::to_string(m_Map->getTileCount().y));
+	SPDLOG_INFO(" tilsize: x: " + std::to_string(m_Map->getTileSize().x) + " y: " + std::to_string(m_Map->getTileSize().y));
+	SPDLOG_INFO(" tilcount: x: " + std::to_string(m_Map->getTileCount().x) + " y: " + std::to_string(m_Map->getTileCount().y));
 	return { (float)m_Map->getTileSize().x * m_Map->getTileCount().x, (float)m_Map->getTileSize().y * m_Map->getTileCount().y };
 }
 

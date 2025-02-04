@@ -8,7 +8,7 @@
 #define IF_EMPTY_RETURN                                                                                                                                                  \
 	if (m_States.empty())                                                                                                                                                \
 	{                                                                                                                                                                    \
-		spdlog::error("State stack is empty!");                                                                                                                          \
+		SPDLOG_ERROR("State stack is empty!");                                                                                                                          \
 		return;                                                                                                                                                          \
 	}
 
@@ -121,14 +121,14 @@ void StateManager::applyPendingChangesWithTransition()
 {
 	if (m_CloseTransition.isTransitionOver())
 	{
-		spdlog::info("apply pending changes");
+		SPDLOG_INFO("apply pending changes");
 		applyPendingChanges();
 		m_CloseTransition.reset();
 	}
 
 	if (!m_RequestQueue.empty() && !m_CloseTransition.isTransitionStarted())
 	{
-		spdlog::info("transition started");
+		SPDLOG_INFO("transition started");
 		m_CloseTransition.start();
 	}
 }

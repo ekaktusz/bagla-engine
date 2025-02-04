@@ -21,7 +21,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 	rigidBodyA->beginContact(rigidBodyB, collisionNormal);
 	rigidBodyB->beginContact(rigidBodyA, collisionNormal);
 
-	spdlog::info(
+	SPDLOG_INFO(
 		"BeginContact collision normal: x: " + std::to_string(contact->GetManifold()->localNormal.x) + " y: " + std::to_string(contact->GetManifold()->localNormal.y));
 }
 
@@ -36,7 +36,7 @@ void ContactListener::EndContact(b2Contact* contact)
 	rigidBodyA->endContact(rigidBodyB, collisionNormal);
 	rigidBodyB->endContact(rigidBodyA, collisionNormal);
 
-	spdlog::info(
+	SPDLOG_INFO(
 		"EndContact collision normal: x: " + std::to_string(contact->GetManifold()->localNormal.x) + " y: " + std::to_string(contact->GetManifold()->localNormal.y));
 }
 

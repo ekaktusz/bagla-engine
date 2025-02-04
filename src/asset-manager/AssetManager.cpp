@@ -15,10 +15,10 @@ void AssetManager::loadTexture(const std::string& path, const std::string& id)
 	std::unique_ptr<sf::Texture> texture = std::make_unique<sf::Texture>();
 	if (!texture->loadFromFile(path))
 	{
-		spdlog::error("Failed to load texture: " + path);
+		SPDLOG_ERROR("Failed to load texture: " + path);
 		return;
 	}
-	spdlog::info("Texture " + id + " loaded successfully : " + path);
+	SPDLOG_INFO("Texture " + id + " loaded successfully : " + path);
 	m_TextureHolder.try_emplace(id, std::move(texture));
 }
 
@@ -27,10 +27,10 @@ void AssetManager::loadSoundBuffer(const std::string& path, const std::string& i
 	std::unique_ptr<sf::SoundBuffer> soundBuffer = std::make_unique<sf::SoundBuffer>();
 	if (!soundBuffer->loadFromFile(path))
 	{
-		spdlog::error("Failed to load sound buffer: " + path);
+		SPDLOG_ERROR("Failed to load sound buffer: " + path);
 		return;
 	}
-	spdlog::info("Sound buffer " + id + " loaded successfully : " + path);
+	SPDLOG_INFO("Sound buffer " + id + " loaded successfully : " + path);
 	m_SoundBufferHolder.try_emplace(id, std::move(soundBuffer));
 }
 
@@ -40,10 +40,10 @@ void AssetManager::loadMusic(const std::string& path, const std::string& id)
 	std::unique_ptr<sf::Music> music = std::make_unique<sf::Music>();
 	if (!music->openFromFile(path))
 	{
-		spdlog::error("Failed to open music file: " + path);
+		SPDLOG_ERROR("Failed to open music file: " + path);
 		return;
 	}
-	spdlog::info("Music " + id + " loaded successfully : " + path);
+	SPDLOG_INFO("Music " + id + " loaded successfully : " + path);
 	m_MusicHolder.try_emplace(id, std::move(music));
 }
 
@@ -52,10 +52,10 @@ void AssetManager::loadFont(const std::string& path, const std::string& id)
 	std::unique_ptr<sf::Font> font = std::make_unique<sf::Font>();
 	if (!font->loadFromFile(path))
 	{
-		spdlog::error("Failed to load font: " + path);
+		SPDLOG_ERROR("Failed to load font: " + path);
 		return;
 	}
-	spdlog::info("Font " + id + " loaded successfully : " + path);
+	SPDLOG_INFO("Font " + id + " loaded successfully : " + path);
 	m_FontHolder.try_emplace(id, std::move(font));
 }
 
@@ -64,10 +64,10 @@ void AssetManager::loadMap(const std::string& path, const std::string& id)
 	std::unique_ptr<Map> map = std::make_unique<Map>();
 	if (!map->loadFromFile(path))
 	{
-		spdlog::error("Failed to load map: " + path);
+		SPDLOG_ERROR("Failed to load map: " + path);
 		return;
 	}
-	spdlog::info("Map " + id + " loaded successfully : " + path);
+	SPDLOG_INFO("Map " + id + " loaded successfully : " + path);
 	m_MapHolder.try_emplace(id, std::move(map));
 }
 
@@ -76,7 +76,7 @@ const sf::Texture& AssetManager::getTexture(const std::string& id) const
 	auto found = m_TextureHolder.find(id);
 	if (found == m_TextureHolder.end())
 	{
-		spdlog::error("Cant find texture by id: " + id);
+		SPDLOG_ERROR("Cant find texture by id: " + id);
 	}
 	return *found->second;
 }
@@ -86,7 +86,7 @@ sf::SoundBuffer& AssetManager::getSoundBuffer(const std::string& id) const
 	auto found = m_SoundBufferHolder.find(id);
 	if (found == m_SoundBufferHolder.end())
 	{
-		spdlog::error("Cant find sound buffer by id: " + id);
+		SPDLOG_ERROR("Cant find sound buffer by id: " + id);
 	}
 	return *found->second;
 }
@@ -96,7 +96,7 @@ sf::Music& AssetManager::getMusic(const std::string& id) const
 	auto found = m_MusicHolder.find(id);
 	if (found == m_MusicHolder.end())
 	{
-		spdlog::error("Cant find music by id: " + id);
+		SPDLOG_ERROR("Cant find music by id: " + id);
 	}
 	return *found->second;
 }
@@ -106,7 +106,7 @@ const sf::Font& AssetManager::getFont(const std::string& id) const
 	auto found = m_FontHolder.find(id);
 	if (found == m_FontHolder.end())
 	{
-		spdlog::error("Cant find font by id: " + id);
+		SPDLOG_ERROR("Cant find font by id: " + id);
 	}
 	return *found->second;
 }
@@ -116,7 +116,7 @@ Map& AssetManager::getMap(const std::string& id) const
 	auto found = m_MapHolder.find(id);
 	if (found == m_MapHolder.end())
 	{
-		spdlog::error("Cant find map by id: " + id);
+		SPDLOG_ERROR("Cant find map by id: " + id);
 	}
 	return *found->second;
 }

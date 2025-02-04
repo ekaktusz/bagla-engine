@@ -92,7 +92,7 @@ void Slider::setProgress(float progress)
 {
 	if (progress > 1 || progress < 0)
 	{
-		spdlog::warn("not valid progress: " + std::to_string(progress));
+		SPDLOG_WARN("not valid progress: " + std::to_string(progress));
 		return;
 	}
 	m_Progress = progress;

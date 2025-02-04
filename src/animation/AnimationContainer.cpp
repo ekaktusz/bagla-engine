@@ -7,7 +7,7 @@
 #define IF_EMPTY_RETURN                                                                                                                                                  \
 	if (m_Animations.empty())                                                                                                                                            \
 	{                                                                                                                                                                    \
-		spdlog::warn("AnimationComponent is empty, add an Animation to it.");                                                                                            \
+		SPDLOG_WARN("AnimationComponent is empty, add an Animation to it.");                                                                                            \
 		return;                                                                                                                                                          \
 	}
 
@@ -26,13 +26,13 @@ void AnimationContainer::removeAnimation(const std::string& id)
 
 	if (!m_Animations.contains(id))
 	{
-		spdlog::error("Can't find animation by id: " + id);
+		SPDLOG_ERROR("Can't find animation by id: " + id);
 		return;
 	}
 
 	if (id == m_CurrentAnimationID)
 	{
-		spdlog::error("Can't remove current animations: " + id);
+		SPDLOG_ERROR("Can't remove current animations: " + id);
 		return;
 	}
 
@@ -59,7 +59,7 @@ void AnimationContainer::setCurrentAnimation(const std::string& id)
 
 	if (!m_Animations.contains(id))
 	{
-		spdlog::error("ID does not exist: " + id);
+		SPDLOG_ERROR("ID does not exist: " + id);
 		return;
 	}
 	m_Animations[m_CurrentAnimationID]->pause();

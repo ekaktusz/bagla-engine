@@ -137,7 +137,7 @@ void Button::handleEvent(const sf::Event& event)
 			}
 			else
 			{
-				spdlog::warn("Button is clicked, but no action set.");
+				SPDLOG_WARN("Button is clicked, but no action set.");
 			}
 		}
 	}
