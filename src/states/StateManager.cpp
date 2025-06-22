@@ -6,9 +6,9 @@
 #include <type_traits>
 
 #define IF_EMPTY_RETURN                                                                                                                                                  \
-	if (m_States.empty())                                                                                                                                                \
+	if (_states.empty())                                                                                                                                                 \
 	{                                                                                                                                                                    \
-		SPDLOG_ERROR("State stack is empty!");                                                                                                                          \
+		SPDLOG_ERROR("State stack is empty!");                                                                                                                           \
 		return;                                                                                                                                                          \
 	}
 
@@ -16,25 +16,25 @@ namespace bgl
 {
 void StateManager::handlePushState(std::unique_ptr<State> state)
 {
-	if (!m_States.empty())
+	if (!_states.empty())
 	{
-		m_States.top()->onPause();
+		_states.top()->onPause();
 	}
-	m_States.push(std::move(state));
-	m_States.top()->onStart();
-	m_OpenTransition.start();
+	_states.push(std::move(state));
+	_states.top()->onStart();
+	_openTransition.start();
 }
 
 void StateManager::handlePopState()
 {
 	IF_EMPTY_RETURN
 
-	m_States.pop();
+	_states.pop();
 
-	if (!m_States.empty())
+	if (!_states.empty())
 	{
-		m_States.top()->onResume();
-		m_OpenTransition.start();
+		_states.top()->onResume();
+		_openTransition.start();
 	}
 }
 
@@ -50,18 +50,18 @@ void StateManager::handleResetToFirstState()
 {
 	IF_EMPTY_RETURN
 
-	while (m_States.size() > 1)
+	while (_states.size() > 1)
 	{
-		m_States.pop();
+		_states.pop();
 	}
 
-	m_States.top()->onResume();
-	m_OpenTransition.start();
+	_states.top()->onResume();
+	_openTransition.start();
 }
 
 void StateManager::applyPendingChanges()
 {
-	for (StateManagerRequest& pendingRequest : m_RequestQueue)
+	for (StateManagerRequest& pendingRequest : _requestQueue)
 	{
 		if (pendingRequest.requestType == StateManagerRequestType::Pop)
 		{
@@ -81,76 +81,75 @@ void StateManager::applyPendingChanges()
 		}
 	}
 
-	m_RequestQueue.clear();
+	_requestQueue.clear();
 }
 
 void StateManager::update(const sf::Time& dt)
 {
-	if (!m_States.empty())
+	if (!_states.empty())
 	{
-		m_States.top()->update(dt);
-		m_OpenTransition.update(dt);
-		m_CloseTransition.update(dt);
+		_states.top()->update(dt);
+		_openTransition.update(dt);
+		_closeTransition.update(dt);
 	}
 	applyPendingChangesWithTransition();
 }
 
 void StateManager::draw() const
 {
-	if (!m_States.empty())
+	if (!_states.empty())
 	{
-		m_RenderWindow.draw(*m_States.top());
-		m_RenderWindow.draw(m_OpenTransition);
-		if (m_CloseTransition.isTransitionStarted())
-			m_RenderWindow.draw(m_CloseTransition);
-		m_RenderWindow.display();
+		_renderWindow.draw(*_states.top());
+		_renderWindow.draw(_openTransition);
+		if (_closeTransition.isTransitionStarted())
+			_renderWindow.draw(_closeTransition);
+		_renderWindow.display();
 	}
 }
 
 void StateManager::handleEvent(const sf::Event& event)
 {
-	if (!m_States.empty())
+	if (!_states.empty())
 	{
-		m_States.top()->handleEvent(event);
-		m_OpenTransition.handleEvent(event);
+		_states.top()->handleEvent(event);
+		_openTransition.handleEvent(event);
 	}
 	applyPendingChangesWithTransition();
 }
 
 void StateManager::applyPendingChangesWithTransition()
 {
-	if (m_CloseTransition.isTransitionOver())
+	if (_closeTransition.isTransitionOver())
 	{
 		SPDLOG_INFO("apply pending changes");
 		applyPendingChanges();
-		m_CloseTransition.reset();
+		_closeTransition.reset();
 	}
 
-	if (!m_RequestQueue.empty() && !m_CloseTransition.isTransitionStarted())
+	if (!_requestQueue.empty() && !_closeTransition.isTransitionStarted())
 	{
 		SPDLOG_INFO("transition started");
-		m_CloseTransition.start();
+		_closeTransition.start();
 	}
 }
 
 void StateManager::pushState(std::unique_ptr<State> state)
 {
-	m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Push });
+	_requestQueue.push_back({ std::move(state), StateManagerRequestType::Push });
 }
 
 void StateManager::popState()
 {
-	m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Pop });
+	_requestQueue.push_back({ nullptr, StateManagerRequestType::Pop });
 }
 
 void StateManager::switchState(std::unique_ptr<State> state)
 {
-	m_RequestQueue.push_back({ std::move(state), StateManagerRequestType::Switch });
+	_requestQueue.push_back({ std::move(state), StateManagerRequestType::Switch });
 }
 
 void StateManager::resetToFirstState()
 {
-	m_RequestQueue.push_back({ nullptr, StateManagerRequestType::Reset });
+	_requestQueue.push_back({ nullptr, StateManagerRequestType::Reset });
 }
-
 }

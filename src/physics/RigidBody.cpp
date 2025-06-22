@@ -24,39 +24,39 @@ RigidBody::RigidBody(sf::Vector2f position, sf::Vector2f size, bool dynamic /*= 
 
 void RigidBody::initialize(float x, float y, float sx, float sy, bool dynamic /*= true*/, float density /*= 0.f*/)
 {
-	m_RigidBodyRectangleShape.setSize({ sx, sy });
-	m_RigidBodyRectangleShape.setPosition(x, y);
-	m_RigidBodyRectangleShape.setFillColor(sf::Color::Green);
+	_rigidBodyRectangleShape.setSize({ sx, sy });
+	_rigidBodyRectangleShape.setPosition(x, y);
+	_rigidBodyRectangleShape.setFillColor(sf::Color::Green);
 
 	if (dynamic)
-		m_BodyDef.type = b2_dynamicBody;
+		_bodyDef.type = b2_dynamicBody;
 
 	float bx = PhysicsWorld::scaleToPhysics(x + sx / 2);
 	float by = -PhysicsWorld::scaleToPhysics(y + sy / 2);
-	m_BodyDef.position.Set(bx, by);
-	m_Shape.SetAsBox(PhysicsWorld::scaleToPhysics(sx) / 2, PhysicsWorld::scaleToPhysics(sy) / 2);
+	_bodyDef.position.Set(bx, by);
+	_shape.SetAsBox(PhysicsWorld::scaleToPhysics(sx) / 2, PhysicsWorld::scaleToPhysics(sy) / 2);
 
-	m_Body = PhysicsWorld::getInstance().m_World->CreateBody(&m_BodyDef);
+	_body = PhysicsWorld::getInstance()._world->CreateBody(&_bodyDef);
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-	fixtureDef.shape = &m_Shape;
+	fixtureDef.shape = &_shape;
 	fixtureDef.density = density;
 
-	m_Fixture = m_Body->CreateFixture(&fixtureDef);
-	m_Body->SetFixedRotation(true);
+	_fixture = _body->CreateFixture(&fixtureDef);
+	_body->SetFixedRotation(true);
 }
 
 sf::Vector2f RigidBody::getPosition() const
 {
-	float x = PhysicsWorld::scaleToGraphics(m_Body->GetPosition().x);
-	float y = -PhysicsWorld::scaleToGraphics(m_Body->GetPosition().y);
-	return sf::Vector2f(x - m_RigidBodyRectangleShape.getSize().x / 2, y - m_RigidBodyRectangleShape.getSize().y / 2);
+	float x = PhysicsWorld::scaleToGraphics(_body->GetPosition().x);
+	float y = -PhysicsWorld::scaleToGraphics(_body->GetPosition().y);
+	return sf::Vector2f(x - _rigidBodyRectangleShape.getSize().x / 2, y - _rigidBodyRectangleShape.getSize().y / 2);
 }
 
 void RigidBody::setPosition(sf::Vector2f position)
 {
-	m_Body->SetTransform(PhysicsWorld::scaleToPhysics({ position.x, -position.y }), m_Body->GetAngle());
+	_body->SetTransform(PhysicsWorld::scaleToPhysics({ position.x, -position.y }), _body->GetAngle());
 }
 
 void RigidBody::setPosition(float x, float y)
@@ -66,70 +66,70 @@ void RigidBody::setPosition(float x, float y)
 
 sf::Vector2f RigidBody::getSize() const
 {
-	return m_RigidBodyRectangleShape.getSize();
+	return _rigidBodyRectangleShape.getSize();
 }
 
 void RigidBody::setSize(float sx, float sy)
 {
-	float density = m_Fixture->GetDensity();
-	m_Body->DestroyFixture(m_Fixture);
-	initialize(getPosition().x, getPosition().y, sx, sy, m_BodyDef.type == b2_dynamicBody, density);
+	float density = _fixture->GetDensity();
+	_body->DestroyFixture(_fixture);
+	initialize(getPosition().x, getPosition().y, sx, sy, _bodyDef.type == b2_dynamicBody, density);
 }
 
 void RigidBody::setLinearVelocity(sf::Vector2f velocity)
 {
-	m_Body->SetLinearVelocity(PhysicsWorld::scaleToPhysics({ velocity.x, velocity.y }));
+	_body->SetLinearVelocity(PhysicsWorld::scaleToPhysics({ velocity.x, velocity.y }));
 }
 
 void RigidBody::setLinearVelocity(float vx, float vy)
 {
-	m_Body->SetLinearVelocity(PhysicsWorld::scaleToPhysics({ vx, vy }));
+	_body->SetLinearVelocity(PhysicsWorld::scaleToPhysics({ vx, vy }));
 }
 
 void RigidBody::setGravityScale(float gravityScale)
 {
-	m_Body->SetGravityScale(gravityScale);
+	_body->SetGravityScale(gravityScale);
 }
 
 void RigidBody::setBeginContact(std::function<void(RigidBody*, sf::Vector2f)> beginContact)
 {
-	m_BeginContact = beginContact;
+	_beginContact = beginContact;
 }
 
 void RigidBody::setEndContact(std::function<void(RigidBody*, sf::Vector2f)> endContact)
 {
-	m_EndContact = endContact;
+	_endContact = endContact;
 }
 
 void RigidBody::setSensor(bool sensor)
 {
-	m_Fixture->SetSensor(sensor);
+	_fixture->SetSensor(sensor);
 }
 
 void RigidBody::beginContact(RigidBody* other, sf::Vector2f collisionNormal)
 {
-	if (m_BeginContact)
+	if (_beginContact)
 	{
-		m_BeginContact(other, collisionNormal);
+		_beginContact(other, collisionNormal);
 	}
 }
 
 void RigidBody::endContact(RigidBody* other, sf::Vector2f collisionNormal)
 {
-	if (m_EndContact)
+	if (_endContact)
 	{
-		m_EndContact(other, collisionNormal);
+		_endContact(other, collisionNormal);
 	}
 }
 
 const std::any& RigidBody::getUserCustomData() const
 {
-	return m_UserCustomData;
+	return _userCustomData;
 }
 
 void RigidBody::setUserCustomData(const std::any& userCustomData)
 {
-	m_UserCustomData = userCustomData;
+	_userCustomData = userCustomData;
 }
 
 }

@@ -6,7 +6,7 @@
 
 namespace bgl
 {
-ObjectLayer::ObjectLayer(tmx::ObjectGroup& objectGroup) : m_ObjectGroup(objectGroup)
+ObjectLayer::ObjectLayer(tmx::ObjectGroup& objectGroup) : _objectGroup(objectGroup)
 {
 	if (isSolidFlagPresent())
 	{
@@ -16,7 +16,7 @@ ObjectLayer::ObjectLayer(tmx::ObjectGroup& objectGroup) : m_ObjectGroup(objectGr
 
 bool ObjectLayer::isSolidFlagPresent() const
 {
-	const auto& properties = m_ObjectGroup.getProperties();
+	const auto& properties = _objectGroup.getProperties();
 	for (const auto& prop : properties)
 	{
 		if (prop.getName() == "solid" && prop.getType() == tmx::Property::Type::Boolean && prop.getBoolValue())
@@ -29,7 +29,7 @@ bool ObjectLayer::isSolidFlagPresent() const
 
 void ObjectLayer::initializeRigidBodies()
 {
-	const auto& objects = m_ObjectGroup.getObjects();
+	const auto& objects = _objectGroup.getObjects();
 	for (const auto& object : objects)
 	{
 		//TODO: more shapes
@@ -40,24 +40,24 @@ void ObjectLayer::initializeRigidBodies()
 			tileRigidBody->setUserCustomData(std::string("solid"));
 			SPDLOG_INFO("x: " + std::to_string(object.getPosition().x) + " y:" + std::to_string(object.getPosition().y) + " w:" + std::to_string(object.getAABB().width)
 				+ " h:" + std::to_string(object.getAABB().height));
-			m_RigidBodies.push_back(tileRigidBody);
+			_rigidBodies.push_back(tileRigidBody);
 		}
 	}
 }
 
 const std::vector<tmx::Object>& ObjectLayer::getObjects() const
 {
-	return m_ObjectGroup.getObjects();
+	return _objectGroup.getObjects();
 }
 
 const tmx::Object& ObjectLayer::getFirstObject() const
 {
-	return m_ObjectGroup.getObjects().front();
+	return _objectGroup.getObjects().front();
 }
 
 ObjectLayer::~ObjectLayer()
 {
-	for (RigidBody* rigidBody : m_RigidBodies)
+	for (RigidBody* rigidBody : _rigidBodies)
 	{
 		PhysicsWorld::getInstance().destroyRigidBody(rigidBody);
 	}

@@ -34,10 +34,10 @@ public:
 	bool isTransitionStarted() const;
 
 private:
-	sf::RectangleShape m_TransitionBackground {};
-	sf::Clock m_TransitionClock {};
-	sf::Time m_TransitionDuration = sf::seconds(0.5f);
-	Type m_Type;
-	bool m_TransitionStarted = false;
+	sf::RectangleShape _transitionBackground {};
+	sf::Clock _transitionClock {};
+	sf::Time _transitionDuration = sf::seconds(0.5f);
+	Type _type;
+	bool _transitionStarted = false;
 };
 }

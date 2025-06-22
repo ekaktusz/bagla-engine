@@ -43,7 +43,7 @@ public:
 	void play();
 
 private:
-	std::unordered_map<std::string, std::unique_ptr<Animation>> m_Animations;
-	std::string m_CurrentAnimationID;
+	std::unordered_map<std::string, std::unique_ptr<Animation>> _animations;
+	std::string _currentAnimationID;
 };
 }

@@ -34,8 +34,8 @@ public:
 	void addLayer(std::unique_ptr<ParallaxLayer> parallaxLayer);
 
 private:
-	std::vector<std::unique_ptr<ParallaxLayer>> m_ParallaxLayers;
+	std::vector<std::unique_ptr<ParallaxLayer>> _parallaxLayers;
 
-	Camera* m_attachedCamera;
+	Camera* _attachedCamera;
 };
 }

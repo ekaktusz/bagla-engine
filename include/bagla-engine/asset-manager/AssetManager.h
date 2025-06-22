@@ -26,8 +26,8 @@ class AssetManager
 public:
 	static AssetManager& getInstance()
 	{
-		static AssetManager s_Instance;
-		return s_Instance;
+		static AssetManager instance;
+		return instance;
 	}
 
 	void loadTexture(const std::string& path, const std::string& id);
@@ -51,10 +51,10 @@ public:
 private:
 	AssetManager() = default;
 
-	std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_TextureHolder;
-	std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>> m_SoundBufferHolder;
-	std::unordered_map<std::string, std::unique_ptr<sf::Music>> m_MusicHolder;
-	std::unordered_map<std::string, std::unique_ptr<sf::Font>> m_FontHolder;
-	std::unordered_map<std::string, std::unique_ptr<Map>> m_MapHolder;
+	std::unordered_map<std::string, std::unique_ptr<sf::Texture>> _textureHolder;
+	std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>> _soundBufferHolder;
+	std::unordered_map<std::string, std::unique_ptr<sf::Music>> _musicHolder;
+	std::unordered_map<std::string, std::unique_ptr<sf::Font>> _fontHolder;
+	std::unordered_map<std::string, std::unique_ptr<Map>> _mapHolder;
 };
 }

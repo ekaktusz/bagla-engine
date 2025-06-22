@@ -43,23 +43,23 @@ public:
 
 	void setOnProgressChange(std::function<void(float)> onProgressChange)
 	{
-		m_OnProgressChange = onProgressChange;
+		_onProgressChange = onProgressChange;
 	}
 
 	void setFont(const sf::Font& font);
 	void setString(const std::string& str);
 
 private:
-	const sf::RenderWindow& m_RenderWindow;
+	const sf::RenderWindow& _renderWindow;
 
-	float m_Progress; // between 0 and 1
+	float _Progress; // between 0 and 1
 
-	sf::RectangleShape m_OuterSlider;
-	sf::RectangleShape m_InnerSlider;
-	sf::RectangleShape m_Indicator;
+	sf::RectangleShape _outerSlider;
+	sf::RectangleShape _innerSlider;
+	sf::RectangleShape _indicator;
 
-	sf::Text m_Text;
+	sf::Text _text;
 
-	std::function<void(float)> m_OnProgressChange;
+	std::function<void(float)> _onProgressChange;
 };
 }

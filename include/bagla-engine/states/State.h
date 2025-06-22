@@ -19,7 +19,7 @@ class StateManager;
 class State : public GameObject, public EventHandler, public sf::Drawable
 {
 public:
-	State(StateManager& stateManager, sf::RenderWindow& renderWindow) : m_StateManager(stateManager), m_RenderWindow(renderWindow) {}
+	State(StateManager& stateManager, sf::RenderWindow& renderWindow) : _stateManager(stateManager), _renderWindow(renderWindow) {}
 
 	virtual ~State() = default;
 
@@ -34,8 +34,8 @@ public:
 	virtual void onPause() {}
 
 protected:
-	StateManager& m_StateManager;
-	sf::RenderWindow& m_RenderWindow;
+	StateManager& _stateManager;
+	sf::RenderWindow& _renderWindow;
 };
 
 }

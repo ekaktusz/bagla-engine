@@ -7,7 +7,7 @@
 namespace bgl
 {
 
-DebugDraw::DebugDraw(sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow) {}
+DebugDraw::DebugDraw(sf::RenderWindow& renderWindow) : _renderWindow(renderWindow) {}
 
 void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
@@ -20,7 +20,7 @@ void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2C
 	shape.setFillColor(sf::Color::Transparent);
 	shape.setOutlineColor(sf::Color::Red);
 	shape.setOutlineThickness(2.f);
-	m_RenderWindow.draw(shape);
+	_renderWindow.draw(shape);
 }
 
 void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
@@ -32,7 +32,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 		shape.setPoint(i, { PhysicsWorld::scaleToGraphics(vertices[i].x), -PhysicsWorld::scaleToGraphics(vertices[i].y) });
 	}
 	shape.setFillColor(sf::Color::Green);
-	m_RenderWindow.draw(shape);
+	_renderWindow.draw(shape);
 }
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)

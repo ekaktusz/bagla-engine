@@ -50,15 +50,15 @@ private:
 	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
 
 private:
-	// increasing m_chunkSize by 4; fixes render problems when mapsize != chunksize
-	// sf::Vector2f m_chunkSize = sf::Vector2f(1024.f, 1024.f);
-	sf::Vector2f m_ChunkSize = sf::Vector2f(512.f, 512.f);
-	sf::Vector2u m_ChunkCount;
-	sf::Vector2u m_MapTileSize; // general Tilesize of Map
-	sf::FloatRect m_GlobalBounds;
+	// increasing _chunkSize by 4; fixes render problems when mapsize != chunksize
+	// sf::Vector2f _chunkSize = sf::Vector2f(1024.f, 1024.f);
+	sf::Vector2f _chunkSize = sf::Vector2f(512.f, 512.f);
+	sf::Vector2u _chunkCount;
+	sf::Vector2u _mapTileSize; // general Tilesize of Map
+	sf::FloatRect _GlobalBounds;
 
 	using TextureResource = std::map<std::string, std::unique_ptr<sf::Texture>>;
-	TextureResource m_TextureResource;
+	TextureResource _textureResource;
 
 	struct AnimationState
 	{
@@ -133,44 +133,44 @@ private:
 			std::uint32_t firstGID, lastGID;
 
 		private:
-			const sf::Texture& m_Texture;
-			std::vector<sf::Vertex> m_Vertices;
+			const sf::Texture& _texture;
+			std::vector<sf::Vertex> _Vertices;
 
 			void draw(sf::RenderTarget& rt, sf::RenderStates states) const override
 			{
-				states.texture = &m_Texture;
+				states.texture = &_texture;
 #ifndef __ANDROID__
-				rt.draw(m_Vertices.data(), m_Vertices.size(), sf::Quads, states);
+				rt.draw(_Vertices.data(), _Vertices.size(), sf::Quads, states);
 #endif
 #ifdef __ANDROID__
-				rt.draw(m_Vertices.data(), m_Vertices.size(), sf::Triangles, states);
+				rt.draw(_Vertices.data(), _Vertices.size(), sf::Triangles, states);
 #endif
 			}
 		};
 
-		sf::Uint8 m_LayerOpacity;	// opacity of the layer
-		sf::Vector2f m_LayerOffset; // Layer offset
+		sf::Uint8 _layerOpacity;   // opacity of the layer
+		sf::Vector2f _layerOffset; // Layer offset
 
-		sf::Vector2u m_MapTileSize;						  // general Tilesize of Map
-		sf::Vector2f m_ChunkTileCount;					  // chunk tilecount
-		std::vector<tmx::TileLayer::Tile> m_ChunkTileIDs; // stores all tiles in this chunk for later manipulation
-		std::vector<sf::Color> m_ChunkColors;			  // stores colors for extended color effects
+		sf::Vector2u _mapTileSize;						 // general Tilesize of Map
+		sf::Vector2f _chunkTileCount;					 // chunk tilecount
+		std::vector<tmx::TileLayer::Tile> _chunkTileIDs; // stores all tiles in this chunk for later manipulation
+		std::vector<sf::Color> _chunkColors;			 // stores colors for extended color effects
 
-		std::map<std::uint32_t, tmx::Tileset::Tile> m_AnimTiles; // animation catalogue
-		std::vector<AnimationState> m_ActiveAnimations;			 // Animations to be done in this chunk
-		std::vector<ChunkArray::Ptr> m_ChunkArrays;
+		std::map<std::uint32_t, tmx::Tileset::Tile> _animTiles; // animation catalogue
+		std::vector<AnimationState> _activeAnimations;			// Animations to be done in this chunk
+		std::vector<ChunkArray::Ptr> _chunkArrays;
 	};
 
-	std::vector<Chunk::Ptr> m_Chunks;
-	mutable std::vector<Chunk*> m_VisibleChunks;
+	std::vector<Chunk::Ptr> _chunks;
+	mutable std::vector<Chunk*> _visibleChunks;
 
 	Chunk::Ptr& getChunkAndTransform(int x, int y, sf::Vector2u& chunkRelative)
 	{
-		uint32_t chunkX = std::floor((x * m_MapTileSize.x) / m_ChunkSize.x);
-		uint32_t chunkY = std::floor((y * m_MapTileSize.y) / m_ChunkSize.y);
-		chunkRelative.x = ((x * m_MapTileSize.x) - chunkX * m_ChunkSize.x) / m_MapTileSize.x;
-		chunkRelative.y = ((y * m_MapTileSize.y) - chunkY * m_ChunkSize.y) / m_MapTileSize.y;
-		return m_Chunks[chunkX + static_cast<std::vector<Chunk::Ptr, std::allocator<Chunk::Ptr>>::size_type>(chunkY) * m_ChunkCount.x];
+		uint32_t chunkX = std::floor((x * _mapTileSize.x) / _chunkSize.x);
+		uint32_t chunkY = std::floor((y * _mapTileSize.y) / _chunkSize.y);
+		chunkRelative.x = ((x * _mapTileSize.x) - chunkX * _chunkSize.x) / _mapTileSize.x;
+		chunkRelative.y = ((y * _mapTileSize.y) - chunkY * _chunkSize.y) / _mapTileSize.y;
+		return _chunks[chunkX + static_cast<std::vector<Chunk::Ptr, std::allocator<Chunk::Ptr>>::size_type>(chunkY) * _chunkCount.x];
 	}
 };
 

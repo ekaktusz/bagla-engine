@@ -1,71 +1,69 @@
-#pragma once
-
 #include "states/StateTransition.h"
 #include "MathExtensions.h"
 
 namespace bgl
 {
 
-StateTransition::StateTransition(Type type) : m_Type(type)
+StateTransition::StateTransition(Type type) : _type(type)
 {
-	m_TransitionBackground = sf::RectangleShape({ 1270, 720 });
+	_transitionBackground = sf::RectangleShape({ 1270, 720 });
 }
 
 void StateTransition::update(const sf::Time& dt)
 {
-	if (m_TransitionStarted && !isTransitionOver())
+	if (_transitionStarted && !isTransitionOver())
 	{
 		const float alpha = [&]() {
-			switch (m_Type)
+			switch (_type)
 			{
-				case Type::Close: return bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
-				case Type::Open: return 255 - bgl::mapValue(m_TransitionClock.getElapsedTime().asSeconds(), 0.f, m_TransitionDuration.asSeconds(), 0.f, 255.f);
+				case Type::Close: return bgl::mapValue(_transitionClock.getElapsedTime().asSeconds(), 0.f, _transitionDuration.asSeconds(), 0.f, 255.f);
+				case Type::Open: return 255 - bgl::mapValue(_transitionClock.getElapsedTime().asSeconds(), 0.f, _transitionDuration.asSeconds(), 0.f, 255.f);
 				default: return 0.f;
 			}
 		}();
-		m_TransitionBackground.setFillColor(sf::Color(0, 0, 0, alpha));
+		_transitionBackground.setFillColor(sf::Color(0, 0, 0, alpha));
 	}
 }
 
 void StateTransition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_TransitionBackground);
+	target.draw(_transitionBackground);
 }
 
 void StateTransition::handleEvent(const sf::Event& event) {}
 
 bool StateTransition::isTransitionOver() const
 {
-	return m_TransitionStarted && (m_TransitionClock.getElapsedTime() > m_TransitionDuration);
+	return _transitionStarted && (_transitionClock.getElapsedTime() > _transitionDuration);
 }
 
 bool StateTransition::isTransitionRunning() const
 {
-	return m_TransitionStarted && !isTransitionOver();
+	return _transitionStarted && !isTransitionOver();
 }
 
 bool StateTransition::isTransitionStarted() const
 {
-	return m_TransitionStarted;
+	return _transitionStarted;
 }
 
 void StateTransition::start()
 {
-	m_TransitionStarted = true;
-	m_TransitionClock.restart();
+	_transitionStarted = true;
+	_transitionClock.restart();
 
-	if (m_Type == Type::Close)
+	if (_type == Type::Close)
 	{
-		m_TransitionBackground.setFillColor(sf::Color(0, 0, 0, 0));
+		_transitionBackground.setFillColor(sf::Color(0, 0, 0, 0));
 	}
-	else if (m_Type == Type::Open)
+	else if (_type == Type::Open)
 	{
-		m_TransitionBackground.setFillColor(sf::Color(0, 0, 0, 255));
+		_transitionBackground.setFillColor(sf::Color(0, 0, 0, 255));
 	}
 }
 
 void StateTransition::reset()
 {
-	m_TransitionStarted = false;
+	_transitionStarted = false;
 }
 }

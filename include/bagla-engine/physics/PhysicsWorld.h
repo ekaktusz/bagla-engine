@@ -27,13 +27,11 @@ public:
 
 	static PhysicsWorld& getInstance()
 	{
-		static PhysicsWorld s_Instance;
-		return s_Instance;
+		static PhysicsWorld instance;
+		return instance;
 	}
 
-
 	void cleanUp();
-
 
 	void update(const sf::Time& dt) override;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -54,11 +52,11 @@ private:
 	PhysicsWorld();
 
 private:
-	std::unique_ptr<b2World> m_World;
+	std::unique_ptr<b2World> _world;
 
-	ContactListener m_ContactListener;
-	std::unique_ptr<DebugDraw> m_DebugDraw;
+	ContactListener _contactListener;
+	std::unique_ptr<DebugDraw> _debugDraw;
 
-	std::vector<bgl::RigidBody*> m_BodiesToDestroy;
+	std::vector<bgl::RigidBody*> _bodiesToDestroy;
 };
 }

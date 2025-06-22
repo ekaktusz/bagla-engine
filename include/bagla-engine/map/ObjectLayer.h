@@ -30,8 +30,8 @@ private:
 	void initializeRigidBodies();
 
 private:
-	tmx::ObjectGroup& m_ObjectGroup;
+	tmx::ObjectGroup& _objectGroup;
 	// i wonder if i'll ever need this.
-	std::vector<RigidBody*> m_RigidBodies;
+	std::vector<RigidBody*> _rigidBodies;
 };
 }

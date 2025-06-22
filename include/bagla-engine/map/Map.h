@@ -24,9 +24,9 @@ public:
 	sf::Vector2f getSize() const;
 
 private:
-	std::unique_ptr<tmx::Map> m_Map;
+	std::unique_ptr<tmx::Map> _map;
 
-	std::unordered_map<std::string, std::unique_ptr<TileLayer>> m_TileLayers;
-	std::unordered_map<std::string, std::unique_ptr<ObjectLayer>> m_ObjectLayers;
+	std::unordered_map<std::string, std::unique_ptr<TileLayer>> _tileLayers;
+	std::unordered_map<std::string, std::unique_ptr<ObjectLayer>> _objectLayers;
 };
 }

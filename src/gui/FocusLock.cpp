@@ -2,25 +2,25 @@
 
 namespace bgl
 {
-const Widget* FocusLock::s_LockedWidget = nullptr;
+const Widget* FocusLock::LOCKED_WIDGET = nullptr;
 
 void FocusLock::lockFocus(const Widget* widget)
 {
-	s_LockedWidget = widget;
+	LOCKED_WIDGET = widget;
 }
 
 void FocusLock::unlockFocus()
 {
-	s_LockedWidget = nullptr;
+	LOCKED_WIDGET = nullptr;
 }
 
 bool FocusLock::isLocked()
 {
-	return s_LockedWidget != nullptr;
+	return LOCKED_WIDGET != nullptr;
 }
 
 bool FocusLock::isWidgetInFocus(const Widget* widget)
 {
-	return widget == s_LockedWidget;
+	return widget == LOCKED_WIDGET;
 }
 }

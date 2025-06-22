@@ -7,29 +7,29 @@
 
 namespace bgl
 {
-CheckBox::CheckBox(const sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow), m_Checked(false), m_OutlineThickness(1)
+CheckBox::CheckBox(const sf::RenderWindow& renderWindow) : _renderWindow(renderWindow), _checked(false), _outlineThickness(1)
 {
 	// Default colors for now
-	m_CheckedColor = sf::Color::Red;
-	m_UncheckedColor = sf::Color::Black;
-	m_OutlineColor = sf::Color::White;
+	_checkedColor = sf::Color::Red;
+	_uncheckedColor = sf::Color::Black;
+	_outlineColor = sf::Color::White;
 
-	m_CheckBoxShape.setFillColor(m_UncheckedColor);
-	m_CheckBoxShape.setOutlineColor(m_OutlineColor);
-	m_CheckBoxShape.setOutlineThickness(m_OutlineThickness);
+	_checkBoxShape.setFillColor(_uncheckedColor);
+	_checkBoxShape.setOutlineColor(_outlineColor);
+	_checkBoxShape.setOutlineThickness(_outlineThickness);
 }
 
 CheckBox::~CheckBox() {}
 
 void CheckBox::update(const sf::Time& dt)
 {
-	//m_Checked ? m_CheckBoxShape.setFillColor(m_CheckedColor) : m_CheckBoxShape.setFillColor(m_UncheckedColor);
+	//_checked ? _checkBoxShape.setFillColor(_checkedColor) : _checkBoxShape.setFillColor(_uncheckedColor);
 }
 
 void CheckBox::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_CheckBoxShape);
-	if (m_Checked)
+	target.draw(_checkBoxShape);
+	if (_checked)
 		drawCheckMark(target);
 }
 
@@ -37,55 +37,55 @@ void CheckBox::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
-		if (m_CheckBoxShape.getGlobalBounds().contains(sf::Vector2f(event.mouseButton.x, event.mouseButton.y)))
+		if (_checkBoxShape.getGlobalBounds().contains(sf::Vector2f(event.mouseButton.x, event.mouseButton.y)))
 		{
-			m_Checked = !m_Checked;
+			_checked = !_checked;
 		}
 	}
 }
 
 void CheckBox::setSize(float s)
 {
-	m_CheckBoxShape.setSize({ s, s });
+	_checkBoxShape.setSize({ s, s });
 }
 
 void CheckBox::setPosition(sf::Vector2f position)
 {
-	m_CheckBoxShape.setPosition(position);
+	_checkBoxShape.setPosition(position);
 }
 
 void CheckBox::setUncheckedColor(sf::Color color)
 {
-	m_UncheckedColor = color;
+	_uncheckedColor = color;
 }
 
 void CheckBox::setOutlineColor(sf::Color color)
 {
-	m_OutlineColor = color;
-	m_CheckBoxShape.setOutlineColor(color);
+	_outlineColor = color;
+	_checkBoxShape.setOutlineColor(color);
 }
 
 void CheckBox::setCheckedColor(sf::Color color)
 {
-	m_CheckedColor = color;
+	_checkedColor = color;
 }
 
 void CheckBox::setOutlineThickness(float thickness)
 {
-	m_OutlineThickness = thickness;
-	m_CheckBoxShape.setOutlineThickness(thickness);
+	_outlineThickness = thickness;
+	_checkBoxShape.setOutlineThickness(thickness);
 }
 
 void CheckBox::drawCheckMark(sf::RenderTarget& target) const
 {
-	sf::RectangleShape line1({ std::sqrt(2.f) * m_CheckBoxShape.getSize().x, 1 });
-	line1.setPosition(m_CheckBoxShape.getPosition());
+	sf::RectangleShape line1({ std::sqrt(2.f) * _checkBoxShape.getSize().x, 1 });
+	line1.setPosition(_checkBoxShape.getPosition());
 	line1.rotate(45);
 	line1.setFillColor(sf::Color::White);
 	line1.setOutlineThickness(1);
 	line1.setOutlineColor(sf::Color::White);
-	sf::RectangleShape line2({ std::sqrt(2.f) * m_CheckBoxShape.getSize().x, 1 });
-	line2.setPosition(m_CheckBoxShape.getPosition().x, m_CheckBoxShape.getPosition().y + m_CheckBoxShape.getSize().y);
+	sf::RectangleShape line2({ std::sqrt(2.f) * _checkBoxShape.getSize().x, 1 });
+	line2.setPosition(_checkBoxShape.getPosition().x, _checkBoxShape.getPosition().y + _checkBoxShape.getSize().y);
 	line2.rotate(-45);
 	line2.setFillColor(sf::Color::White);
 	line2.setOutlineThickness(1);

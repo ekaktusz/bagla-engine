@@ -20,12 +20,12 @@ public:
 
 	sf::Vector2f getSize()
 	{
-		return m_Size;
+		return _size;
 	}
 
 	sf::Vector2f getPosition()
 	{
-		return m_Position;
+		return _position;
 	}
 
 	void setString(const std::string& buttonString);
@@ -54,25 +54,25 @@ private:
 	void initializeInnerButton();
 
 private:
-	const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
+	const sf::RenderWindow& _renderWindow; // Required for sf::Mouse class
 
-	sf::Text m_Text;
-	sf::Vector2f m_Position;
-	sf::Vector2f m_Size;
+	sf::Text _text;
+	sf::Vector2f _position;
+	sf::Vector2f _size;
 
-	std::function<void()> m_ActionToDo;
+	std::function<void()> _actionToDo;
 
-	sf::Color m_FillColor;
-	sf::Color m_OutlineColor;
-	sf::Color m_TextColor;
-	sf::Color m_HoverColor;
+	sf::Color _fillColor;
+	sf::Color _outlineColor;
+	sf::Color _textColor;
+	sf::Color _hoverColor;
 
-	float m_OutlineThickness;
+	float _outlineThickness;
 
-	bgl::RoundedRectangleShape m_InnerButton;
+	bgl::RoundedRectangleShape _innerButton;
 
-	sf::Sound m_SoundOnSelect;
-	sf::Sound m_SoundOnHover;
+	sf::Sound _soundOnSelect;
+	sf::Sound _soundOnHover;
 };
 
 }

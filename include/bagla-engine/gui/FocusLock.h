@@ -14,6 +14,6 @@ public:
 	static bool isWidgetInFocus(const Widget* widget);
 
 private:
-	static const Widget* s_LockedWidget;
+	static const Widget* LOCKED_WIDGET;
 };
 }

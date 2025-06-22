@@ -16,7 +16,7 @@ namespace bgl
 class StateManager : public GameObject, public EventHandler
 {
 public:
-	StateManager(sf::RenderWindow& renderWindow) : m_RenderWindow(renderWindow) {}
+	StateManager(sf::RenderWindow& renderWindow) : _renderWindow(renderWindow) {}
 
 	void update(const sf::Time& dt) override;
 	void draw() const;
@@ -53,13 +53,13 @@ private:
 		StateManagerRequestType requestType;
 	};
 
-	std::vector<StateManagerRequest> m_RequestQueue;
+	std::vector<StateManagerRequest> _requestQueue;
 
-	std::stack<std::unique_ptr<State>> m_States;
-	sf::RenderWindow& m_RenderWindow;
+	std::stack<std::unique_ptr<State>> _states;
+	sf::RenderWindow& _renderWindow;
 
-	StateTransition m_OpenTransition { StateTransition::Type::Open };
-	StateTransition m_CloseTransition { StateTransition::Type::Close };
+	StateTransition _openTransition { StateTransition::Type::Open };
+	StateTransition _closeTransition { StateTransition::Type::Close };
 };
 
 }

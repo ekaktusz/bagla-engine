@@ -11,18 +11,18 @@ namespace bgl
 
 PhysicsWorld::PhysicsWorld()
 {
-	m_World = std::make_unique<b2World>(b2Vec2(.0f, -40.f));
-	m_World->SetContactListener(&m_ContactListener);
+	_world = std::make_unique<b2World>(b2Vec2(.0f, -40.f));
+	_world->SetContactListener(&_contactListener);
 }
 
-void PhysicsWorld::cleanUp() 
+void PhysicsWorld::cleanUp()
 {
-	for (auto* body : m_BodiesToDestroy)
+	for (auto* body : _bodiesToDestroy)
 	{
-		m_World->DestroyBody(body->m_Body);
+		_world->DestroyBody(body->_body);
 		delete body;
 	}
-	m_BodiesToDestroy.clear();
+	_bodiesToDestroy.clear();
 }
 
 void PhysicsWorld::update(const sf::Time& dt)
@@ -30,32 +30,32 @@ void PhysicsWorld::update(const sf::Time& dt)
 	static constexpr float timeStep = 1.0f / 60.0f;
 	static constexpr int32 velocityIterations = 8;
 	static constexpr int32 positionIterations = 3;
-	m_World->Step(timeStep, velocityIterations, positionIterations);
+	_world->Step(timeStep, velocityIterations, positionIterations);
 
-	for (auto* body : m_BodiesToDestroy)
+	for (auto* body : _bodiesToDestroy)
 	{
-		m_World->DestroyBody(body->m_Body);
+		_world->DestroyBody(body->_body);
 		delete body;
 	}
-	m_BodiesToDestroy.clear();
+	_bodiesToDestroy.clear();
 }
 
 void PhysicsWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if (m_DebugDraw != nullptr)
-		m_World->DebugDraw();
+	if (_debugDraw != nullptr)
+		_world->DebugDraw();
 }
 
 void PhysicsWorld::initDebugDraw(sf::RenderWindow& renderWindow)
 {
-	m_DebugDraw = std::make_unique<DebugDraw>(renderWindow);
-	m_World->SetDebugDraw(&*m_DebugDraw);
-	m_DebugDraw->SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit);
+	_debugDraw = std::make_unique<DebugDraw>(renderWindow);
+	_world->SetDebugDraw(&*_debugDraw);
+	_debugDraw->SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit);
 }
 
 void PhysicsWorld::destroyRigidBody(bgl::RigidBody* body)
 {
-	m_BodiesToDestroy.push_back(body);
+	_bodiesToDestroy.push_back(body);
 }
 
 bgl::RigidBody* PhysicsWorld::newRigidBody(float x, float y, float sx, float sy, bool dynamic /*= true*/, float density /*= 0.f*/)

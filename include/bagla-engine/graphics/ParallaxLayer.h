@@ -23,12 +23,12 @@ public:
 	sf::FloatRect getGlobalBounds() const;
 
 private:
-	sf::Sprite m_Sprite;
-	sf::Texture m_Texture;
+	sf::Sprite _sprite;
+	sf::Texture _texture;
 
-	sf::Shader m_ParallaxShader;
+	sf::Shader _parallaxShader;
 
-	float m_DistanceFromCamera;
-	float m_OffsetY;
+	float _distanceFromCamera;
+	float _offsetY;
 };
 }

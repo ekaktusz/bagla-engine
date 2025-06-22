@@ -19,7 +19,7 @@ void AssetManager::loadTexture(const std::string& path, const std::string& id)
 		return;
 	}
 	SPDLOG_INFO("Texture " + id + " loaded successfully : " + path);
-	m_TextureHolder.try_emplace(id, std::move(texture));
+	_textureHolder.try_emplace(id, std::move(texture));
 }
 
 void AssetManager::loadSoundBuffer(const std::string& path, const std::string& id)
@@ -31,7 +31,7 @@ void AssetManager::loadSoundBuffer(const std::string& path, const std::string& i
 		return;
 	}
 	SPDLOG_INFO("Sound buffer " + id + " loaded successfully : " + path);
-	m_SoundBufferHolder.try_emplace(id, std::move(soundBuffer));
+	_soundBufferHolder.try_emplace(id, std::move(soundBuffer));
 }
 
 void AssetManager::loadMusic(const std::string& path, const std::string& id)
@@ -44,7 +44,7 @@ void AssetManager::loadMusic(const std::string& path, const std::string& id)
 		return;
 	}
 	SPDLOG_INFO("Music " + id + " loaded successfully : " + path);
-	m_MusicHolder.try_emplace(id, std::move(music));
+	_musicHolder.try_emplace(id, std::move(music));
 }
 
 void AssetManager::loadFont(const std::string& path, const std::string& id)
@@ -55,8 +55,9 @@ void AssetManager::loadFont(const std::string& path, const std::string& id)
 		SPDLOG_ERROR("Failed to load font: " + path);
 		return;
 	}
+
 	SPDLOG_INFO("Font " + id + " loaded successfully : " + path);
-	m_FontHolder.try_emplace(id, std::move(font));
+	_fontHolder.try_emplace(id, std::move(font));
 }
 
 void AssetManager::loadMap(const std::string& path, const std::string& id)
@@ -68,13 +69,13 @@ void AssetManager::loadMap(const std::string& path, const std::string& id)
 		return;
 	}
 	SPDLOG_INFO("Map " + id + " loaded successfully : " + path);
-	m_MapHolder.try_emplace(id, std::move(map));
+	_mapHolder.try_emplace(id, std::move(map));
 }
 
 const sf::Texture& AssetManager::getTexture(const std::string& id) const
 {
-	auto found = m_TextureHolder.find(id);
-	if (found == m_TextureHolder.end())
+	auto found = _textureHolder.find(id);
+	if (found == _textureHolder.end())
 	{
 		SPDLOG_ERROR("Cant find texture by id: " + id);
 	}
@@ -83,8 +84,8 @@ const sf::Texture& AssetManager::getTexture(const std::string& id) const
 
 sf::SoundBuffer& AssetManager::getSoundBuffer(const std::string& id) const
 {
-	auto found = m_SoundBufferHolder.find(id);
-	if (found == m_SoundBufferHolder.end())
+	auto found = _soundBufferHolder.find(id);
+	if (found == _soundBufferHolder.end())
 	{
 		SPDLOG_ERROR("Cant find sound buffer by id: " + id);
 	}
@@ -93,8 +94,8 @@ sf::SoundBuffer& AssetManager::getSoundBuffer(const std::string& id) const
 
 sf::Music& AssetManager::getMusic(const std::string& id) const
 {
-	auto found = m_MusicHolder.find(id);
-	if (found == m_MusicHolder.end())
+	auto found = _musicHolder.find(id);
+	if (found == _musicHolder.end())
 	{
 		SPDLOG_ERROR("Cant find music by id: " + id);
 	}
@@ -103,8 +104,8 @@ sf::Music& AssetManager::getMusic(const std::string& id) const
 
 const sf::Font& AssetManager::getFont(const std::string& id) const
 {
-	auto found = m_FontHolder.find(id);
-	if (found == m_FontHolder.end())
+	auto found = _fontHolder.find(id);
+	if (found == _fontHolder.end())
 	{
 		SPDLOG_ERROR("Cant find font by id: " + id);
 	}
@@ -113,8 +114,8 @@ const sf::Font& AssetManager::getFont(const std::string& id) const
 
 Map& AssetManager::getMap(const std::string& id) const
 {
-	auto found = m_MapHolder.find(id);
-	if (found == m_MapHolder.end())
+	auto found = _mapHolder.find(id);
+	if (found == _mapHolder.end())
 	{
 		SPDLOG_ERROR("Cant find map by id: " + id);
 	}
@@ -123,27 +124,26 @@ Map& AssetManager::getMap(const std::string& id) const
 
 void AssetManager::unloadTexture(const std::string& id)
 {
-	m_TextureHolder.erase(id);
+	_textureHolder.erase(id);
 }
 
 void AssetManager::unloadSoundBuffer(const std::string& id)
 {
-	m_SoundBufferHolder.erase(id);
+	_soundBufferHolder.erase(id);
 }
 
 void AssetManager::unloadMusic(const std::string& id)
 {
-	m_MusicHolder.erase(id);
+	_musicHolder.erase(id);
 }
 
 void AssetManager::unloadFont(const std::string& id)
 {
-	m_FontHolder.erase(id);
+	_fontHolder.erase(id);
 }
 
 void AssetManager::unloadMap(const std::string& id)
 {
-	m_MapHolder.erase(id);
+	_mapHolder.erase(id);
 }
-
 }

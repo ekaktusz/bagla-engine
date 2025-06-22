@@ -23,6 +23,6 @@ public:
 	void DrawPoint(const b2Vec2& p, float size, const b2Color& color) override;
 
 private:
-	sf::RenderWindow& m_RenderWindow;
+	sf::RenderWindow& _renderWindow;
 };
 }

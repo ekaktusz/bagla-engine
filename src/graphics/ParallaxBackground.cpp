@@ -8,18 +8,18 @@ namespace bgl
 {
 std::optional<sf::FloatRect> ParallaxBackground::getGlobalBounds() const
 {
-	if (m_ParallaxLayers.empty())
+	if (_parallaxLayers.empty())
 	{
 		SPDLOG_ERROR("empty parallax background, bounds are undefined");
 		return std::nullopt;
 	}
 
-	return m_ParallaxLayers.front()->getGlobalBounds();
+	return _parallaxLayers.front()->getGlobalBounds();
 }
 
 void ParallaxBackground::setPosition(sf::Vector2f position)
 {
-	for (auto& parallaxLayer : m_ParallaxLayers)
+	for (auto& parallaxLayer : _parallaxLayers)
 	{
 		parallaxLayer->setPosition(position);
 	}
@@ -27,7 +27,7 @@ void ParallaxBackground::setPosition(sf::Vector2f position)
 
 void ParallaxBackground::setScale(sf::Vector2f scale)
 {
-	for (auto& parallaxLayer : m_ParallaxLayers)
+	for (auto& parallaxLayer : _parallaxLayers)
 	{
 		parallaxLayer->setScale(scale);
 	}
@@ -35,17 +35,17 @@ void ParallaxBackground::setScale(sf::Vector2f scale)
 
 void ParallaxBackground::attachToCamera(Camera& camera)
 {
-	m_attachedCamera = &camera;
+	_attachedCamera = &camera;
 }
 
 void ParallaxBackground::update(const sf::Time& dt)
 {
-	if (m_attachedCamera == nullptr)
+	if (_attachedCamera == nullptr)
 		return;
 
-	const sf::Vector2f cameraPosition = m_attachedCamera->getPosition();
+	const sf::Vector2f cameraPosition = _attachedCamera->getPosition();
 
-	for (auto& parallaxLayer : m_ParallaxLayers)
+	for (auto& parallaxLayer : _parallaxLayers)
 	{
 		parallaxLayer->update(cameraPosition);
 	}
@@ -54,7 +54,7 @@ void ParallaxBackground::update(const sf::Time& dt)
 void ParallaxBackground::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	//throw std::logic_error("The method or operation is not implemented.");
-	for (const auto& parallaxLayer : m_ParallaxLayers)
+	for (const auto& parallaxLayer : _parallaxLayers)
 	{
 		target.draw(*parallaxLayer);
 	}
@@ -62,7 +62,7 @@ void ParallaxBackground::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 void ParallaxBackground::addLayer(std::unique_ptr<ParallaxLayer> parallaxLayer)
 {
-	m_ParallaxLayers.push_back(std::move(parallaxLayer));
+	_parallaxLayers.push_back(std::move(parallaxLayer));
 }
 
 }

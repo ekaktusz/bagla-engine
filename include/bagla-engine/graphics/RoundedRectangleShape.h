@@ -20,8 +20,8 @@ public:
 	virtual sf::Vector2f getPoint(std::size_t index) const override;
 
 private:
-	sf::Vector2f m_size;
-	float m_radius;
-	unsigned int m_cornerPoints;
+	sf::Vector2f _size;
+	float _radius;
+	unsigned int _cornerPoints;
 };
 }

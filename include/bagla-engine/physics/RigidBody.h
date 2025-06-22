@@ -51,17 +51,17 @@ private:
 private:
 	friend class PhysicsWorld;
 
-	b2Body* m_Body;
-	b2BodyDef m_BodyDef;
-	b2PolygonShape m_Shape;
-	b2Fixture* m_Fixture;
+	b2Body* _body;
+	b2BodyDef _bodyDef;
+	b2PolygonShape _shape;
+	b2Fixture* _fixture;
 
-	sf::RectangleShape m_RigidBodyRectangleShape;
+	sf::RectangleShape _rigidBodyRectangleShape;
 
-	std::function<void(RigidBody*, sf::Vector2f)> m_BeginContact;
-	std::function<void(RigidBody*, sf::Vector2f)> m_EndContact;
+	std::function<void(RigidBody*, sf::Vector2f)> _beginContact;
+	std::function<void(RigidBody*, sf::Vector2f)> _endContact;
 
-	std::any m_UserCustomData;
+	std::any _userCustomData;
 };
 
 }

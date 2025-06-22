@@ -44,9 +44,9 @@ private:
 	void flush();
 
 private:
-	sf::RenderWindow* m_AttachedRenderWindow = nullptr;
-	sf::View m_View;
-	sf::FloatRect m_WorldBoundaries;
+	sf::RenderWindow* _attachedRenderWindow = nullptr;
+	sf::View _view;
+	sf::FloatRect _worldBoundaries;
 };
 
 }

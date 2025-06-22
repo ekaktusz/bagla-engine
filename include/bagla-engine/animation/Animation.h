@@ -50,23 +50,23 @@ private:
 	void jumpToNextFrame();
 
 private:
-	sf::Sprite m_Sprite;
-	sf::Texture m_SpriteSheet;
+	sf::Sprite _sprite;
+	sf::Texture _spriteSheet;
 
-	sf::Vector2i m_FrameSize;
-	sf::Vector2i m_StartFrameCoordinates;
-	sf::Vector2i m_EndFrameCoordinates;
-	sf::Vector2i m_CurrentFrameCoordinates;
+	sf::Vector2i _frameSize;
+	sf::Vector2i _startFrameCoordinates;
+	sf::Vector2i _endFrameCoordinates;
+	sf::Vector2i _currentFrameCoordinates;
 
-	sf::IntRect m_CurrentFrame;
+	sf::IntRect _currentFrame;
 
-	sf::Time m_DeltaTime;
-	sf::Clock m_Timer;
+	sf::Time _deltaTime;
+	sf::Clock _timer;
 
-	bool m_Playing = false;
-	bool m_Repeating = true;
+	bool _playing = false;
+	bool _repeating = true;
 
-	bool m_FlippedHorizontally = false;
-	bool m_FlippedVertically = false;
+	bool _flippedHorizontally = false;
+	bool _flippedVertically = false;
 };
 }

@@ -23,12 +23,12 @@ public:
 
 	const bool isChecked() const
 	{
-		return m_Checked;
+		return _checked;
 	}
 
 	void setChecked(bool checked)
 	{
-		m_Checked = checked;
+		_checked = checked;
 	}
 
 	void setSize(float s);
@@ -42,16 +42,16 @@ private:
 	void drawCheckMark(sf::RenderTarget& target) const;
 
 private:
-	const sf::RenderWindow& m_RenderWindow; // Required for sf::Mouse class
+	const sf::RenderWindow& _renderWindow; // Required for sf::Mouse class
 
-	bool m_Checked;
+	bool _checked;
 
-	sf::Color m_UncheckedColor;
-	sf::Color m_OutlineColor;
-	sf::Color m_CheckedColor;
+	sf::Color _uncheckedColor;
+	sf::Color _outlineColor;
+	sf::Color _checkedColor;
 
-	float m_OutlineThickness;
+	float _outlineThickness;
 
-	sf::RectangleShape m_CheckBoxShape;
+	sf::RectangleShape _checkBoxShape;
 };
 }
