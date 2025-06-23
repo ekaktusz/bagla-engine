@@ -60,8 +60,8 @@ const bgl::ObjectLayer& Map::getObjectLayer(const std::string& name) const
 
 sf::Vector2f Map::getSize() const
 {
-	SPDLOG_INFO(" tilsize: x: " + std::to_string(m_Map->getTileSize().x) + " y: " + std::to_string(m_Map->getTileSize().y));
-	SPDLOG_INFO(" tilcount: x: " + std::to_string(m_Map->getTileCount().x) + " y: " + std::to_string(m_Map->getTileCount().y));
+	SPDLOG_INFO(" tilsize: x: " + std::to_string(_map->getTileSize().x) + " y: " + std::to_string(_map->getTileSize().y));
+	SPDLOG_INFO(" tilcount: x: " + std::to_string(_map->getTileCount().x) + " y: " + std::to_string(_map->getTileCount().y));
 	return { (float)_map->getTileSize().x * _map->getTileCount().x, (float)_map->getTileSize().y * _map->getTileCount().y };
 }
 
